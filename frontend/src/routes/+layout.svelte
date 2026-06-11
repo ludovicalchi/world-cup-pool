@@ -18,12 +18,25 @@
 	import { language } from '$lib/language.svelte';
 	import { tipsStore } from '$lib/tips.svelte';
 	import { forecastStore as fs } from '$lib/forecast.svelte';
+	import { appName } from '$lib/appName.svelte';
+	import { browser } from '$app/environment';
+
+	if (browser) void appName.load();
 
 	let { children } = $props();
 
 	// Keep the server clock fresh so long-running sessions lock tips correctly.
 	$effect(() => {
 		document.documentElement.lang = language.resolved;
+	});
+
+	// Default the browser tab + iOS web-app title to the configured app name.
+	// Pages that set their own <svelte:head><title> still override this.
+	$effect(() => {
+		document.title = appName.value;
+		document
+			.querySelector('meta[name="apple-mobile-web-app-title"]')
+			?.setAttribute('content', appName.value);
 	});
 
 	$effect(() => {

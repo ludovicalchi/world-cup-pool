@@ -5,6 +5,7 @@
 	import { auth } from '$lib/auth.svelte';
 	import { language } from '$lib/language.svelte';
 	import { strings } from '$lib/strings';
+	import { appName } from '$lib/appName.svelte';
 
 	let code = $derived($page.params.code ?? '');
 	let leagueName = $state('');
@@ -45,7 +46,7 @@
 </script>
 
 <div class="auth">
-	<h1>VM Tipping</h1>
+	<h1>{appName.value}</h1>
 	<p class="muted">{t.auth.tagline}</p>
 
 	<div class="card">

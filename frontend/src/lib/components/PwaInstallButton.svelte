@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { pwa } from '$lib/pwa.svelte';
+	import { appName } from '$lib/appName.svelte';
 </script>
 
 {#if pwa.available}
@@ -7,7 +8,7 @@
 		type="button"
 		class="btn install"
 		class:outlined={!pwa.dismissed}
-		aria-label="Installer VM Tipping"
+		aria-label={`Installer ${appName.value}`}
 		onclick={() => pwa.install()}
 	>
 		Installer

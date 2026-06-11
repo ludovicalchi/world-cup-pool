@@ -233,7 +233,7 @@ export const strings: Record<
 		},
 		search: {
 			trigger: 'Søk',
-			panelAria: 'Søk i VM Tipping',
+			panelAria: 'Søk i {app}',
 			placeholder: 'Søk kamp, lag, gruppe eller liga',
 			close: 'Lukk søk',
 			loading: 'Laster søk...',
@@ -246,11 +246,11 @@ export const strings: Record<
 			noLeagues: 'Ingen ligaer'
 		},
 		pwa: {
-			installTitle: 'Installer VM Tipping',
+			installTitle: 'Installer {app}',
 			installBody: 'Appikon på hjemskjermen, fullskjerm og raskere start.',
 			installButton: 'Installer',
 			close: 'Lukk',
-			iosTitle: 'Legg VM Tipping på hjemskjermen',
+			iosTitle: 'Legg {app} på hjemskjermen',
 			iosStep1: 'Trykk på Del-knappen i Safari-verktøylinjen.',
 			iosStep2: 'Bla ned og velg Legg til på hjemskjerm.',
 			iosStep3: 'Trykk Legg til øverst til høyre.',
@@ -258,7 +258,7 @@ export const strings: Record<
 		},
 		introCard: {
 			kicker: 'Ny i appen?',
-			title: 'Velkommen til VM Tipping',
+			title: 'Velkommen til {app}',
 			body: 'Tipp kampene, bli med i ligaer og følg poengene dine gjennom VM.',
 			leaguesTitle: 'Ligaer',
 			leaguesBody: 'Opprett en liga eller bruk kode.',
@@ -394,7 +394,7 @@ export const strings: Record<
 		},
 		search: {
 			trigger: 'Søk',
-			panelAria: 'Søk i VM Tipping',
+			panelAria: 'Søk i {app}',
 			placeholder: 'Søk kamp, lag, gruppe eller liga',
 			close: 'Lukk søk',
 			loading: 'Lastar søk…',
@@ -407,11 +407,11 @@ export const strings: Record<
 			noLeagues: 'Ingen ligaer'
 		},
 		pwa: {
-			installTitle: 'Installer VM Tipping',
+			installTitle: 'Installer {app}',
 			installBody: 'Appikon på heimskjermen, fullskjerm og raskare start.',
 			installButton: 'Installer',
 			close: 'Lukk',
-			iosTitle: 'Legg VM Tipping til på heimskjermen',
+			iosTitle: 'Legg {app} til på heimskjermen',
 			iosStep1: 'Trykk på Del-knappen i Safari-verktøylinja.',
 			iosStep2: 'Bla ned og vel Legg til på heimskjerm.',
 			iosStep3: 'Trykk Legg til øvst til høgre.',
@@ -419,7 +419,7 @@ export const strings: Record<
 		},
 		introCard: {
 			kicker: 'Ny i appen?',
-			title: 'Velkomen til VM Tipping',
+			title: 'Velkomen til {app}',
 			body: 'Tipp kampane, bli med i ligaer og følg poenga dine gjennom VM.',
 			leaguesTitle: 'Ligaer',
 			leaguesBody: 'Opprett eller bli med med kode.',
@@ -555,7 +555,7 @@ export const strings: Record<
 		},
 		search: {
 			trigger: 'Search',
-			panelAria: 'Search in VM Tipping',
+			panelAria: 'Search in {app}',
 			placeholder: 'Search match, team, group or league',
 			close: 'Close search',
 			loading: 'Loading search…',
@@ -568,11 +568,11 @@ export const strings: Record<
 			noLeagues: 'No leagues'
 		},
 		pwa: {
-			installTitle: 'Install VM Tipping',
+			installTitle: 'Install {app}',
 			installBody: 'Home screen icon, full screen, and faster start.',
 			installButton: 'Install',
 			close: 'Close',
-			iosTitle: 'Add VM Tipping to the home screen',
+			iosTitle: 'Add {app} to the home screen',
 			iosStep1: 'Tap the Share button in the Safari toolbar.',
 			iosStep2: 'Scroll down and choose Add to Home Screen.',
 			iosStep3: 'Tap Add in the top right corner.',
@@ -580,7 +580,7 @@ export const strings: Record<
 		},
 		introCard: {
 			kicker: 'New here?',
-			title: 'Welcome to VM Tipping',
+			title: 'Welcome to {app}',
 			body: 'Pick matches, join leagues, and follow your points through the World Cup.',
 			leaguesTitle: 'Leagues',
 			leaguesBody: 'Create one or join with a code.',
@@ -716,7 +716,7 @@ export const strings: Record<
 		},
 		search: {
 			trigger: 'Rechercher',
-			panelAria: 'Rechercher dans VM Tipping',
+			panelAria: 'Rechercher dans {app}',
 			placeholder: 'Rechercher un match, équipe, groupe ou ligue',
 			close: 'Fermer la recherche',
 			loading: 'Chargement…',
@@ -729,11 +729,11 @@ export const strings: Record<
 			noLeagues: 'Aucune ligue'
 		},
 		pwa: {
-			installTitle: 'Installer VM Tipping',
+			installTitle: 'Installer {app}',
 			installBody: 'Icône sur l’écran d’accueil, plein écran et démarrage rapide.',
 			installButton: 'Installer',
 			close: 'Fermer',
-			iosTitle: 'Ajouter VM Tipping à l’écran d’accueil',
+			iosTitle: 'Ajouter {app} à l’écran d’accueil',
 			iosStep1: 'Appuyez sur le bouton Partager dans la barre Safari.',
 			iosStep2: 'Faites défiler et choisissez Ajouter à l’écran d’accueil.',
 			iosStep3: 'Appuyez sur Ajouter dans le coin supérieur droit.',
@@ -741,7 +741,7 @@ export const strings: Record<
 		},
 		introCard: {
 			kicker: 'Première fois ?',
-			title: 'Bienvenue sur VM Tipping',
+			title: 'Bienvenue sur {app}',
 			body: 'Pariez sur les matchs, rejoignez des ligues et suivez vos points tout au long de la Coupe du Monde.',
 			leaguesTitle: 'Ligues',
 			leaguesBody: 'Créez une ligue ou rejoignez-en une avec un code.',

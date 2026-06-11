@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { auth } from '$lib/auth.svelte';
 	import { language } from '$lib/language.svelte';
+	import { appName } from '$lib/appName.svelte';
 	import Flag from '$lib/components/Flag.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import { fly } from 'svelte/transition';
@@ -216,7 +217,7 @@
 </script>
 
 <svelte:head>
-	<title>VM Tipping</title>
+	<title>{appName.value}</title>
 	<meta
 		name="description"
 		content={copy.description}

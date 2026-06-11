@@ -12,6 +12,7 @@
 	import { teamDisplayName } from '$lib/teamNames';
 	import { language } from '$lib/language.svelte';
 	import { strings } from '$lib/strings';
+	import { fillApp } from '$lib/appName.svelte';
 	import { matchStageLabel } from '$lib/stageLabels';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import DeadlineCountdown from '$lib/components/DeadlineCountdown.svelte';
@@ -1138,7 +1139,7 @@
 			<div class="intro-head">
 				<div class="intro-copy">
 					<span class="kicker">{introCopy.kicker}</span>
-					<h2 id="home-intro-title">{introCopy.title}</h2>
+					<h2 id="home-intro-title">{fillApp(introCopy.title)}</h2>
 					<p class="muted">{introCopy.body}</p>
 				</div>
 				<button

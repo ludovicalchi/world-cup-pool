@@ -7,6 +7,7 @@
 	import { searchNav } from '$lib/searchNav.svelte';
 	import { searchApp, totalSearchResults, type SearchGroup, type SearchResult } from '$lib/search';
 	import { tipsStore } from '$lib/tips.svelte';
+	import { fillApp } from '$lib/appName.svelte';
 	import { Network, Search, Trophy, Users, Volleyball, X } from '@lucide/svelte';
 
 	let { compact = false }: { compact?: boolean } = $props();
@@ -156,7 +157,7 @@
 
 	{#if open}
 		<div class="search-layer" use:portal onclick={onBackdropClick} role="presentation">
-			<div class="search-panel" role="dialog" aria-modal="true" aria-label={t.search.panelAria} tabindex="-1">
+			<div class="search-panel" role="dialog" aria-modal="true" aria-label={fillApp(t.search.panelAria)} tabindex="-1">
 				<div class="search-head">
 					<div class="search-field">
 						<Search size={18} />

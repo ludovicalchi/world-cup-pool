@@ -4,6 +4,7 @@
 package main
 
 import (
+	"encoding/json"
 	"io/fs"
 	"log"
 	"net/http"
@@ -94,14 +95,25 @@ func main() {
 		dev.Register(e.App, e)
 
 		// Serve the web manifest with the correct MIME so it installs as a
-		// proper PWA (apis.Static would send text/plain for .webmanifest).
+		// proper PWA (apis.Static would send text/plain for .webmanifest), and
+		// override name/short_name with the admin-configured application name.
 		e.Router.GET("/manifest.webmanifest", func(re *core.RequestEvent) error {
 			b, err := fs.ReadFile(web.DistFS(), "manifest.webmanifest")
 			if err != nil {
 				return apis.NewNotFoundError("", nil)
 			}
+			var m map[string]any
+			if json.Unmarshal(b, &m) == nil {
+				appName := web.ResolveAppName(e.App)
+				m["name"] = appName
+				m["short_name"] = appName
+				if patched, err := json.Marshal(m); err == nil {
+					b = patched
+				}
+			}
 			return re.Blob(200, "application/manifest+json", b)
 		})
+		web.RegisterPublicMeta(e.App, e)
 		web.RegisterInviteMetadata(e.App, e)
 		return e.Next()
 	})

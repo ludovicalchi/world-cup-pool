@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { language } from '$lib/language.svelte';
+	import { appName, fillApp } from '$lib/appName.svelte';
 	import {
 		ArrowLeft,
 		CheckCircle2,
@@ -95,7 +96,7 @@
 </script>
 
 <svelte:head>
-	<title>{language.text('Info om spillet', 'Info om spelet', 'About the game', 'À propos du jeu')} · VM Tipping</title>
+	<title>{language.text('Info om spillet', 'Info om spelet', 'About the game', 'À propos du jeu')} · {appName.value}</title>
 </svelte:head>
 
 <div class="info-page">
@@ -107,7 +108,7 @@
 	<section class="hero" aria-labelledby="info-title">
 		<div class="hero-copy">
 			<p class="kicker">Info</p>
-			<h1 id="info-title">{language.text('Slik fungerer VM Tipping', 'Slik fungerer VM Tipping', 'How VM Tipping works', 'Comment fonctionne VM Tipping')}</h1>
+			<h1 id="info-title">{fillApp(language.text('Slik fungerer {app}', 'Slik fungerer {app}', 'How {app} works', 'Comment fonctionne {app}'))}</h1>
 			<p class="lead">
 				{language.text(
 					'Tipp hele VM og én toppscorer før avspark, søk opp og legg til en annen spiller hvis du tror på en outsider, legg inn kamptips før hver kamp, og konkurrer med venner i ligaer gjennom turneringen.',

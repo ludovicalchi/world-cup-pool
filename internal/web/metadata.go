@@ -22,6 +22,25 @@ type inviteMeta struct {
 	Description string
 	URL         string
 	ImageURL    string
+	SiteName    string
+}
+
+// ResolveAppName returns the application name configured in the PocketBase
+// admin settings (Settings → Application), falling back to the default when
+// the field is left empty.
+func ResolveAppName(app core.App) string {
+	if name := strings.TrimSpace(app.Settings().Meta.AppName); name != "" {
+		return name
+	}
+	return "VM Tipping"
+}
+
+// RegisterPublicMeta exposes a small public JSON endpoint so the SPA can read
+// the application name configured in the admin settings without admin auth.
+func RegisterPublicMeta(app core.App, se *core.ServeEvent) {
+	se.Router.GET("/api/app/meta", func(e *core.RequestEvent) error {
+		return e.JSON(http.StatusOK, map[string]any{"appName": ResolveAppName(app)})
+	})
 }
 
 // RegisterInviteMetadata serves the SPA shell for invite landing pages with
@@ -38,12 +57,14 @@ func RegisterInviteMetadata(app core.App, se *core.ServeEvent) {
 		}
 
 		origin := requestOrigin(e.Request)
+		appName := ResolveAppName(app)
 		meta := inviteMeta{
-			PageTitle:   invitePageTitle(leagueName),
+			PageTitle:   invitePageTitle(appName, leagueName),
 			Title:       inviteOGTitle,
 			Description: inviteOGDescription,
 			URL:         origin + e.Request.URL.EscapedPath(),
 			ImageURL:    origin + inviteOGImagePath,
+			SiteName:    appName,
 		}
 
 		index, err := fs.ReadFile(DistFS(), "index.html")
@@ -56,11 +77,11 @@ func RegisterInviteMetadata(app core.App, se *core.ServeEvent) {
 	})
 }
 
-func invitePageTitle(leagueName string) string {
+func invitePageTitle(appName, leagueName string) string {
 	if leagueName == "" {
-		return "VM Tipping · Midttunet"
+		return appName + " · Midttunet"
 	}
-	return "Bli med i " + leagueName + " · VM Tipping"
+	return "Bli med i " + leagueName + " · " + appName
 }
 
 func injectInviteMetadata(index string, meta inviteMeta) string {
@@ -86,12 +107,12 @@ func renderInviteMeta(meta inviteMeta) string {
 	values := []string{
 		metaName("description", meta.Description),
 		metaProperty("og:type", "website"),
-		metaProperty("og:site_name", "VM Tipping"),
+		metaProperty("og:site_name", meta.SiteName),
 		metaProperty("og:title", meta.Title),
 		metaProperty("og:description", meta.Description),
 		metaProperty("og:url", meta.URL),
 		metaProperty("og:image", meta.ImageURL),
-		metaProperty("og:image:alt", "VM Tipping på Midttunet"),
+		metaProperty("og:image:alt", meta.SiteName+" på Midttunet"),
 		metaName("twitter:card", "summary_large_image"),
 		metaName("twitter:title", meta.Title),
 		metaName("twitter:description", meta.Description),

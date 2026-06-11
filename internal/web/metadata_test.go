@@ -14,6 +14,7 @@ func TestInjectInviteMetadata(t *testing.T) {
 		Description: inviteOGDescription,
 		URL:         "https://vm.midttunet.no/join/ABC123",
 		ImageURL:    "https://vm.midttunet.no/screenshots/Frontpage.png",
+		SiteName:    "VM Tipping",
 	})
 
 	checks := []string{

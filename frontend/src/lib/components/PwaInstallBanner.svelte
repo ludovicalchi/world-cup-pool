@@ -2,6 +2,7 @@
 	import { pwa } from '$lib/pwa.svelte';
 	import { language } from '$lib/language.svelte';
 	import { strings } from '$lib/strings';
+	import { fillApp } from '$lib/appName.svelte';
 	import { X, Share } from '@lucide/svelte';
 	const t = $derived(strings[language.resolved]);
 </script>
@@ -11,7 +12,7 @@
 		<div class="inner">
 			<img class="appicon" src="/favicon.svg" alt="" />
 			<div class="msg">
-				<strong>{t.pwa.installTitle}</strong>
+				<strong>{fillApp(t.pwa.installTitle)}</strong>
 				<span class="muted small">{t.pwa.installBody}</span>
 			</div>
 			<button class="btn install" onclick={() => pwa.install()}>{t.pwa.installButton}</button>
@@ -33,8 +34,8 @@
 		aria-label="Lukk"
 		onclick={() => pwa.closeIosHelp()}
 	></button>
-	<div class="ios-sheet" role="dialog" aria-label={t.pwa.iosTitle}>
-		<h3>{t.pwa.iosTitle}</h3>
+	<div class="ios-sheet" role="dialog" aria-label={fillApp(t.pwa.iosTitle)}>
+		<h3>{fillApp(t.pwa.iosTitle)}</h3>
 		<ol>
 			<li>
 				{t.pwa.iosStep1.split('Del-knappen')[0]}<span class="kbd"><Share size={14} /> Del</span>{t.pwa.iosStep1.split('Del-knappen')[1] ?? ''}
