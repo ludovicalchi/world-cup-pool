@@ -39,7 +39,7 @@ func Register(app core.App, se *core.ServeEvent) {
 
 		for _, league := range ownedLeagues {
 			if league.GetString("inviteCode") == globalInviteCode {
-				return bad(e, http.StatusForbidden, "kan ikkje slette kontoen til eigaren av Global-ligaen")
+				return bad(e, http.StatusForbidden, "cannot delete the account of the owner of the Global league")
 			}
 			if err := app.Delete(league); err != nil {
 				return err

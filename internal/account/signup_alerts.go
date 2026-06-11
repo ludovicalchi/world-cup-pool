@@ -71,17 +71,17 @@ func sendSignupAlert(app core.App, to, id, name, email, created string) {
 		displayName = "(no name)"
 	}
 
-	subject := fmt.Sprintf("Ny brukar: %s (%s)", displayName, email)
+	subject := fmt.Sprintf("New user: %s (%s)", displayName, email)
 
 	html := fmt.Sprintf(`<!DOCTYPE html>
 <html>
 <body style="font-family:sans-serif;color:#222;max-width:480px;">
-<h2 style="color:#1055c9;">Ny konto registrert</h2>
+<h2 style="color:#1055c9;">New account registered</h2>
 <table style="border-collapse:collapse;width:100%%;">
-  <tr><td style="padding:4px 16px 4px 0;font-weight:bold;">Namn</td><td>%s</td></tr>
-  <tr><td style="padding:4px 16px 4px 0;font-weight:bold;">E-post</td><td>%s</td></tr>
-  <tr><td style="padding:4px 16px 4px 0;font-weight:bold;">Brukar-ID</td><td>%s</td></tr>
-  <tr><td style="padding:4px 16px 4px 0;font-weight:bold;">Oppretta</td><td>%s</td></tr>
+  <tr><td style="padding:4px 16px 4px 0;font-weight:bold;">Name</td><td>%s</td></tr>
+  <tr><td style="padding:4px 16px 4px 0;font-weight:bold;">Email</td><td>%s</td></tr>
+  <tr><td style="padding:4px 16px 4px 0;font-weight:bold;">User ID</td><td>%s</td></tr>
+  <tr><td style="padding:4px 16px 4px 0;font-weight:bold;">Created</td><td>%s</td></tr>
 </table>
 </body>
 </html>`, displayName, email, id, created)
