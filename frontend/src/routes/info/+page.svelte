@@ -33,32 +33,32 @@
 		},
 		{
 			icon: Volleyball,
-			title: language.text(‘Kamptips før hver kamp’, ‘Kamptips før kvar kamp’, ‘Match tips before every game’, ‘Pronostics de match avant chaque rencontre’),
+			title: language.text('Kamptips før hver kamp', 'Kamptips før kvar kamp', 'Match tips before every game', 'Pronostics de match avant chaque rencontre'),
 			text: language.text(
-				‘Tipp resultatet for hver kamp. Du kan endre helt fram til avspark.’,
-				‘Tipp resultatet for kvar kamp. Du kan endre heilt fram til avspark.’,
-				‘Pick the score for every match. You can change it right up until kickoff.’,
-				‘Pronostiquiez le score de chaque match. Vous pouvez le modifier jusqu\’au coup d\’envoi.’
+				'Tipp resultatet for hver kamp. Du kan endre helt fram til avspark.',
+				'Tipp resultatet for kvar kamp. Du kan endre heilt fram til avspark.',
+				'Pick the score for every match. You can change it right up until kickoff.',
+				'Pronostiquiez le score de chaque match. Vous pouvez le modifier jusqu’au coup d’envoi.'
 			)
 		},
 		{
 			icon: Clock,
-			title: language.text(‘Tipset låses’, ‘Tipset låser seg’, ‘The tip locks’, ‘Le pronostic se verrouille’),
+			title: language.text('Tipset låses', 'Tipset låser seg', 'The tip locks', 'Le pronostic se verrouille'),
 			text: language.text(
-				‘Når kampen starter, låses tipset, og tipsene til venner blir synlige i ligaene.’,
-				‘Når kampen startar, blir tipset låst, og tipsa til vener blir synlege i ligaene.’,
-				‘When the game starts, your tip locks and friends’ tips become visible in leagues.’,
-				‘Quand le match commence, votre pronostic est verrouillé et ceux de vos amis deviennent visibles dans les ligues.’
+				'Når kampen starter, låses tipset, og tipsene til venner blir synlige i ligaene.',
+				'Når kampen startar, blir tipset låst, og tipsa til vener blir synlege i ligaene.',
+				'When the game starts, your tip locks and friends’ tips become visible in leagues.',
+				'Quand le match commence, votre pronostic est verrouillé et ceux de vos amis deviennent visibles dans les ligues.'
 			)
 		},
 		{
 			icon: Trophy,
-			title: language.text(‘Poeng underveis’, ‘Poeng undervegs’, ‘Points along the way’, ‘Points en cours de route’),
+			title: language.text('Poeng underveis', 'Poeng undervegs', 'Points along the way', 'Points en cours de route'),
 			text: language.text(
-				‘Resultater, tabeller og poeng oppdateres gjennom gruppespill og sluttspill.’,
-				‘Resultat, tabellar og poeng blir oppdaterte gjennom gruppespel og sluttspel.’,
-				‘Results, tables, and points update continuously through the group stage and knockout rounds.’,
-				‘Les résultats, classements et points se mettent à jour tout au long de la phase de groupes et des éliminatoires.’
+				'Resultater, tabeller og poeng oppdateres gjennom gruppespill og sluttspill.',
+				'Resultat, tabellar og poeng blir oppdaterte gjennom gruppespel og sluttspel.',
+				'Results, tables, and points update continuously through the group stage and knockout rounds.',
+				'Les résultats, classements et points se mettent à jour tout au long de la phase de groupes et des éliminatoires.'
 			)
 		}
 	]);
