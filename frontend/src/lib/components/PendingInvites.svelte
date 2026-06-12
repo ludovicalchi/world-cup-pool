@@ -50,6 +50,17 @@
 				decline: 'Decline',
 				acceptError: 'Could not accept the invite.',
 				declineError: 'Could not decline the invite.'
+			},
+			{
+				kicker: 'Invitation de ligue',
+				title: 'Invitations en attente',
+				invitedBy: 'Invité par',
+				accepting: 'Acceptation...',
+				accept: 'Accepter',
+				declining: 'Refus...',
+				decline: 'Refuser',
+				acceptError: 'Impossible d\'accepter l\'invitation.',
+				declineError: 'Impossible de refuser l\'invitation.'
 			}
 		)
 	);

@@ -23,62 +23,66 @@
 	let flow = $derived.by(() => [
 		{
 			icon: Telescope,
-			title: language.text('VM-tips før avspark', 'VM-tips før avspark', 'World Cup tips before kickoff'),
+			title: language.text('VM-tips før avspark', 'VM-tips før avspark', 'World Cup tips before kickoff', 'Pronostics Coupe du Monde avant le coup d\'envoi'),
 			text: language.text(
 				'Sett grupperekkefølge, beste treere, hele sluttspillet og ett toppscorarvalg før første avspark. Du kan også søke opp og legge til en outsider hvis listen er for smal.',
 				'Set grupperekkjefølgje, beste trearar, heile sluttspelstreet og eitt toppscorarval før første avspark. Du kan òg søkje opp og leggje til ein outsider dersom shortlist er for smal.',
-				'Set the group order, best thirds, full knockout bracket, and one top-scorer pick before the first whistle. You can also search and add an outsider if the shortlist is too narrow.'
+				'Set the group order, best thirds, full knockout bracket, and one top-scorer pick before the first whistle. You can also search and add an outsider if the shortlist is too narrow.',
+				'Définissez l\'ordre des groupes, les meilleurs troisièmes, le tableau éliminatoire complet et un choix de meilleur buteur avant le premier coup de sifflet. Vous pouvez aussi rechercher et ajouter un outsider si la liste est trop limitée.'
 			)
 		},
 		{
 			icon: Volleyball,
-			title: language.text('Kamptips før hver kamp', 'Kamptips før kvar kamp', 'Match tips before every game'),
+			title: language.text(‘Kamptips før hver kamp’, ‘Kamptips før kvar kamp’, ‘Match tips before every game’, ‘Pronostics de match avant chaque rencontre’),
 			text: language.text(
-				'Tipp resultatet for hver kamp. Du kan endre helt fram til avspark.',
-				'Tipp resultatet for kvar kamp. Du kan endre heilt fram til avspark.',
-				'Pick the score for every match. You can change it right up until kickoff.'
+				‘Tipp resultatet for hver kamp. Du kan endre helt fram til avspark.’,
+				‘Tipp resultatet for kvar kamp. Du kan endre heilt fram til avspark.’,
+				‘Pick the score for every match. You can change it right up until kickoff.’,
+				‘Pronostiquiez le score de chaque match. Vous pouvez le modifier jusqu\’au coup d\’envoi.’
 			)
 		},
 		{
 			icon: Clock,
-			title: language.text('Tipset låses', 'Tipset låser seg', 'The tip locks'),
+			title: language.text(‘Tipset låses’, ‘Tipset låser seg’, ‘The tip locks’, ‘Le pronostic se verrouille’),
 			text: language.text(
-				'Når kampen starter, låses tipset, og tipsene til venner blir synlige i ligaene.',
-				'Når kampen startar, blir tipset låst, og tipsa til vener blir synlege i ligaene.',
-				'When the game starts, your tip locks and friends’ tips become visible in leagues.'
+				‘Når kampen starter, låses tipset, og tipsene til venner blir synlige i ligaene.’,
+				‘Når kampen startar, blir tipset låst, og tipsa til vener blir synlege i ligaene.’,
+				‘When the game starts, your tip locks and friends’ tips become visible in leagues.’,
+				‘Quand le match commence, votre pronostic est verrouillé et ceux de vos amis deviennent visibles dans les ligues.’
 			)
 		},
 		{
 			icon: Trophy,
-			title: language.text('Poeng underveis', 'Poeng undervegs', 'Points along the way'),
+			title: language.text(‘Poeng underveis’, ‘Poeng undervegs’, ‘Points along the way’, ‘Points en cours de route’),
 			text: language.text(
-				'Resultater, tabeller og poeng oppdateres gjennom gruppespill og sluttspill.',
-				'Resultat, tabellar og poeng blir oppdaterte gjennom gruppespel og sluttspel.',
-				'Results, tables, and points update continuously through the group stage and knockout rounds.'
+				‘Resultater, tabeller og poeng oppdateres gjennom gruppespill og sluttspill.’,
+				‘Resultat, tabellar og poeng blir oppdaterte gjennom gruppespel og sluttspel.’,
+				‘Results, tables, and points update continuously through the group stage and knockout rounds.’,
+				‘Les résultats, classements et points se mettent à jour tout au long de la phase de groupes et des éliminatoires.’
 			)
 		}
 	]);
 
 	let matchPoints = $derived.by(() => [
-		{ label: language.text('Rett utfall', 'Rett utfall', 'Correct outcome'), value: '3', detail: language.text('1/X/2 i gruppespill, laget som går videre i sluttspill', '1/X/2 i gruppespel, laget som går vidare i sluttspel', '1/X/2 in group stage, the team that advances in knockout') },
-		{ label: language.text('Eksakt resultat', 'Eksakt resultat', 'Exact score'), value: '+1', detail: language.text('samme resultat som sluttresultatet', 'same resultat som sluttresultatet', 'same score as the final result') },
-		{ label: language.text('Totalt mål', 'Totalt mål', 'Total goals'), value: '+1', detail: language.text('for eksempel teller både 2-1 og 3-0 som 3 mål', 'til dømes tel både 2-1 og 3-0 som 3 mål', 'for example 2-1 and 3-0 both count as 3 goals') },
-		{ label: language.text('Rett målforskjell', 'Rett målforskjell', 'Correct goal difference'), value: '+1', detail: language.text('for eksempel ettmålsseier eller uavgjort', 'til dømes eittmålsiger eller uavgjort', 'for example a one-goal win or a draw') }
+		{ label: language.text('Rett utfall', 'Rett utfall', 'Correct outcome', 'Résultat correct'), value: '3', detail: language.text('1/X/2 i gruppespill, laget som går videre i sluttspill', '1/X/2 i gruppespel, laget som går vidare i sluttspel', '1/X/2 in group stage, the team that advances in knockout', '1/N/2 en phase de groupes, l\'équipe qualifiée en éliminatoires') },
+		{ label: language.text('Eksakt resultat', 'Eksakt resultat', 'Exact score', 'Score exact'), value: '+1', detail: language.text('samme resultat som sluttresultatet', 'same resultat som sluttresultatet', 'same score as the final result', 'même score que le résultat final') },
+		{ label: language.text('Totalt mål', 'Totalt mål', 'Total goals', 'Total de buts'), value: '+1', detail: language.text('for eksempel teller både 2-1 og 3-0 som 3 mål', 'til dømes tel både 2-1 og 3-0 som 3 mål', 'for example 2-1 and 3-0 both count as 3 goals', 'par exemple 2-1 et 3-0 comptent tous les deux pour 3 buts') },
+		{ label: language.text('Rett målforskjell', 'Rett målforskjell', 'Correct goal difference', 'Bonne différence de buts'), value: '+1', detail: language.text('for eksempel ettmålsseier eller uavgjort', 'til dømes eittmålsiger eller uavgjort', 'for example a one-goal win or a draw', 'par exemple une victoire d\'un but ou un match nul') }
 	]);
 
 	let forecastPoints = $derived.by(() => [
-		{ label: language.text('Rett gruppeplassering', 'Rett gruppeplassering', 'Correct group placement'), value: '1' },
-		{ label: language.text('Perfekt gruppe', 'Perfekt gruppe', 'Perfect group'), value: '+2' },
-		{ label: language.text('Rett lag videre', 'Rett lag vidare', 'Correct team through'), value: '+1' },
-		{ label: language.text('R32 / R16 / kvart', '32-del / 16-del / kvart', 'R32 / R16 / QF'), value: '1 / 2 / 3' },
-		{ label: language.text('Semi / finale / vinner', 'Semi / finale / vinnar', 'SF / Final / Winner'), value: '5 / 8 / 13' },
-		{ label: language.text('Rett toppscorer', 'Rett toppscorar', 'Correct Golden Boot winner'), value: '15' }
+		{ label: language.text('Rett gruppeplassering', 'Rett gruppeplassering', 'Correct group placement', 'Classement de groupe correct'), value: '1' },
+		{ label: language.text('Perfekt gruppe', 'Perfekt gruppe', 'Perfect group', 'Groupe parfait'), value: '+2' },
+		{ label: language.text('Rett lag videre', 'Rett lag vidare', 'Correct team through', 'Bonne équipe qualifiée'), value: '+1' },
+		{ label: language.text('R32 / R16 / kvart', '32-del / 16-del / kvart', 'R32 / R16 / QF', 'R32 / R16 / QF'), value: '1 / 2 / 3' },
+		{ label: language.text('Semi / finale / vinner', 'Semi / finale / vinnar', 'SF / Final / Winner', 'Demi / Finale / Vainqueur'), value: '5 / 8 / 13' },
+		{ label: language.text('Rett toppscorer', 'Rett toppscorar', 'Correct Golden Boot winner', 'Soulier d\'or correct'), value: '15' }
 	]);
 
 	let appFacts = $derived.by(() => [
-		{ icon: Users, title: language.text('Ligaer', 'Ligaer', 'Leagues'), text: language.text('Opprett private ligaer, del invitasjon og følg tabellen sammen.', 'Opprett private ligaer, del invitasjon og følg tabellen saman.', 'Create private leagues, share an invite, and follow the table together.') },
-		{ icon: Network, title: language.text('Turnering', 'Turnering', 'Tournament'), text: language.text('Se grupper, kamper og sluttspilltreet mens VM går.', 'Sjå grupper, kampar og sluttspelstreet medan VM går føre seg.', 'See groups, fixtures, and the knockout tree as the World Cup unfolds.') },
-		{ icon: ListChecks, title: language.text('Oversikt', 'Oversikt', 'Overview'), text: language.text('Forsiden viser hva som mangler, neste frist og plasseringen din.', 'Framsida viser kva som manglar, neste frist og plasseringa di.', 'The home page shows what is missing, the next deadline, and your standing.') }
+		{ icon: Users, title: language.text('Ligaer', 'Ligaer', 'Leagues', 'Ligues'), text: language.text('Opprett private ligaer, del invitasjon og følg tabellen sammen.', 'Opprett private ligaer, del invitasjon og følg tabellen saman.', 'Create private leagues, share an invite, and follow the table together.', 'Créez des ligues privées, partagez une invitation et suivez le classement ensemble.') },
+		{ icon: Network, title: language.text('Turnering', 'Turnering', 'Tournament', 'Tournoi'), text: language.text('Se grupper, kamper og sluttspilltreet mens VM går.', 'Sjå grupper, kampar og sluttspelstreet medan VM går føre seg.', 'See groups, fixtures, and the knockout tree as the World Cup unfolds.', 'Voyez les groupes, les matchs et le tableau éliminatoire au fil de la Coupe du Monde.') },
+		{ icon: ListChecks, title: language.text('Oversikt', 'Oversikt', 'Overview', 'Vue d\'ensemble'), text: language.text('Forsiden viser hva som mangler, neste frist og plasseringen din.', 'Framsida viser kva som manglar, neste frist og plasseringa di.', 'The home page shows what is missing, the next deadline, and your standing.', 'La page d\'accueil indique ce qui manque, la prochaine échéance et votre classement.') }
 	]);
 
 	function closeInfo() {
@@ -91,39 +95,40 @@
 </script>
 
 <svelte:head>
-	<title>{language.text('Info om spillet', 'Info om spelet', 'About the game')} · VM Tipping</title>
+	<title>{language.text('Info om spillet', 'Info om spelet', 'About the game', 'À propos du jeu')} · VM Tipping</title>
 </svelte:head>
 
 <div class="info-page">
-	<button class="close" type="button" aria-label={language.text('Lukk og gå tilbake', 'Lukk og gå tilbake', 'Close and go back')} onclick={closeInfo}>
+	<button class="close" type="button" aria-label={language.text('Lukk og gå tilbake', 'Lukk og gå tilbake', 'Close and go back', 'Fermer et revenir')} onclick={closeInfo}>
 		<X size={18} />
-		<span>{language.text('Lukk', 'Lukk', 'Close')}</span>
+		<span>{language.text('Lukk', 'Lukk', 'Close', 'Fermer')}</span>
 	</button>
 
 	<section class="hero" aria-labelledby="info-title">
 		<div class="hero-copy">
 			<p class="kicker">Info</p>
-			<h1 id="info-title">{language.text('Slik fungerer VM Tipping', 'Slik fungerer VM Tipping', 'How VM Tipping works')}</h1>
+			<h1 id="info-title">{language.text('Slik fungerer VM Tipping', 'Slik fungerer VM Tipping', 'How VM Tipping works', 'Comment fonctionne VM Tipping')}</h1>
 			<p class="lead">
 				{language.text(
 					'Tipp hele VM og én toppscorer før avspark, søk opp og legg til en annen spiller hvis du tror på en outsider, legg inn kamptips før hver kamp, og konkurrer med venner i ligaer gjennom turneringen.',
 					'Tipp heile VM og éin toppscorar før avspark, søk opp og legg til ein annan spelar dersom du trur på ein overraskande toppscorar, legg inn kamptips før kvar kamp, og konkurrer med vener i ligaer gjennom turneringa.',
-					'Pick the full World Cup and one top scorer before kickoff, search and add another player if you back a breakout scorer, enter match tips before every game, and compete with friends in leagues as the tournament rolls on.'
+					'Pick the full World Cup and one top scorer before kickoff, search and add another player if you back a breakout scorer, enter match tips before every game, and compete with friends in leagues as the tournament rolls on.',
+					'Pronostiquiez toute la Coupe du Monde et un meilleur buteur avant le coup d\'envoi, recherchez et ajoutez un autre joueur si vous misez sur un outsider, entrez des pronostics avant chaque match, et affrontez vos amis dans des ligues tout au long du tournoi.'
 				)}
 			</p>
 		</div>
-		<div class="scoreboard" aria-label={language.text('Kort oversikt', 'Kort oversikt', 'Quick overview')}>
-			<div><strong>104</strong><span>{language.text('kamper', 'kampar', 'matches')}</span></div>
-			<div><strong>1</strong><span>{language.text('VM-tips', 'VM-tips', 'World Cup tip')}</span></div>
-			<div><strong>1</strong><span>{language.text('toppscorervalg', 'toppscorarval', 'top-scorer pick')}</span></div>
-			<div><strong>6</strong><span>{language.text('maks per kamp', 'maks per kamp', 'max per game')}</span></div>
+		<div class="scoreboard" aria-label={language.text('Kort oversikt', 'Kort oversikt', 'Quick overview', 'Aperçu rapide')}>
+			<div><strong>104</strong><span>{language.text('kamper', 'kampar', 'matches', 'matchs')}</span></div>
+			<div><strong>1</strong><span>{language.text('VM-tips', 'VM-tips', 'World Cup tip', 'Pronostic Coupe du Monde')}</span></div>
+			<div><strong>1</strong><span>{language.text('toppscorervalg', 'toppscorarval', 'top-scorer pick', 'choix du meilleur buteur')}</span></div>
+			<div><strong>6</strong><span>{language.text('maks per kamp', 'maks per kamp', 'max per game', 'max par match')}</span></div>
 		</div>
 	</section>
 
 	<section class="section-block" aria-labelledby="journey-title">
 		<div class="section-head">
 			<Info size={18} />
-			<h2 id="journey-title">{language.text('Slik fungerer det', 'Slik går det føre seg', 'How it flows')}</h2>
+			<h2 id="journey-title">{language.text('Slik fungerer det', 'Slik går det føre seg', 'How it flows', 'Comment ça fonctionne')}</h2>
 		</div>
 		<div class="flow-grid">
 			{#each flow as step, index}
@@ -140,7 +145,7 @@
 	<section class="section-block" aria-labelledby="app-title">
 		<div class="section-head">
 			<CheckCircle2 size={18} />
-			<h2 id="app-title">{language.text('Appen og spillet', 'Appen og spelet', 'The app and the game')}</h2>
+			<h2 id="app-title">{language.text('Appen og spillet', 'Appen og spelet', 'The app and the game', 'L\'appli et le jeu')}</h2>
 		</div>
 		<div class="facts-grid">
 			{#each appFacts as fact}
@@ -159,16 +164,16 @@
 	<section class="section-block scoring" aria-labelledby="score-title">
 		<div class="section-head">
 			<Medal size={18} />
-			<h2 id="score-title">{language.text('Poengsystem', 'Poengsystem', 'Scoring system')}</h2>
+			<h2 id="score-title">{language.text('Poengsystem', 'Poengsystem', 'Scoring system', 'Système de points')}</h2>
 		</div>
 
 		<div class="score-layout">
 			<article class="card score-panel match-panel">
 				<div class="panel-title">
 					<Volleyball size={20} />
-					<h3>{language.text('Kamptips', 'Kamptips', 'Match tips')}</h3>
+					<h3>{language.text('Kamptips', 'Kamptips', 'Match tips', 'Pronostics de match')}</h3>
 				</div>
-				<p>{language.text('Maks 6 poeng per kamp. I sluttspill teller laget som går videre som rett utfall.', 'Maks 6 poeng per kamp. I sluttspel tel laget som går vidare som rett utfall.', 'Max 6 points per match. In knockout, the advancing team counts as the correct outcome.')}</p>
+				<p>{language.text('Maks 6 poeng per kamp. I sluttspill teller laget som går videre som rett utfall.', 'Maks 6 poeng per kamp. I sluttspel tel laget som går vidare som rett utfall.', 'Max 6 points per match. In knockout, the advancing team counts as the correct outcome.', 'Max 6 points par match. En éliminatoires, l\'équipe qui se qualifie compte comme résultat correct.')}</p>
 				<div class="point-list">
 					{#each matchPoints as point}
 						<div class="point-row">
@@ -185,9 +190,9 @@
 			<article class="card score-panel forecast-panel">
 				<div class="panel-title">
 					<Telescope size={20} />
-					<h3>{language.text('VM-tips', 'VM-tips', 'World Cup tips')}</h3>
+					<h3>{language.text('VM-tips', 'VM-tips', 'World Cup tips', 'Pronostics Coupe du Monde')}</h3>
 				</div>
-				<p>{language.text('VM-tipset låses ved første kamp og gir poeng etter hvert som grupper, runder, mester og toppscorer blir avgjort.', 'VM-tipset låser seg ved første kamp og gir poeng etter kvart som grupper, rundar, meister og toppscorar blir avgjorde.', 'The World Cup tip locks at the first match and scores as groups, rounds, champion, and Golden Boot are decided.')}</p>
+				<p>{language.text('VM-tipset låses ved første kamp og gir poeng etter hvert som grupper, runder, mester og toppscorer blir avgjort.', 'VM-tipset låser seg ved første kamp og gir poeng etter kvart som grupper, rundar, meister og toppscorar blir avgjorde.', 'The World Cup tip locks at the first match and scores as groups, rounds, champion, and Golden Boot are decided.', 'Le pronostic Coupe du Monde se verrouille au premier match et marque des points au fur et à mesure que les groupes, tours, champion et Soulier d\'or sont décidés.')}</p>
 				<div class="forecast-grid">
 					{#each forecastPoints as point}
 						<div>
@@ -205,7 +210,8 @@
 				{language.text(
 					'Ved poenglikhet sorteres tabellen etter flest eksakte resultater, flest rette vinnere, lavest målforskjell-feil, færrest leverte tips og tidligste levering.',
 					'Ved poenglikskap blir tabellen sortert etter flest eksakte resultat, flest rette vinnarar, lågaste målforskjell-feil, færrast leverte tips og tidlegaste levering.',
-					'If points are tied, the table sorts by most exact scores, most correct winners, lowest goal-difference error, fewest submitted tips, and earliest submission.'
+					'If points are tied, the table sorts by most exact scores, most correct winners, lowest goal-difference error, fewest submitted tips, and earliest submission.',
+					'En cas d\'égalité de points, le classement est trié par le plus de scores exacts, le plus de vainqueurs corrects, la plus faible erreur de différence de buts, le moins de pronostics soumis et la soumission la plus précoce.'
 				)}
 			</p>
 		</div>
@@ -230,7 +236,7 @@
 
 	<button class="back-bottom" type="button" onclick={closeInfo}>
 		<ArrowLeft size={18} />
-		{language.text('Tilbake', 'Tilbake', 'Back')}
+		{language.text('Tilbake', 'Tilbake', 'Back', 'Retour')}
 	</button>
 
 	<footer class="copyright">

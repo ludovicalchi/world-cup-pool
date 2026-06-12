@@ -31,21 +31,17 @@ code = code.replace(/if \(tournamentFinished\) \{[\s\S]*?tone: 'done',[\s\S]*?\}
 			const isGold = winnerCount > 0;
 			return {
 				tone: isGold ? 'gold' : 'done',
-				kicker: isEnglish ? 'Tournament over' : 'Turneringa er over',
+				kicker: language.text('Turneringen er over', 'Turneringa er over', 'Tournament over', 'Tournoi terminé'),
 				title: isGold
-					? isEnglish ? \`You won \${winnerCount} \${winnerCount === 1 ? 'league' : 'leagues'} 🥇🏆\` : \`Du vann \${winnerCount} \${winnerCount === 1 ? 'liga' : 'ligaer'} 🥇🏆\`
-					: isEnglish ? 'World Cup is over 🎊🏆' : 'VM er over 🎊🏆',
-				body: isGold 
-					? isEnglish ? 'Fantastic predictions! Your final standings are below.' : 'Fantastisk tipping! Sjå sluttresultata dine under.'
+					? language.text(\`Du vant \${winnerCount} \${winnerCount === 1 ? 'liga' : 'ligaer'} 🥇🏆\`, \`Du vann \${winnerCount} \${winnerCount === 1 ? 'liga' : 'ligaer'} 🥇🏆\`, \`You won \${winnerCount} \${winnerCount === 1 ? 'league' : 'leagues'} 🥇🏆\`, \`Vous avez remporté \${winnerCount} \${winnerCount === 1 ? 'ligue' : 'ligues'} 🥇🏆\`)
+					: language.text('VM er over 🎊🏆', 'VM er over 🎊🏆', 'World Cup is over 🎊🏆', 'La Coupe du Monde est terminée 🎊🏆'),
+				body: isGold
+					? language.text('Sterk tipping! Se sluttresultatene dine under.', 'Fantastisk tipping! Sjå sluttresultata dine under.', 'Fantastic predictions! Your final standings are below.', 'Excellent ! Vos classements finaux sont ci-dessous.')
 					: activeLeagueRow
-					? isEnglish
-						? 'Your final league standings are ready below.'
-						: 'Sluttresultata dine i ligaene ligg klare under.'
-					: isEnglish
-						? 'Thanks for playing. Your final standings are ready below.'
-						: 'Takk for at du spelte. Sluttresultata dine ligg klare under.',
+					? language.text('Sluttresultatene dine i ligaene ligger klare under.', 'Sluttresultata dine i ligaene ligg klare under.', 'Your final league standings are ready below.', 'Vos classements finaux de ligue sont prêts ci-dessous.')
+					: language.text('Takk for at du spilte. Sluttresultatene dine ligger klare under.', 'Takk for at du spelte. Sluttresultata dine ligg klare under.', 'Thanks for playing. Your final standings are ready below.', 'Merci d\'avoir joué. Vos classements finaux sont prêts ci-dessous.'),
 				href: leagueHref,
-				label: isEnglish ? 'View standings' : 'Sjå sluttresultat'
+				label: language.text('Se sluttresultat', 'Sjå sluttresultat', 'View standings', 'Voir le classement')
 			};
 		}`);
 
@@ -66,9 +62,9 @@ if (uiAddIndex !== -1) {
 					<div class="topscorer-pick" style="padding:0.75rem; background:var(--surface-2); border-radius:12px; margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem;">
 						<div style="font-size:1.5rem;">{myGoldenBootPickIsWinner ? '🥇' : '⚽'}</div>
 						<div>
-							<div style="font-size:0.85rem; color:var(--muted)">{isEnglish ? 'Your Topscorer' : 'Din Toppscorer'}</div>
-							<div style="font-weight:600; color:var(--fg)">{myGoldenBootPickName} 
-								<span style="color:var(--gold); font-weight:700;">{myGoldenBootPickIsWinner ? (isEnglish ? '(Winner!)' : '(Vinnar!)') : ''}</span>
+							<div style="font-size:0.85rem; color:var(--muted)">{language.text('Din Toppscorer', 'Din Toppscorer', 'Your Top Scorer', 'Votre meilleur buteur')}</div>
+							<div style="font-weight:600; color:var(--fg)">{myGoldenBootPickName}
+								<span style="color:var(--gold); font-weight:700;">{myGoldenBootPickIsWinner ? language.text('(Vinnar!)', '(Vinnar!)', '(Winner!)', '(Vainqueur !)') : ''}</span>
 							</div>
 						</div>
 					</div>

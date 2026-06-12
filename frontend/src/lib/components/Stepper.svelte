@@ -15,8 +15,8 @@
 		if (n >= min && n <= max) value = n;
 	}
 
-	const decrementLabel = $derived(language.text('Trekk fra mål', 'Trekk frå mål', 'Remove goal'));
-	const incrementLabel = $derived(language.text('Legg til mål', 'Legg til mål', 'Add goal'));
+	const decrementLabel = $derived(language.text('Trekk fra mål', 'Trekk frå mål', 'Remove goal', 'Retirer un but'));
+	const incrementLabel = $derived(language.text('Legg til mål', 'Legg til mål', 'Add goal', 'Ajouter un but'));
 </script>
 
 <div class="stepper" class:disabled>

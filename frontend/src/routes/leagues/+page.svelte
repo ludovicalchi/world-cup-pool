@@ -42,7 +42,7 @@
 			newName = '';
 			goto(`/leagues/${r.id}`);
 		} catch {
-			error = language.text('Kunne ikke opprette liga.', 'Kunne ikkje opprette liga.', 'Could not create league.');
+			error = language.text('Kunne ikke opprette liga.', 'Kunne ikkje opprette liga.', 'Could not create league.', 'Impossible de créer la ligue.');
 		} finally {
 			busy = false;
 		}
@@ -57,7 +57,7 @@
 			joinCode = '';
 			goto(`/leagues/${r.id}`);
 		} catch {
-			error = language.text('Ugyldig invitasjonskode.', 'Ugyldig invitasjonskode.', 'Invalid invite code.');
+			error = language.text('Ugyldig invitasjonskode.', 'Ugyldig invitasjonskode.', 'Invalid invite code.', 'Code d\'invitation invalide.');
 		} finally {
 			busy = false;
 		}
@@ -66,21 +66,21 @@
 	function roleLabel(league: LeagueSummary) {
 		if (league.inviteCode === 'GLOBAL') return 'Global';
 		return league.role === 'owner'
-		? language.text('Eier', 'Eigar', 'Owner')
-			: language.text('Medlem', 'Medlem', 'Member');
+		? language.text('Eier', 'Eigar', 'Owner', 'Propriétaire')
+			: language.text('Medlem', 'Medlem', 'Member', 'Membre');
 	}
 
 	function unreadChatLabel(count: number) {
 		return count === 1
-			? language.text('Ny chat', 'Ny chat', 'New chat')
-			: language.text(`${count} nye chatter`, `${count} nye chattar`, `${count} new chats`);
+			? language.text('Ny chat', 'Ny chat', 'New chat', 'Nouveau chat')
+			: language.text(`${count} nye chatter`, `${count} nye chattar`, `${count} new chats`, `${count} nouveaux chats`);
 	}
 </script>
 
 <header class="league-hero">
-	<p class="kicker">{language.text('Spill mot vennene dine', 'Spel mot venene dine', 'Play against your friends')}</p>
-	<h1>{language.text('Ligaer', 'Ligaer', 'Leagues')}</h1>
-	<p class="muted">{language.text('Velg liga, se tabellen og hopp rett til chat.', 'Vel ei liga, sjå tabellen og hopp rett til chat.', 'Pick a league, see the table, and jump straight to chat.')}</p>
+	<p class="kicker">{language.text('Spill mot vennene dine', 'Spel mot venene dine', 'Play against your friends', 'Jouez contre vos amis')}</p>
+	<h1>{language.text('Ligaer', 'Ligaer', 'Leagues', 'Ligues')}</h1>
+	<p class="muted">{language.text('Velg liga, se tabellen og hopp rett til chat.', 'Vel ei liga, sjå tabellen og hopp rett til chat.', 'Pick a league, see the table, and jump straight to chat.', 'Choisissez une ligue, voyez le classement et rejoignez directement le chat.')}</p>
 </header>
 
 <PendingInvites compact />
@@ -88,8 +88,8 @@
 <section class="league-section">
 	<div class="section-head">
 		<div>
-			<p class="kicker">{language.text('Oversikt', 'Oversikt', 'Overview')}</p>
-			<h2>{language.text('Ligaene dine', 'Ligaene dine', 'Your leagues')}</h2>
+			<p class="kicker">{language.text('Oversikt', 'Oversikt', 'Overview', 'Vue d\'ensemble')}</p>
+			<h2>{language.text('Ligaene dine', 'Ligaene dine', 'Your leagues', 'Vos ligues')}</h2>
 		</div>
 		{#if loaded}<span class="count-pill">{leagues.length}</span>{/if}
 	</div>
@@ -100,8 +100,8 @@
 		</div>
 	{:else if leagues.length === 0}
 		<div class="empty-state">
-			<strong>{language.text('Ingen ligaer ennå', 'Ingen ligaer enno', 'No leagues yet')}</strong>
-			<p class="muted">{language.text('Opprett en liga eller bli med med invitasjonskode.', 'Opprett ei liga eller bli med med invitasjonskode.', 'Create a league or join with an invite code.')}</p>
+			<strong>{language.text('Ingen ligaer ennå', 'Ingen ligaer enno', 'No leagues yet', 'Aucune ligue pour l\'instant')}</strong>
+			<p class="muted">{language.text('Opprett en liga eller bli med med invitasjonskode.', 'Opprett ei liga eller bli med med invitasjonskode.', 'Create a league or join with an invite code.', 'Créez une ligue ou rejoignez avec un code d\'invitation.')}</p>
 		</div>
 	{:else}
 		<div class="league-grid">
@@ -124,11 +124,11 @@
 							<i>{roleLabel(league)}</i>
 						</span>
 						<span class="league-meta">
-							<span><Users size={14} /> {league.members} {language.text(league.members === 1 ? 'medlem' : 'medlemmer', league.members === 1 ? 'medlem' : 'medlemer', league.members === 1 ? 'member' : 'members')}</span>
+							<span><Users size={14} /> {league.members} {language.text(league.members === 1 ? 'medlem' : 'medlemmer', league.members === 1 ? 'medlem' : 'medlemer', league.members === 1 ? 'member' : 'members', league.members === 1 ? 'membre' : 'membres')}</span>
 							{#if league.inviteCode && league.inviteCode !== 'GLOBAL'}
-								<span>{language.text('Kode', 'Kode', 'Code')} {league.inviteCode}</span>
+								<span>{language.text('Kode', 'Kode', 'Code', 'Code')} {league.inviteCode}</span>
 							{:else if league.private}
-								<span>{language.text('Privat kode', 'Privat kode', 'Private code')}</span>
+								<span>{language.text('Privat kode', 'Privat kode', 'Private code', 'Code privé')}</span>
 							{/if}
 						</span>
 						{#if unreadChat > 0}
@@ -150,15 +150,15 @@
 		<div class="action-title">
 			<span class="action-icon"><Plus size={18} /></span>
 			<div>
-				<h3>{language.text('Opprett liga', 'Opprett liga', 'Create league')}</h3>
-				<p class="muted">{language.text('Start en ny privat konkurranse.', 'Start ei ny privat tevling.', 'Start a new private competition.')}</p>
+				<h3>{language.text('Opprett liga', 'Opprett liga', 'Create league', 'Créer une ligue')}</h3>
+				<p class="muted">{language.text('Start en ny privat konkurranse.', 'Start ei ny privat tevling.', 'Start a new private competition.', 'Lancez une nouvelle compétition privée.')}</p>
 			</div>
 		</div>
 		<form onsubmit={create}>
 			<div class="field">
-				<input class="input" placeholder={language.text('Liganavn', 'Liganamn', 'League name')} bind:value={newName} required />
+				<input class="input" placeholder={language.text('Liganavn', 'Liganamn', 'League name', 'Nom de la ligue')} bind:value={newName} required />
 			</div>
-			<button class="btn" disabled={busy || !newName.trim()}>{language.text('Opprett', 'Opprett', 'Create')}</button>
+			<button class="btn" disabled={busy || !newName.trim()}>{language.text('Opprett', 'Opprett', 'Create', 'Créer')}</button>
 		</form>
 	</section>
 
@@ -166,8 +166,8 @@
 		<div class="action-title">
 			<span class="action-icon secondary"><LogIn size={18} /></span>
 			<div>
-				<h3>{language.text('Bli med', 'Bli med', 'Join')}</h3>
-				<p class="muted">{language.text('Lim inn koden fra invitasjonen.', 'Lim inn koden frå invitasjonen.', 'Paste the code from the invite.')}</p>
+				<h3>{language.text('Bli med', 'Bli med', 'Join', 'Rejoindre')}</h3>
+				<p class="muted">{language.text('Lim inn koden fra invitasjonen.', 'Lim inn koden frå invitasjonen.', 'Paste the code from the invite.', 'Collez le code de l\'invitation.')}</p>
 			</div>
 		</div>
 		<form onsubmit={join}>
@@ -179,7 +179,7 @@
 					required
 				/>
 			</div>
-			<button class="btn secondary" disabled={busy || !joinCode.trim()}>{language.text('Bli med', 'Bli med', 'Join')}</button>
+			<button class="btn secondary" disabled={busy || !joinCode.trim()}>{language.text('Bli med', 'Bli med', 'Join', 'Rejoindre')}</button>
 		</form>
 	</section>
 </div>

@@ -365,7 +365,7 @@
 			hour: '2-digit',
 			minute: '2-digit'
 		});
-		if (sameDay) return `${language.text('I dag', 'I dag', 'Today')}, ${time}`;
+		if (sameDay) return `${language.text('I dag', 'I dag', 'Today', 'Aujourd\'hui')}, ${time}`;
 		return (
 			d.toLocaleDateString(locale, {
 				weekday: 'short',
@@ -379,11 +379,11 @@
 
 	function greeting() {
 		const h = new Date().getHours();
-		if (h < 6) return language.text('God natt', 'God natt', 'Good night');
-		if (h < 11) return language.text('God morgen', 'God morgon', 'Good morning');
-		if (h < 17) return language.text('Hei', 'Hei', 'Hi');
-		if (h < 22) return language.text('God kveld', 'God kveld', 'Good evening');
-		return language.text('God natt', 'God natt', 'Good night');
+		if (h < 6) return language.text('God natt', 'God natt', 'Good night', 'Bonne nuit');
+		if (h < 11) return language.text('God morgen', 'God morgon', 'Good morning', 'Bonjour');
+		if (h < 17) return language.text('Hei', 'Hei', 'Hi', 'Salut');
+		if (h < 22) return language.text('God kveld', 'God kveld', 'Good evening', 'Bonsoir');
+		return language.text('God natt', 'God natt', 'Good night', 'Bonne nuit');
 	}
 
 	function firstName(name: string) {
@@ -414,8 +414,8 @@
 	}
 	function scoreText(m: Match) {
 		let s = `${m.ftHome}–${m.ftAway}`;
-		if (m.etHome || m.etAway) s = `${m.etHome}–${m.etAway} ${language.text('e.e.o.', 'e.eo.', 'aet')}`;
-		if (m.penHome || m.penAway) s += ` (${m.penHome}–${m.penAway} ${language.text('str', 'str', 'pens')})`;
+		if (m.etHome || m.etAway) s = `${m.etHome}–${m.etAway} ${language.text('e.e.o.', 'e.eo.', 'aet', 'a.p.')}`;
+		if (m.penHome || m.penAway) s += ` (${m.penHome}–${m.penAway} ${language.text('str', 'str', 'pens', 't.a.b.')})`;
 		return s;
 	}
 	function eventMinute(event: LiveEvent) {
@@ -441,7 +441,7 @@
 		const then = new Date(iso).getTime();
 		if (!Number.isFinite(then)) return '';
 		const diff = now - then;
-		if (diff < 60_000) return language.text('nå', 'no', 'now');
+		if (diff < 60_000) return language.text('nå', 'no', 'now', 'maintenant');
 		if (diff < 3_600_000) return `${Math.floor(diff / 60_000)} min`;
 		if (diff < 86_400_000) return new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }).format(then);
 		return new Intl.DateTimeFormat(locale, { day: '2-digit', month: 'short' }).format(then);
@@ -451,7 +451,7 @@
 	}
 	function unreadLabel(count: number) {
 		if (count <= 0) return '';
-		return count === 1 ? language.text('Ny', 'Ny', 'New') : `${Math.min(count, 99)} ${language.text('nye', 'nye', 'new')}`;
+		return count === 1 ? language.text('Ny', 'Ny', 'New', 'Nouveau') : `${Math.min(count, 99)} ${language.text('nye', 'nye', 'new', 'nouveaux')}`;
 	}
 	function stageLabel(match: Match) {
 		return matchStageLabel(match);
@@ -533,14 +533,15 @@
 	}
 	function tipText(match: Match) {
 		const tip = tipsStore.tips[match.id];
-		if (!tip) return language.text('Ikke tippet', 'Ikkje tipset', 'Not tipped');
-		return `${language.text('Ditt tips', 'Ditt tips', 'Your tip')}: ${tip.ftHome}-${tip.ftAway}`;
+		if (!tip) return language.text('Ikke tippet', 'Ikkje tipset', 'Not tipped', 'Pas de pronostic');
+		return `${language.text('Ditt tips', 'Ditt tips', 'Your tip', 'Votre pronostic')}: ${tip.ftHome}-${tip.ftAway}`;
 	}
 	function matchTipsMissingText(count: number) {
 		return language.text(
 			`${count} kamptips mangler`,
 			`${count} kamptips manglar`,
-			`${count} match tip${count === 1 ? '' : 's'} missing`
+			`${count} match tip${count === 1 ? '' : 's'} missing`,
+			`${count} pronostic${count === 1 ? '' : 's'} manquant${count === 1 ? '' : 's'}`
 		);
 	}
 	function lastMatchTitlePrefix(points: number) {
@@ -548,13 +549,15 @@
 			return language.text(
 				'Perfekt! ',
 				'Perfekt! ',
-				'Perfect! '
+				'Perfect! ',
+                'Parfait ! '
 			);
 		}
 		return language.text(
 			'Du fikk ',
 			'Du fekk ',
-			'You got '
+			'You got ',
+            'Vous avez obtenu '
 		);
 	}
 	function lastMatchTitleSuffix(points: number) {
@@ -562,21 +565,23 @@
 			return language.text(
 				' på siste kamp',
 				' på siste kamp',
-				' on the last match'
+				' on the last match',
+                ' sur le dernier match'
 			);
 		}
 		return language.text(
 			' på siste kamp',
 			' på siste kamp',
-			' on the last match'
+			' on the last match',
+            ' sur le dernier match'
 		);
 	}
 	function forecastPointsText(points: number) {
-		return language.text(`${points} VM-tips-poeng`, `${points} VM-tips-poeng`, `${points} forecast points`);
+		return language.text(`${points} VM-tips-poeng`, `${points} VM-tips-poeng`, `${points} forecast points`, `${points} points pronostic CM`);
 	}
 	function shortPoints(points: number, signed = false) {
 		const prefix = signed && points > 0 ? '+' : '';
-		return language.text(`${prefix}${points} p`, `${prefix}${points} p`, `${prefix}${points} pts`);
+		return language.text(`${prefix}${points} p`, `${prefix}${points} p`, `${prefix}${points} pts`, `${prefix}${points} pts`);
 	}
 	function medalForRank(rank: number) {
 		if (rank === 1) return '🥇';
@@ -585,17 +590,17 @@
 		return `#${rank}`;
 	}
 	function rankSummary(rank: number, members: number) {
-		return language.text(`#${rank} av ${members}`, `#${rank} av ${members}`, `#${rank} of ${members}`);
+		return language.text(`#${rank} av ${members}`, `#${rank} av ${members}`, `#${rank} of ${members}`, `#${rank} sur ${members}`);
 	}
 	function formatLeagueList(names: string[]) {
 		if (names.length === 0) return '';
 		if (names.length === 1) return names[0];
-		const conjunction = language.text('og', 'og', 'and');
+		const conjunction = language.text('og', 'og', 'and', 'et');
 		if (names.length === 2) return `${names[0]} ${conjunction} ${names[1]}`;
 		return `${names.slice(0, -1).join(', ')} ${conjunction} ${names.at(-1) ?? ''}`;
 	}
 	function pointText(points: number) {
-		if (points === 6) return language.text(`Perfekt! ${shortPoints(points, true)}`, `Perfekt! ${shortPoints(points, true)}`, `Perfect! ${shortPoints(points, true)}`);
+		if (points === 6) return language.text(`Perfekt! ${shortPoints(points, true)}`, `Perfekt! ${shortPoints(points, true)}`, `Perfect! ${shortPoints(points, true)}`, `Parfait ! ${shortPoints(points, true)}`);
 		if (points > 0) return shortPoints(points, true);
 		return shortPoints(points);
 	}
@@ -620,15 +625,16 @@
 		if (!tipsStore.loaded || !fs.loaded) {
 			return {
 				tone: 'loading',
-				kicker: language.text('Akkurat nå', 'Akkurat no', 'Right now'),
-				title: language.text('Sjekker tipsene dine', 'Sjekkar tipsa dine', 'Checking your tips'),
+				kicker: language.text('Akkurat nå', 'Akkurat no', 'Right now', 'En ce moment'),
+				title: language.text('Sjekker tipsene dine', 'Sjekkar tipsa dine', 'Checking your tips', 'Vérification de vos pronostics'),
 				body: language.text(
 					'Henter kampstatus, poeng og liga.',
 					'Hentar kampstatus, poeng og liga.',
-					'Fetching match status, points, and league.'
+					'Fetching match status, points, and league.',
+					'Récupération du statut, des points et de la ligue.'
 				),
 				href: '/tips',
-				label: language.text('Åpne kamptips', 'Opne kamptips', 'Open match tips')
+				label: language.text('Åpne kamptips', 'Opne kamptips', 'Open match tips', 'Ouvrir les pronostics')
 			};
 		}
 		if (liveMatches.length > 0) {
@@ -667,34 +673,35 @@
 			const match = missingMatchTips[0];
 			return {
 				tone: 'urgent',
-				kicker: language.text('Neste steg', 'Neste steg', 'Next action'),
+				kicker: language.text('Neste steg', 'Neste steg', 'Next action', 'Prochaine étape'),
 				title: matchTipsMissingText(count),
 				body: count === 1
-					? language.text('Dette tipset må leveres før avspark.', 'Dette tipset må leverast før avspark.', 'This tip must be submitted before kickoff.')
-					: language.text('De siste kamptipsene må leveres før avspark.', 'Dei siste kamptipsa må leverast før avspark.', 'The remaining match tips must be submitted before kickoff.'),
+					? language.text('Dette tipset må leveres før avspark.', 'Dette tipset må leverast før avspark.', 'This tip must be submitted before kickoff.', 'Ce pronostic doit être soumis avant le coup d\'envoi.')
+					: language.text('De siste kamptipsene må leveres før avspark.', 'Dei siste kamptipsa må leverast før avspark.', 'The remaining match tips must be submitted before kickoff.', 'Les derniers pronostics doivent être soumis avant le coup d\'envoi.'),
 				href: missingMatchTipHref(match),
 				label: count === 1
-					? language.text('Tipp kampen', 'Tipp kampen', 'Tip the match')
-					: language.text('Gå til kamptips', 'Gå til kamptips', 'Go to match tips'),
+					? language.text('Tipp kampen', 'Tipp kampen', 'Tip the match', 'Parier sur le match')
+					: language.text('Gå til kamptips', 'Gå til kamptips', 'Go to match tips', 'Aller aux pronostics'),
 				deadline: match.kickoff,
-				deadlineLabel: language.text('Frist', 'Frist', 'Deadline'),
+				deadlineLabel: language.text('Frist', 'Frist', 'Deadline', 'Limite'),
 				match
 			};
 		}
 		if (vmTipsMissing) {
 			return {
 				tone: 'forecast',
-				kicker: language.text('Neste steg', 'Neste steg', 'Next action'),
-				title: language.text('VM-tipset må leveres før avspark', 'VM-tipset må leverast før avspark', 'The World Cup tip must be submitted before kickoff'),
+				kicker: language.text('Neste steg', 'Neste steg', 'Next action', 'Prochaine étape'),
+				title: language.text('VM-tipset må leveres før avspark', 'VM-tipset må leverast før avspark', 'The World Cup tip must be submitted before kickoff', 'Le pronostic CM doit être soumis avant le coup d\'envoi'),
 				body: language.text(
 					'Sett grupper, beste treere og sluttspill før turneringen starter.',
 					'Set grupper, beste trearar og sluttspel før turneringa startar.',
-					'Set groups, best thirds, and knockout before the tournament starts.'
+					'Set groups, best thirds, and knockout before the tournament starts.',
+					'Remplissez les groupes, les meilleurs tiers et le tableau avant le début du tournoi.'
 				),
 				href: '/forecast',
-				label: language.text('Åpne VM-tips', 'Opne VM-tips', 'Open World Cup tips'),
+				label: language.text('Åpne VM-tips', 'Opne VM-tips', 'Open World Cup tips', 'Ouvrir les pronostics CM'),
 				deadline: fs.tournamentStart,
-				deadlineLabel: language.text('Låses', 'Låsast', 'Locks')
+				deadlineLabel: language.text('Låses', 'Låsast', 'Locks', 'Verrouillé')
 			};
 		}
 		if (tournamentFinished) {
@@ -702,43 +709,43 @@
 			const isGold = winnerCount > 0;
 			return {
 				tone: isGold ? 'gold' : 'done',
-				kicker: language.text('Turneringen er over', 'Turneringa er over', 'Tournament over'),
+				kicker: language.text('Turneringen er over', 'Turneringa er over', 'Tournament over', 'Tournoi terminé'),
 				title: isGold
-					? language.text(`Du vant ${winnerCount} ${winnerCount === 1 ? 'liga' : 'ligaer'} 🥇🏆`, `Du vann ${winnerCount} ${winnerCount === 1 ? 'liga' : 'ligaer'} 🥇🏆`, `You won ${winnerCount} ${winnerCount === 1 ? 'league' : 'leagues'} 🥇🏆`)
-					: language.text('VM er over 🎊🏆', 'VM er over 🎊🏆', 'World Cup is over 🎊🏆'),
+					? language.text(`Du vant ${winnerCount} ${winnerCount === 1 ? 'liga' : 'ligaer'} 🥇🏆`, `Du vann ${winnerCount} ${winnerCount === 1 ? 'liga' : 'ligaer'} 🥇🏆`, `You won ${winnerCount} ${winnerCount === 1 ? 'league' : 'leagues'} 🥇🏆`, `Vous avez remporté ${winnerCount} ${winnerCount === 1 ? 'ligue' : 'ligues'} 🥇🏆`)
+					: language.text('VM er over 🎊🏆', 'VM er over 🎊🏆', 'World Cup is over 🎊🏆', 'La Coupe du Monde est terminée 🎊🏆'),
 				body: isGold 
-					? language.text('Sterk tipping! Se sluttresultatene dine under.', 'Fantastisk tipping! Sjå sluttresultata dine under.', 'Fantastic predictions! Your final standings are below.')
+					? language.text('Sterk tipping! Se sluttresultatene dine under.', 'Fantastisk tipping! Sjå sluttresultata dine under.', 'Fantastic predictions! Your final standings are below.', 'Excellent ! Vos classements finaux sont ci-dessous.')
 					: activeLeagueRow
-					? language.text('Sluttresultatene dine i ligaene ligger klare under.', 'Sluttresultata dine i ligaene ligg klare under.', 'Your final league standings are ready below.')
-					: language.text('Takk for at du spilte. Sluttresultatene dine ligger klare under.', 'Takk for at du spelte. Sluttresultata dine ligg klare under.', 'Thanks for playing. Your final standings are ready below.'),
+					? language.text('Sluttresultatene dine i ligaene ligger klare under.', 'Sluttresultata dine i ligaene ligg klare under.', 'Your final league standings are ready below.', 'Vos classements finaux de ligue sont prêts ci-dessous.')
+					: language.text('Takk for at du spilte. Sluttresultatene dine ligger klare under.', 'Takk for at du spelte. Sluttresultata dine ligg klare under.', 'Thanks for playing. Your final standings are ready below.', 'Merci d\'avoir joué. Vos classements finaux sont prêts ci-dessous.'),
 				href: leagueHref,
-				label: language.text('Se sluttresultat', 'Sjå sluttresultat', 'View standings')
+				label: language.text('Se sluttresultat', 'Sjå sluttresultat', 'View standings', 'Voir le classement')
 			};
 		}
 		if (recentResultWithPoints) {
 			const { match, points } = recentResultWithPoints;
 			return {
 				tone: 'result',
-				kicker: language.text('Siste resultat', 'Siste resultat', 'Latest result'),
+				kicker: language.text('Siste resultat', 'Siste resultat', 'Latest result', 'Dernier résultat'),
 				title: '',
 				resultPoints: points,
 				body: tipText(match),
 				href: matchTipHref(match),
-				label: language.text('Se resultat', 'Sjå resultat', 'View result'),
+				label: language.text('Se resultat', 'Sjå resultat', 'View result', 'Voir le résultat'),
 				match
 			};
 		}
 		return {
 			tone: 'ready',
-			kicker: language.text('Alt klart', 'Alt klart', 'All set'),
+			kicker: language.text('Alt klart', 'Alt klart', 'All set', 'Tout est prêt'),
 			title: nextMatch
-				? language.text(`Klart. Neste kamp er ${resultTeams(nextMatch)}`, `Klart. Neste kamp er ${resultTeams(nextMatch)}`, `Ready. Next match is ${resultTeams(nextMatch)}`)
-				: language.text('Klart', 'Klart', 'Ready'),
+				? language.text(`Klart. Neste kamp er ${resultTeams(nextMatch)}`, `Klart. Neste kamp er ${resultTeams(nextMatch)}`, `Ready. Next match is ${resultTeams(nextMatch)}`, `Prêts. Prochain match : ${resultTeams(nextMatch)}`)
+				: language.text('Klart', 'Klart', 'Ready', 'Prêt'),
 			body: nextMatch
 				? kickoffLabel(nextMatch.kickoff)
-				: language.text('Du er klar for turneringen.', 'Du er klar for turneringa.', 'You are ready for the tournament.'),
+				: language.text('Du er klar for turneringen.', 'Du er klar for turneringa.', 'You are ready for the tournament.', 'Vous êtes prêt pour le tournoi.'),
 			href: nextMatch ? matchTipHref(nextMatch) : '/tips',
-			label: language.text('Se kamper', 'Sjå kampar', 'View matches'),
+			label: language.text('Se kamper', 'Sjå kampar', 'View matches', 'Voir les matchs'),
 			match: nextMatch
 		};
 	});
@@ -754,9 +761,9 @@
 	});
 	let thirdId = $derived(bronzeMatch ? (fs.bracket[koKey(bronzeMatch)] ?? '') : '');
 	let podium = $derived([
-		{ place: 1, label: language.text('Vinner', 'Vinnar', 'Winner'), id: championId },
-		{ place: 2, label: language.text('Andreplass', 'Andreplass', 'Runner-up'), id: runnerUpId },
-		{ place: 3, label: language.text('Tredjeplass', 'Tredjeplass', 'Third place'), id: thirdId }
+		{ place: 1, label: language.text('Vinner', 'Vinnar', 'Winner', 'Vainqueur'), id: championId },
+		{ place: 2, label: language.text('Andreplass', 'Andreplass', 'Runner-up', 'Finaliste'), id: runnerUpId },
+		{ place: 3, label: language.text('Tredjeplass', 'Tredjeplass', 'Third place', 'Troisième'), id: thirdId }
 	]);
 	let hasPodium = $derived(podium.some((p) => !!p.id));
 
@@ -770,67 +777,67 @@
 	});
 	let realThirdId = $derived(tournamentFinished && realBronzeMatch ? realBronzeMatch.advancer : '');
 	let realPodiumParams = $derived([
-		{ place: 1, label: language.text('VM-gull', 'VM-gull', 'World Cup gold'), id: realChampionId },
-		{ place: 2, label: language.text('VM-sølv', 'VM-sølv', 'World Cup silver'), id: realRunnerUpId },
-		{ place: 3, label: language.text('VM-bronse', 'VM-bronse', 'World Cup bronze'), id: realThirdId }
+		{ place: 1, label: language.text('VM-gull', 'VM-gull', 'World Cup gold', 'Or CM'), id: realChampionId },
+		{ place: 2, label: language.text('VM-sølv', 'VM-sølv', 'World Cup silver', 'Argent CM'), id: realRunnerUpId },
+		{ place: 3, label: language.text('VM-bronse', 'VM-bronse', 'World Cup bronze', 'Bronze CM'), id: realThirdId }
 	]);
 
 	let forecastPulse = $derived.by(() => {
-		const champion = championId ? teamDisplayName(teamAny(championId), language.text('Ukjent', 'Ukjent', 'Unknown')) : '';
+		const champion = championId ? teamDisplayName(teamAny(championId), language.text('Ukjent', 'Ukjent', 'Unknown', 'Inconnu')) : '';
 		if (!fs.loaded) {
 			return {
-				kicker: language.text('VM-tips', 'VM-tips', 'World Cup tip'),
-				title: language.text('Laster VM-tipset ditt', 'Lastar VM-tipset ditt', 'Loading your World Cup tip'),
-				body: language.text('Vi sjekker grupper, sluttspill og pall.', 'Vi sjekkar grupper, sluttspel og pall.', 'We are checking groups, knockout, and podium.'),
-				label: language.text('Åpne VM-tips', 'Opne VM-tips', 'Open World Cup tips'),
+				kicker: language.text('VM-tips', 'VM-tips', 'World Cup tip', 'Pronostic CM'),
+				title: language.text('Laster VM-tipset ditt', 'Lastar VM-tipset ditt', 'Loading your World Cup tip', 'Chargement de votre pronostic CM'),
+				body: language.text('Vi sjekker grupper, sluttspill og pall.', 'Vi sjekkar grupper, sluttspel og pall.', 'We are checking groups, knockout, and podium.', 'Vérification des groupes, tableau et podium.'),
+				label: language.text('Åpne VM-tips', 'Opne VM-tips', 'Open World Cup tips', 'Ouvrir les pronostics CM'),
 				tone: 'loading'
 			};
 		}
 		if (vmTipsMissing) {
 			return {
-				kicker: language.text('VM-tips', 'VM-tips', 'World Cup tip'),
-				title: language.text('VM-tipset må leveres før avspark', 'VM-tipset må leverast før avspark', 'The World Cup tip must be submitted before kickoff'),
-				body: language.text('Fyll ut grupper, beste treere og sluttspill.', 'Fyll ut grupper, beste trearar og sluttspel.', 'Enter groups, best thirds, and knockout.'),
-				label: language.text('Lever VM-tips', 'Lever VM-tips', 'Submit World Cup tip'),
+				kicker: language.text('VM-tips', 'VM-tips', 'World Cup tip', 'Pronostic CM'),
+				title: language.text('VM-tipset må leveres før avspark', 'VM-tipset må leverast før avspark', 'The World Cup tip must be submitted before kickoff', 'Le pronostic CM doit être soumis avant le coup d\'envoi'),
+				body: language.text('Fyll ut grupper, beste treere og sluttspill.', 'Fyll ut grupper, beste trearar og sluttspel.', 'Enter groups, best thirds, and knockout.', 'Remplissez les groupes, les meilleurs tiers et le tableau.'),
+				label: language.text('Lever VM-tips', 'Lever VM-tips', 'Submit World Cup tip', 'Soumettre le pronostic CM'),
 				tone: 'urgent'
 			};
 		}
 		if (tournamentFinished) {
 			return {
-				kicker: language.text('VM-tips', 'VM-tips', 'World Cup tip'),
+				kicker: language.text('VM-tips', 'VM-tips', 'World Cup tip', 'Pronostic CM'),
 				title: forecastPointsText(activeLeagueRow?.forecastPoints ?? 0),
 				body: champion
-					? language.text(`Du hadde ${champion} som vinner.`, `Du hadde ${champion} som vinnar.`, `You had ${champion} as winner.`)
-					: language.text('Turneringen er ferdig.', 'Turneringa er ferdig.', 'The tournament is finished.'),
-				label: language.text('Se VM-tips', 'Sjå VM-tips', 'View World Cup tips'),
+					? language.text(`Du hadde ${champion} som vinner.`, `Du hadde ${champion} som vinnar.`, `You had ${champion} as winner.`, `Vous aviez ${champion} comme vainqueur.`)
+					: language.text('Turneringen er ferdig.', 'Turneringa er ferdig.', 'The tournament is finished.', 'Le tournoi est terminé.'),
+				label: language.text('Se VM-tips', 'Sjå VM-tips', 'View World Cup tips', 'Voir les pronostics CM'),
 				tone: 'done'
 			};
 		}
 		if (!tournamentStarted) {
 			return {
-				kicker: language.text('VM-tips', 'VM-tips', 'World Cup tip'),
+				kicker: language.text('VM-tips', 'VM-tips', 'World Cup tip', 'Pronostic CM'),
 				title: champion
-					? language.text(`${champion} er vinneren din`, `${champion} er vinnaren din`, `${champion} is your winner`)
-					: language.text('VM-tipset ditt er klart', 'VM-tipset ditt er klart', 'Your World Cup tip is ready'),
-				body: language.text('Pallen din låses når turneringen starter.', 'Pallen din blir låst når turneringa startar.', 'Your podium is locked in when the tournament starts.'),
-				label: language.text('Se VM-tips', 'Sjå VM-tips', 'View World Cup tips'),
+					? language.text(`${champion} er vinneren din`, `${champion} er vinnaren din`, `${champion} is your winner`, `${champion} est votre vainqueur`)
+					: language.text('VM-tipset ditt er klart', 'VM-tipset ditt er klart', 'Your World Cup tip is ready', 'Votre pronostic CM est prêt'),
+				body: language.text('Pallen din låses når turneringen starter.', 'Pallen din blir låst når turneringa startar.', 'Your podium is locked in when the tournament starts.', 'Votre podium sera verrouillé au début du tournoi.'),
+				label: language.text('Se VM-tips', 'Sjå VM-tips', 'View World Cup tips', 'Voir les pronostics CM'),
 				tone: 'ready'
 			};
 		}
 		const alive = teamStillAlive(championId);
 		return {
 			kicker: fs.groupStageDone
-				? language.text('VM-tips ', 'VM-tips ', 'World Cup tip ')
-				: language.text('VM-tips ', 'VM-tips ', 'World Cup tip '),
+				? language.text('VM-tips ', 'VM-tips ', 'World Cup tip ', 'Tableau final')
+				: language.text('VM-tips ', 'VM-tips ', 'World Cup tip ', 'Tableau final'),
 			title: champion
 				? alive
-					? language.text('Ditt tips er med', 'Ditt tips er med', 'Your guess is alive')
-					: language.text('Vinneren din er ute', 'Vinnaren din er ute', 'Your winner is out')
-				: language.text('Er i gang', 'Er i gang', 'In play'),
+					? language.text('Ditt tips er med', 'Ditt tips er med', 'Your guess is alive', 'Votre pari est pris en compte')
+					: language.text('Vinneren din er ute', 'Vinnaren din er ute', 'Your winner is out', 'Le gagnant a été désigné')
+				: language.text('Er i gang', 'Er i gang', 'In play', 'En cours'),
 			body: champion
 				? `${champion}${activeLeagueRow ? ` · ${forecastPointsText(activeLeagueRow.forecastPoints)}` : ''}`
-				: language.text('Følg grupper og sluttspill etter hvert som resultatene kommer.', 'Følg grupper og sluttspel etter kvart som resultata kjem.', 'Follow groups and knockout as results come in.'),
-			label: language.text('Se VM-tips', 'Sjå VM-tips', 'View World Cup tips'),
+				: language.text('Følg grupper og sluttspill etter hvert som resultatene kommer.', 'Følg grupper og sluttspel etter kvart som resultata kjem.', 'Follow groups and knockout as results come in.', 'Suivez les groupes et le tableau au fur et à mesure des résultats.'),
+			label: language.text('Se VM-tips', 'Sjå VM-tips', 'View World Cup tips', 'Voir les pronostics CM'),
 			tone: alive ? 'ready' : 'out'
 		};
 	});
@@ -906,8 +913,8 @@
 		if (wonLeaguePlacements.length === 1) {
 			const [league] = wonLeaguePlacements;
 			return {
-				title: language.text(`Gratulerer! Du vant ${league.name}`, `Gratulerer! Du vann ${league.name}`, `Congratulations! You won ${league.name}`),
-				body: language.text(`Du endte øverst med ${shortPoints(league.total)}.`, `Du enda øvst med ${shortPoints(league.total)}.`, `You finished first with ${shortPoints(league.total)}.`)
+				title: language.text(`Gratulerer! Du vant ${league.name}`, `Gratulerer! Du vann ${league.name}`, `Congratulations! You won ${league.name}`, `Félicitations ! Vous avez remporté ${league.name}`),
+				body: language.text(`Du endte øverst med ${shortPoints(league.total)}.`, `Du enda øvst med ${shortPoints(league.total)}.`, `You finished first with ${shortPoints(league.total)}.`, `Vous avez terminé premier avec ${shortPoints(league.total)}.`)
 			};
 		}
 		if (wonLeaguePlacements.length > 1) {
@@ -918,9 +925,10 @@
 				title: language.text(
 					`Gratulerer! Du vant ${wonLeaguePlacements.length} ligaer`,
 					`Gratulerer! Du vann ${wonLeaguePlacements.length} ligaer`,
-					`Congratulations! You won ${wonLeaguePlacements.length} leagues`
+					`Congratulations! You won ${wonLeaguePlacements.length} leagues`,
+					`Félicitations ! Vous avez remporté ${wonLeaguePlacements.length} ligues`
 				),
-				body: language.text(`Du vant ${leagueNames}.`, `Du vann ${leagueNames}.`, `Wins in ${leagueNames}.`)
+				body: language.text(`Du vant ${leagueNames}.`, `Du vann ${leagueNames}.`, `Wins in ${leagueNames}.`, `Victoire dans ${leagueNames}.`)
 			};
 		}
 		const podiumPlacements = finalLeaguePlacements.filter(
@@ -931,20 +939,20 @@
 				podiumPlacements.map((league) => league.name)
 			);
 			return {
-				title: language.text('Turneringen er ferdig', 'Turneringa er ferdig', 'Tournament finished'),
-				body: language.text(`Du tok pallplass i ${leagueNames}.`, `Du tok pallplass i ${leagueNames}.`, `You reached the podium in ${leagueNames}.`)
+				title: language.text('Turneringen er ferdig', 'Turneringa er ferdig', 'Tournament finished', 'Tournoi terminé'),
+				body: language.text(`Du tok pallplass i ${leagueNames}.`, `Du tok pallplass i ${leagueNames}.`, `You reached the podium in ${leagueNames}.`, `Vous avez atteint le podium dans ${leagueNames}.`)
 			};
 		}
 		const bestLeague = finalLeaguePlacements[0];
 		if (!bestLeague) {
 			return {
-				title: language.text('Turneringen er ferdig', 'Turneringa er ferdig', 'Tournament finished'),
-				body: language.text('Ligaplasseringene dine vises her.', 'Ligaplaceringane dine kjem her.', 'Your league standings will show here.')
+				title: language.text('Turneringen er ferdig', 'Turneringa er ferdig', 'Tournament finished', 'Tournoi terminé'),
+				body: language.text('Ligaplasseringene dine vises her.', 'Ligaplaceringane dine kjem her.', 'Your league standings will show here.', 'Vos classements de ligue s\'afficheront ici.')
 			};
 		}
 		return {
-			title: language.text('Turneringen er ferdig', 'Turneringa er ferdig', 'Tournament finished'),
-			body: language.text(`Beste plassering: #${bestLeague.rank} i ${bestLeague.name}.`, `Beste plassering: #${bestLeague.rank} i ${bestLeague.name}.`, `Best finish: #${bestLeague.rank} in ${bestLeague.name}.`)
+			title: language.text('Turneringen er ferdig', 'Turneringa er ferdig', 'Tournament finished', 'Tournoi terminé'),
+			body: language.text(`Beste plassering: #${bestLeague.rank} i ${bestLeague.name}.`, `Beste plassering: #${bestLeague.rank} i ${bestLeague.name}.`, `Best finish: #${bestLeague.rank} in ${bestLeague.name}.`, `Meilleur classement : #${bestLeague.rank} dans ${bestLeague.name}.`)
 		};
 	});
 
@@ -1093,7 +1101,7 @@
 {:else}
 <header class="home-hero">
 	<div class="hero-copy">
-		<p class="kicker">{language.text('VM 2026 · 11. juni - 19. juli', 'VM 2026 · 11. juni - 19. juli', 'World Cup 2026 · 11 June - 19 July')}</p>
+		<p class="kicker">{language.text('VM 2026 · 11. juni - 19. juli', 'VM 2026 · 11. juni - 19. juli', 'World Cup 2026 · 11 June - 19 July', 'Coupe du Monde 2026 · 11 juin - 19 juillet')}</p>
 		<h1 class="hero-greeting">
 			<span class="greet">{greeting()}</span>{#if firstName(auth.user?.name ?? '')}<span class="punct">,</span> <span class="name">{firstName(auth.user?.name ?? '')}</span>{/if}
 		</h1>
@@ -1101,7 +1109,7 @@
 	<div class="hero-chips">
 		{#if leaguesLoaded}
 			{#if leaguesError}
-				<span class="hero-chip error-pill">{language.text('Ligastatus mangler', 'Ligastatus manglar', 'League status missing')}</span>
+				<span class="hero-chip error-pill">{language.text('Ligastatus mangler', 'Ligastatus manglar', 'League status missing', 'Statut de ligue manquant')}</span>
 			{/if}
 			{#each heroLeagues as { lg, rankNum, meRow, loading } (lg.id)}
 				{@const medal = rankNum === 1 ? '🥇' : rankNum === 2 ? '🥈' : rankNum === 3 ? '🥉' : `#${rankNum}`}
@@ -1117,7 +1125,7 @@
 		{/if}
 		{#if activeLeagueRow}
 			<a href={pointsHref} class="hero-chip points-pill">
-				<span>{language.text('Poeng', 'Poeng', 'Points')}</span>
+				<span>{language.text('Poeng', 'Poeng', 'Points', 'Points')}</span>
 				<b>{totalPoints}</b>
 			</a>
 		{/if}
@@ -1279,7 +1287,7 @@
 						{#if playedM(nowHero.match) || isLiveStatus(nowHero.match.status)}
 							{scoreText(nowHero.match)}
 						{:else}
-							{language.text('mot', 'mot', 'vs')}
+							{language.text('mot', 'mot', 'vs', 'vs')}
 						{/if}
 					</strong>
 					<span class="away">
@@ -1303,8 +1311,8 @@
 		{#if tipsStore.loaded && totalMatches > 0 && missingMatchTips.length > 0}
 			<div class="tip-progress-panel" style={`--tip-progress: ${progressPct}%`}>
 				<div class="tip-progress-info">
-					<span><b>{submittedOpenMatchTipCount}</b> {language.text(`av ${openMatchTipCount} åpne kamper levert`, `av ${openMatchTipCount} opne kampar leverte`, `of ${openMatchTipCount} open matches submitted`)}</span>
-					<span class="muted">{language.text(`${missingMatchTips.length} mangler`, `${missingMatchTips.length} manglar`, `${missingMatchTips.length} missing`)}</span>
+					<span><b>{submittedOpenMatchTipCount}</b> {language.text(`av ${openMatchTipCount} åpne kamper levert`, `av ${openMatchTipCount} opne kampar leverte`, `of ${openMatchTipCount} open matches submitted`, `sur ${openMatchTipCount} matchs ouverts soumis`)}</span>
+					<span class="muted">{language.text(`${missingMatchTips.length} mangler`, `${missingMatchTips.length} manglar`, `${missingMatchTips.length} missing`, `${missingMatchTips.length} manquant${missingMatchTips.length === 1 ? '' : 's'}`)}</span>
 				</div>
 				<div class="tip-progress-track" aria-hidden="true">
 					<span></span>
@@ -1321,20 +1329,20 @@
 	{#if !tournamentFinished && tournamentStarted && activeLeague && leagueProgress && leagueProgress.events.length > 0}
 		<section class="card tile progress-card home-span-support">
 			<div class="hd">
-				<h3><img class="football-mark football-mark-inline" src="/icons/football-alert.svg" alt="" /> {language.text('Poengtrend', 'Poengtrend', 'Points trend')}</h3>
-				<a class="hdlink" href={leagueHref}>{language.text('Liga', 'Liga', 'League')}</a>
+				<h3><img class="football-mark football-mark-inline" src="/icons/football-alert.svg" alt="" /> {language.text('Poengtrend', 'Poengtrend', 'Points trend', 'Tendance de points')}</h3>
+				<a class="hdlink" href={leagueHref}>{language.text('Liga', 'Liga', 'League', 'Ligue')}</a>
 			</div>
 
 			{#if progressStats}
 				<div class="trend-hero">
 					<div class="trend-total">
-						<span class="trend-label">{language.text('Kamppoeng', 'Kamppoeng', 'Match points')}</span>
+						<span class="trend-label">{language.text('Kamppoeng', 'Kamppoeng', 'Match points', 'Points du match')}</span>
 						<b class="trend-num">{progressStats.total}<em>p</em></b>
 					</div>
 					<span class="trend-chip" class:flat={progressStats.last3 === 0}>
 						{#if progressStats.last3 > 0}<TrendingUp size={13} />{:else}<Minus size={13} />{/if}
 						{shortPoints(progressStats.last3, true)}
-						<i>{language.text('siste 3', 'siste 3', 'last 3')}</i>
+						<i>{language.text('siste 3', 'siste 3', 'last 3', '3 derniers')}</i>
 					</span>
 				</div>
 
@@ -1370,13 +1378,13 @@
 	{#if tournamentStarted && leaguesLoaded && activeLeague && activeLeagueRow && lb.length > 1}
 		<section class="card tile standing-card home-span-support">
 			<div class="hd">
-				<h3><Crown size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--gold)" /> {language.text('Ligatabell', 'Ligatabell', 'League table')}</h3>
+				<h3><Crown size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--gold)" /> {language.text('Ligatabell', 'Ligatabell', 'League table', 'Classement de ligue')}</h3>
 				<div class="league-card-actions">
 					{#if leagues.length > 1}
 						<div class="league-select-shell">
 							<select
 								class="league-select"
-								aria-label={language.text('Velg liga for ligatabell', 'Vel liga for ligatabell', 'Choose league for league table')}
+								aria-label={language.text('Velg liga for ligatabell', 'Vel liga for ligatabell', 'Choose league for league table', 'Choisir une ligue pour le classement')}
 								value={activeLeague.id}
 								onchange={onLeagueSelect}
 							>
@@ -1387,7 +1395,7 @@
 							<ChevronDown size={15} />
 						</div>
 					{/if}
-					<a class="hdlink" href={leagueHref}>{language.text('Tabell', 'Tabell', 'Table')}</a>
+					<a class="hdlink" href={leagueHref}>{language.text('Tabell', 'Tabell', 'Table', 'Tableau')}</a>
 				</div>
 			</div>
 
@@ -1398,14 +1406,14 @@
 					<i>
 						{#if myRank === 1}
 							{tournamentFinished
-								? language.text('Du vant ligaen', 'Du vann ligaen', 'You won the league')
-								: language.text('Du leder ligaen', 'Du leiar ligaen', 'You lead the league')}
+								? language.text('Du vant ligaen', 'Du vann ligaen', 'You won the league', 'Vous avez remporté la ligue')
+								: language.text('Du leder ligaen', 'Du leiar ligaen', 'You lead the league', 'Vous êtes en tête de la ligue')}
 						{:else if personAbove && gapToAbove > 0}
-							{language.text(`${shortPoints(gapToAbove)} bak ${personAbove.name}`, `${shortPoints(gapToAbove)} bak ${personAbove.name}`, `${shortPoints(gapToAbove)} behind ${personAbove.name}`)}
+							{language.text(`${shortPoints(gapToAbove)} bak ${personAbove.name}`, `${shortPoints(gapToAbove)} bak ${personAbove.name}`, `${shortPoints(gapToAbove)} behind ${personAbove.name}`, `${shortPoints(gapToAbove)} derrière ${personAbove.name}`)}
 						{:else if personAbove}
-							{language.text(`Lik med ${personAbove.name}`, `Lik med ${personAbove.name}`, `Level with ${personAbove.name}`)}
+							{language.text(`Lik med ${personAbove.name}`, `Lik med ${personAbove.name}`, `Level with ${personAbove.name}`, `À égalité avec ${personAbove.name}`)}
 						{:else}
-							{language.text('Du er på tabellen', 'Du er på tabellen', 'You are on the table')}
+							{language.text('Du er på tabellen', 'Du er på tabellen', 'You are on the table', 'Vous êtes au classement')}
 						{/if}
 					</i>
 				</span>
@@ -1415,9 +1423,9 @@
 				<div class="league-gaps">
 				{#if personAbove}
 					<span>
-						<i>{language.text('Jakter', 'Jaktar', 'Chasing')}</i>
+						<i>{language.text('Jakter', 'Jaktar', 'Chasing', 'Poursuite')}</i>
 						<b>{personAbove.name}</b>
-						<em>{gapToAbove > 0 ? language.text(`${shortPoints(gapToAbove)} bak`, `${shortPoints(gapToAbove)} bak`, `${shortPoints(gapToAbove)} behind`) : language.text('likt', 'likt', 'level')}</em>
+						<em>{gapToAbove > 0 ? language.text(`${shortPoints(gapToAbove)} bak`, `${shortPoints(gapToAbove)} bak`, `${shortPoints(gapToAbove)} behind`, `${shortPoints(gapToAbove)} derrière`) : language.text('likt', 'likt', 'level', 'égalité')}</em>
 					</span>
 				{/if}
 				</div>
@@ -1430,7 +1438,7 @@
 						<span class="mini-name">
 							<Avatar name={row.name} src={row.avatarUrl} size={24} />
 							<b>{row.name}</b>
-							{#if row.userId === auth.user?.id}<i>{language.text('deg', 'deg', 'you')}</i>{/if}
+							{#if row.userId === auth.user?.id}<i>{language.text('deg', 'deg', 'you', 'vous')}</i>{/if}
 						</span>
 						<strong>{shortPoints(row.total)}</strong>
 					</a>
@@ -1442,13 +1450,13 @@
 	{#if !tournamentFinished && chatLoaded && (chatItems.length > 0 || chatError)}
 		<section class="card tile chat-preview-card home-span-support" class:has-unread={unreadChatItems.length > 0}>
 			<div class="hd">
-				<h3><MessageCircle size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--accent)" /> {language.text('Siste fra liga-chatten', 'Siste frå liga-chatten', 'Latest from league chat')}</h3>
-				<a class="hdlink" href="/leagues">{language.text('Ligaer', 'Ligaer', 'Leagues')}</a>
+				<h3><MessageCircle size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--accent)" /> {language.text('Siste fra liga-chatten', 'Siste frå liga-chatten', 'Latest from league chat', 'Derniers messages de la ligue')}</h3>
+				<a class="hdlink" href="/leagues">{language.text('Ligaer', 'Ligaer', 'Leagues', 'Ligues')}</a>
 			</div>
 
 			<div class="chat-preview-list">
 				{#if chatError}
-					<p class="muted chat-error">{language.text('Kunne ikke hente siste chat nå.', 'Kunne ikkje hente siste chat no.', 'Could not fetch the latest chat right now.')}</p>
+					<p class="muted chat-error">{language.text('Kunne ikke hente siste chat nå.', 'Kunne ikkje hente siste chat no.', 'Could not fetch the latest chat right now.', 'Impossible de récupérer les derniers messages.')}</p>
 				{/if}
 				{#each chatItems as item (item.leagueId)}
 					<a class="chat-preview" class:unread={item.unread > 0} href={`/leagues/${item.leagueId}#chat`}>
@@ -1460,15 +1468,15 @@
 							</span>
 							{#if item.message}
 								<span class="chat-text">
-									<strong>{item.message.userId === auth.user?.id ? language.text('Du', 'Du', 'You') : item.message.user.name}:</strong>
-									{item.message.deleted ? language.text('Melding slettet', 'Melding sletta', 'Message deleted') : chatPreview(item.message.text)}
+									<strong>{item.message.userId === auth.user?.id ? language.text('Du', 'Du', 'You', 'Vous') : item.message.user.name}:</strong>
+									{item.message.deleted ? language.text('Melding slettet', 'Melding sletta', 'Message deleted', 'Message supprimé') : chatPreview(item.message.text)}
 								</span>
 							{:else}
-								<span class="chat-text muted">{language.text('Ingen meldinger ennå', 'Ingen meldingar enno', 'No messages yet')}</span>
+								<span class="chat-text muted">{language.text('Ingen meldinger ennå', 'Ingen meldingar enno', 'No messages yet', 'Aucun message pour l\'instant')}</span>
 							{/if}
 						</span>
 						<span class="chat-jump">
-							{#if item.message}{chatTimeLabel(item.message.created)}{:else}{language.text('Åpne', 'Opne', 'Open')}{/if}
+							{#if item.message}{chatTimeLabel(item.message.created)}{:else}{language.text('Åpne', 'Opne', 'Open', 'Ouvrir')}{/if}
 							<ArrowUpRight size={14} />
 						</span>
 					</a>
@@ -1493,7 +1501,7 @@
 								<i>{pick.place}</i>
 								<b>
 									<Flag iso2={pickedTeam?.iso2 ?? ''} code={pickedTeam?.fifaCode ?? ''} size={15} />
-									{teamDisplayName(pickedTeam, language.text('Ukjent', 'Ukjent', 'Unknown'))}
+									{teamDisplayName(pickedTeam, language.text('Ukjent', 'Ukjent', 'Unknown', 'Inconnu'))}
 								</b>
 							</span>
 						{/if}
@@ -1520,7 +1528,7 @@
 								<i>{pick.label}</i>
 								<b>
 									<Flag iso2={pickedTeam?.iso2 ?? ''} code={pickedTeam?.fifaCode ?? ''} size={16} />
-									{teamDisplayName(pickedTeam, language.text('Ukjent', 'Ukjent', 'Unknown'))}
+									{teamDisplayName(pickedTeam, language.text('Ukjent', 'Ukjent', 'Unknown', 'Inconnu'))}
 								</b>
 							</span>
 						</div>
@@ -1533,7 +1541,7 @@
 	{#if nextMatchesPreview.length > 0}
 		<section class="card tile next-card home-span-primary">
 			<div class="hd">
-				<h3><Clock size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--accent)" /> {language.text('Kommende kamper', 'Komande kampar', 'Upcoming matches')}</h3>
+				<h3><Clock size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--accent)" /> {language.text('Kommende kamper', 'Komande kampar', 'Upcoming matches', 'Matchs à venir')}</h3>
 			</div>
 
 			<div class="ready-list">
@@ -1544,9 +1552,9 @@
 							<span class="spacer"></span>
 							{#if match.tvChannel}<TvLogo channel={match.tvChannel} compact />{/if}
 							{#if tipsStore.tips[match.id]}
-								<i class="ready-state ok">{language.text('Levert', 'Tipset', 'Submitted')}</i>
+								<i class="ready-state ok">{language.text('Levert', 'Tipset', 'Submitted', 'Soumis')}</i>
 							{:else if teamsResolved(match) && !isLocked(match)}
-								<i class="ready-state warn">{language.text('Mangler', 'Manglar', 'Missing')}</i>
+								<i class="ready-state warn">{language.text('Mangler', 'Manglar', 'Missing', 'Manquant')}</i>
 							{/if}
 						</span>
 						<span class="ready-stage">{stageLabel(match)}</span>
@@ -1557,7 +1565,7 @@
 								{/if}
 								<b>{teamLabel(match, 'h')}</b>
 							</span>
-							<span class="ready-vs">{language.text('mot', 'mot', 'vs')}</span>
+							<span class="ready-vs">{language.text('mot', 'mot', 'vs', 'contre')}</span>
 							<span class="ready-team away">
 								<b>{teamLabel(match, 'a')}</b>
 								{#if team(match.awayTeam)}
@@ -1578,14 +1586,14 @@
 				<h3>
 					{#if tournamentFinished}
 						<Trophy size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--gold)" />
-						{language.text('Sluttresultat', 'Sluttresultat', 'Final standings')}
+						{language.text('Sluttresultat', 'Sluttresultat', 'Final standings', 'Classement final')}
 					{:else}
 						<ListChecks size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--accent)" />
-						{language.text('Siste resultat', 'Siste resultat', 'Latest results')}
+						{language.text('Siste resultat', 'Siste resultat', 'Latest results', 'Derniers résultats')}
 					{/if}
 				</h3>
 				{#if tournamentFinished && finalLeaguePlacements.length > 0}
-					<a class="hdlink" href="/leagues">{language.text('Alle ligaer', 'Alle ligaer', 'All leagues')}</a>
+					<a class="hdlink" href="/leagues">{language.text('Alle ligaer', 'Alle ligaer', 'All leagues', 'Toutes les ligues')}</a>
 				{/if}
 			</div>
 			{#if tournamentFinished && finalLeaguePlacements.length > 0}
@@ -1634,12 +1642,12 @@
 							</span>
 							<span class="yp">
 								{#if t}
-									<i class="muted">{language.text('Ditt', 'Ditt', 'Yours')}: {t.ftHome}–{t.ftAway}</i>
+									<i class="muted">{language.text('Ditt', 'Ditt', 'Yours', 'Le vôtre')}: {t.ftHome}–{t.ftAway}</i>
 									<b class:plus={pts > 0} class:zero={pts === 0}
 										>{pointText(pts)}</b
 									>
 								{:else}
-									<i class="muted">{language.text('Ikke tippet', 'Ikkje tipset', 'Not tipped')}</i>
+									<i class="muted">{language.text('Ikke tippet', 'Ikkje tipset', 'Not tipped', 'Non pronostiqué')}</i>
 								{/if}
 							</span>
 						</li>
@@ -1654,13 +1662,13 @@
 			<div class="hd">
 				<h3>
 					<Volleyball size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--gold)" />
-					{language.text('Toppscorer og min spiller', 'Toppscorar og min spelar', 'Top scorer and your player')}
+					{language.text('Toppscorer og min spiller', 'Toppscorar og min spelar', 'Top scorer and your player', 'Meilleur buteur et votre joueur')}
 				</h3>
 			</div>
 
 			{#if goldenBootLeaders.length > 0}
 				<div class="golden-boot-section">
-					<p class="golden-boot-section-title">{language.text('Toppscorertabell', 'Toppscorartabell', 'Top scorer table')}</p>
+					<p class="golden-boot-section-title">{language.text('Toppscorertabell', 'Toppscorartabell', 'Top scorer table', 'Tableau des meilleurs buteurs')}</p>
 					<div class="golden-boot-list">
 						{#each goldenBootLeaders as player (player.id)}
 							{@const playerTeam = player.teamId ? teamAny(player.teamId) : null}
@@ -1679,13 +1687,13 @@
 											{/if}
 											{player.name}
 											{#if player.id === myGoldenBootPlayerId}
-												<span class="golden-boot-tag">{language.text('(mitt valg)', '(mitt val)', '(my pick)')}</span>
+												<span class="golden-boot-tag">{language.text('(mitt valg)', '(mitt val)', '(my pick)', '(mon choix)')}</span>
 											{/if}
 										</b>
 										<i>{player.teamName}</i>
 									</span>
 								</span>
-								<strong class="golden-boot-goals">{player.goals} {language.text('mål', 'mål', 'goals')}</strong>
+								<strong class="golden-boot-goals">{player.goals} {language.text('mål', 'mål', 'goals', 'buts')}</strong>
 							</div>
 						{/each}
 					</div>
@@ -1695,7 +1703,7 @@
 			{#if myGoldenBootPick && !myGoldenBootPickInLeaders}
 				{@const pickedTeam = myGoldenBootPick.teamId ? teamAny(myGoldenBootPick.teamId) : null}
 				<div class="golden-boot-section golden-boot-pick">
-					<p class="golden-boot-section-title">{language.text('Min spiller', 'Min spelar', 'My player')}</p>
+					<p class="golden-boot-section-title">{language.text('Min spiller', 'Min spelar', 'My player', 'Mon joueur')}</p>
 					<div class="golden-boot-row" class:leader={myGoldenBootPickIsWinner}>
 						<span class="golden-boot-rank">
 							{#if myGoldenBootPick.rank > 0}
@@ -1719,16 +1727,16 @@
 								</b>
 								<i>
 									{#if myGoldenBootPickIsWinner}
-										{language.text('Du valgte vinneren', 'Du valde vinnaren', 'You picked the winner')}
+										{language.text('Du valgte vinneren', 'Du valde vinnaren', 'You picked the winner', 'Vous avez sélectionné le vainqueur')}
 									{:else if myGoldenBootPick.rank > 0}
-										{language.text(`Endte på #${myGoldenBootPick.rank}`, `Enda på #${myGoldenBootPick.rank}`, `Finished #${myGoldenBootPick.rank}`)}
+										{language.text(`Endte på #${myGoldenBootPick.rank}`, `Enda på #${myGoldenBootPick.rank}`, `Finished #${myGoldenBootPick.rank}`, `Terminé #${myGoldenBootPick.rank}`)}
 									{:else}
-										{language.text('Ingen plassering i sluttabellen', 'Ingen plassering i sluttabellen', 'No placing in the final table')}
+										{language.text('Ingen plassering i sluttabellen', 'Ingen plassering i sluttabellen', 'No placing in the final table', 'Pas de classement dans le tableau final')}
 									{/if}
 								</i>
 							</span>
 						</span>
-						<strong class="golden-boot-goals">{myGoldenBootPick.goals} {language.text('mål', 'mål', 'goals')}</strong>
+						<strong class="golden-boot-goals">{myGoldenBootPick.goals} {language.text('mål', 'mål', 'goals', 'buts')}</strong>
 					</div>
 				</div>
 			{/if}
@@ -1739,7 +1747,7 @@
 		<!-- Legg til ekte turnerings-pallkort -->
 		<section class="card champ tile podium-card home-span-support">
 			<div class="hd">
-				<h3><Crown size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--gold)" /> {language.text('Verdensmester', 'Verdsmeister', 'World champion')}</h3>
+				<h3><Crown size={15} style="margin-right:0.35rem;vertical-align:-2px;color:var(--gold)" /> {language.text('Verdensmester', 'Verdsmeister', 'World champion', 'Champion du monde')}</h3>
 			</div>
 			<div class="podium-list">
 				{#each realPodiumParams as pick (pick.place)}
@@ -1755,7 +1763,7 @@
 								<i>{pick.label}</i>
 								<b>
 									<Flag iso2={pickedTeam?.iso2 ?? ''} code={pickedTeam?.fifaCode ?? ''} size={16} />
-									{teamDisplayName(pickedTeam, language.text('Ukjent', 'Ukjent', 'Unknown'))}
+									{teamDisplayName(pickedTeam, language.text('Ukjent', 'Ukjent', 'Unknown', 'Inconnu'))}
 								</b>
 							</span>
 						</div>

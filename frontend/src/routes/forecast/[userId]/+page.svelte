@@ -13,7 +13,7 @@
 	let err = $state('');
 	$effect(() => {
 		const uid = $page.params.userId;
-		if (uid) fs.loadView(uid).catch((e) => (err = e?.message ?? language.text('Ikke tilgang', 'Ikkje tilgang', 'Not allowed')));
+		if (uid) fs.loadView(uid).catch((e) => (err = e?.message ?? language.text('Ikke tilgang', 'Ikkje tilgang', 'Not allowed', 'Accès non autorisé')));
 	});
 
 	const ord = (n: number) =>
@@ -59,7 +59,7 @@
 			.join('');
 	}
 	function updatedAt(iso?: string) {
-		if (!iso) return language.text('Ikke synket ennå', 'Ikkje synka enno', 'Not synced yet');
+		if (!iso) return language.text('Ikke synket ennå', 'Ikkje synka enno', 'Not synced yet', 'Pas encore synchronisé');
 		const date = new Date(iso);
 		if (!Number.isFinite(date.getTime())) return '';
 		return new Intl.DateTimeFormat(language.locale, {
@@ -72,23 +72,23 @@
 </script>
 
 <button class="muted back" type="button" onclick={() => history.back()}>
-	<ArrowLeft size={15} /> {language.text('Tilbake', 'Tilbake', 'Back')}
+	<ArrowLeft size={15} /> {language.text('Tilbake', 'Tilbake', 'Back', 'Retour')}
 </button>
 
 <div class="stickyhead" use:collapseOnScroll>
-	<p class="kicker">{language.text('VM-tips', 'VM-tips', 'World Cup tips')}</p>
+	<p class="kicker">{language.text('VM-tips', 'VM-tips', 'World Cup tips', 'Pronostics Coupe du Monde')}</p>
 	<div class="sh-expand">
 		<div class="sh-inner">
 			<h1>{fs.viewName || '…'}</h1>
-			<p class="muted desc">{language.text('Skrivebeskyttet - VM-tipset til en venn.', 'Skriveverna - VM-tipset til ein ven.', "Read-only - a friend's World Cup tips.")}</p>
+			<p class="muted desc">{language.text('Skrivebeskyttet - VM-tipset til en venn.', 'Skriveverna - VM-tipset til ein ven.', "Read-only - a friend's World Cup tips.", 'Lecture seule - pronostics d\'un ami.')}</p>
 		</div>
 	</div>
 	{#if fs.loaded}
 		<div class="seg">
-			<button class:on={section === 'groups'} onclick={() => (section = 'groups')}>{language.text('Grupper', 'Grupper', 'Groups')}</button>
-			<button class:on={section === 'thirds'} onclick={() => (section = 'thirds')}>{language.text('Beste treere', 'Beste trearar', 'Best thirds')}</button>
-			<button class:on={section === 'bracket'} onclick={() => (section = 'bracket')}>{language.text('Sluttspill', 'Sluttspel', 'Knockout')}</button>
-			<button class:on={section === 'goldenboot'} onclick={() => (section = 'goldenboot')}>{language.text('Toppscorer', 'Toppscorar', 'Golden Boot')}</button>
+			<button class:on={section === 'groups'} onclick={() => (section = 'groups')}>{language.text('Grupper', 'Grupper', 'Groups', 'Groupes')}</button>
+			<button class:on={section === 'thirds'} onclick={() => (section = 'thirds')}>{language.text('Beste treere', 'Beste trearar', 'Best thirds', 'Meilleurs troisièmes')}</button>
+			<button class:on={section === 'bracket'} onclick={() => (section = 'bracket')}>{language.text('Sluttspill', 'Sluttspel', 'Knockout', 'Phase éliminatoire')}</button>
+			<button class:on={section === 'goldenboot'} onclick={() => (section = 'goldenboot')}>{language.text('Toppscorer', 'Toppscorar', 'Golden Boot', 'Soulier d\'or')}</button>
 		</div>
 	{/if}
 </div>
@@ -96,11 +96,11 @@
 {#if err}
 	<p class="error">{err}</p>
 {:else if !fs.loaded}
-	<p class="muted">{language.text('Laster...', 'Lastar…', 'Loading…')}</p>
+	<p class="muted">{language.text('Laster...', 'Lastar…', 'Loading…', 'Chargement…')}</p>
 {:else if section === 'groups'}
 	{#each fs.groups as g (g.letter)}
 		<section class="card grp">
-			<h3>{language.text('Gruppe', 'Gruppe', 'Group')} {g.letter}</h3>
+			<h3>{language.text('Gruppe', 'Gruppe', 'Group', 'Groupe')} {g.letter}</h3>
 			{#each fs.groupOrder[g.letter] as id, i (id)}
 				{@const ao = fs.actualOrder(g.letter)}
 				{@const apos = ao ? ao.indexOf(id) + 1 : 0}
@@ -125,10 +125,10 @@
 					<span class="nm">{tname(id)}</span>
 					<span class="tag">
 						{#if state === 'ok'}<span class="ind ok"><Check size={15} /></span>
-						{:else if state === 'half'}<span class="apos half">{language.text('faktisk', 'faktisk', 'actual')} {ord(apos)}</span><span class="ind half"><CircleCheck size={15} /></span>
-						{:else if state === 'miss'}<span class="apos">{language.text('faktisk', 'faktisk', 'actual')} {ord(apos)}</span><span class="ind no"><X size={15} /></span>
-						{:else if i < 2}<span class="pill ok">{language.text('går videre', 'går vidare', 'advances')}</span>
-						{:else if i === 2}<span class="pill">{language.text('3.', '3.', '3rd')}</span>{/if}
+						{:else if state === 'half'}<span class="apos half">{language.text('faktisk', 'faktisk', 'actual', 'réel')} {ord(apos)}</span><span class="ind half"><CircleCheck size={15} /></span>
+						{:else if state === 'miss'}<span class="apos">{language.text('faktisk', 'faktisk', 'actual', 'réel')} {ord(apos)}</span><span class="ind no"><X size={15} /></span>
+						{:else if i < 2}<span class="pill ok">{language.text('går videre', 'går vidare', 'advances', 'qualifié')}</span>
+						{:else if i === 2}<span class="pill">{language.text('3.', '3.', '3rd', '3e')}</span>{/if}
 					</span>
 				</div>
 			{/each}
@@ -152,15 +152,15 @@
 			{/if}
 		{/each}
 		{#if Object.keys(fs.thirds).length === 0}
-			<p class="muted small">{language.text('Ingen beste treere er valgt.', 'Ingen beste-trearar er valde.', 'No best-third picks.')}</p>
+			<p class="muted small">{language.text('Ingen beste treere er valgt.', 'Ingen beste-trearar er valde.', 'No best-third picks.', 'Aucun troisième choisi.')}</p>
 		{/if}
 	</section>
 {:else if section === 'goldenboot'}
 	<div class="gb-head">
 		<p class="muted small">
-			{language.text('Toppscorertips og toppscorerliste.', 'Toppscorartips og toppscorarliste.', 'Golden Boot pick and current top-scorer table.')}
+			{language.text('Toppscorertips og toppscorerliste.', 'Toppscorartips og toppscorarliste.', 'Golden Boot pick and current top-scorer table.', 'Choix Soulier d\'or et classement des buteurs.')}
 		</p>
-		<span class="cnt">{language.text('Oppdatert', 'Oppdatert', 'Updated')} {updatedAt(fs.goldenBoot.updatedAt)}</span>
+		<span class="cnt">{language.text('Oppdatert', 'Oppdatert', 'Updated', 'Mis à jour')} {updatedAt(fs.goldenBoot.updatedAt)}</span>
 	</div>
 
 	{#if goldenBootPick}
@@ -170,24 +170,24 @@
 				{#if goldenBootPick.photoUrl}<img class="headshot" src={goldenBootPick.photoUrl} alt="" loading="lazy" />{:else}<span class="headshot fallback">{initials(goldenBootPick.name)}</span>{/if}
 			</span>
 			<span class="gb-main">
-				<i>{language.text('Toppscorertips', 'Toppscorartips', 'Golden Boot pick')}</i>
+				<i>{language.text('Toppscorertips', 'Toppscorartips', 'Golden Boot pick', 'Choix Soulier d\'or')}</i>
 				<b>{goldenBootPick.name}</b>
 			</span>
 			<Flag iso2={fs.team(goldenBootPick.teamId)?.iso2 ?? ''} code={fs.team(goldenBootPick.teamId)?.fifaCode ?? ''} />
 		</section>
 	{:else}
-		<section class="card gb-pick empty"><p class="muted small">{language.text('Ingen toppscorertips.', 'Ingen toppscorartips.', 'No Golden Boot pick.')}</p></section>
+		<section class="card gb-pick empty"><p class="muted small">{language.text('Ingen toppscorertips.', 'Ingen toppscorartips.', 'No Golden Boot pick.', 'Aucun choix Soulier d\'or.')}</p></section>
 	{/if}
 
 	<section class="card gb-live">
-		<h3>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers')}</h3>
+		<h3>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers', 'Meilleurs buteurs')}</h3>
 		<table class="gb-table">
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>{language.text('Spiller', 'Spelar', 'Player')}</th>
-					<th>{language.text('Lag', 'Lag', 'Team')}</th>
-					<th class="num">{language.text('Mål', 'Mål', 'Goals')}</th>
+					<th>{language.text('Spiller', 'Spelar', 'Player', 'Joueur')}</th>
+					<th>{language.text('Lag', 'Lag', 'Team', 'Équipe')}</th>
+					<th class="num">{language.text('Mål', 'Mål', 'Goals', 'Buts')}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -206,7 +206,7 @@
 	{#if champion}
 		<div class="card champ">
 			<Trophy size={20} />
-			<span class="lbl">{language.text('Tippet mester', 'Tippa meister', 'Predicted champion')}</span>
+			<span class="lbl">{language.text('Tippet mester', 'Tippa meister', 'Predicted champion', 'Champion prédit')}</span>
 			<Flag iso2={fs.team(champion)?.iso2 ?? ''} code={fs.team(champion)?.fifaCode ?? ''} size={26} />
 			<b>{tname(champion)}</b>
 		</div>

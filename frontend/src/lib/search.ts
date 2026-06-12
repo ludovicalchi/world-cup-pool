@@ -44,7 +44,7 @@ export function normalizeSearchText(value: string): string {
 }
 
 function teamName(teams: Record<string, Team>, id: string, fallback: string): string {
-	return teamDisplayName(teams[id], fallback || runtimeText('Ukjent lag', 'Ukjent lag', 'Unknown team'));
+	return teamDisplayName(teams[id], fallback || runtimeText('Ukjent lag', 'Ukjent lag', 'Unknown team', 'Équipe inconnue'));
 }
 
 function teamSearchKeywords(teams: Record<string, Team>, id: string, fallback: string): string[] {
@@ -57,7 +57,7 @@ function teamSearchKeywords(teams: Record<string, Team>, id: string, fallback: s
 
 function matchStageLabel(match: Match): string {
 	if (match.stage === 'group') {
-		return `${runtimeText('Gruppe', 'Gruppe', 'Group')} ${match.groupLetter} · ${match.roundLabel}`;
+		return `${runtimeText('Gruppe', 'Gruppe', 'Group', 'Groupe')} ${match.groupLetter} · ${match.roundLabel}`;
 	}
 	return match.roundLabel || match.stage;
 }
@@ -106,11 +106,12 @@ function buildGroupResults(matches: Match[], teams: Record<string, Team>): Searc
 				.filter(Boolean)
 				.sort(localeSort);
 			const teamSummary = teamsInGroup.slice(0, 4).join(', ');
-			const label = runtimeText('Gruppe', 'Gruppe', 'Group');
+			const label = runtimeText('Gruppe', 'Gruppe', 'Group', 'Groupe');
 			const matchLabel = runtimeText(
 				group.matches.length === 1 ? 'kamp' : 'kamper',
 				group.matches.length === 1 ? 'kamp' : 'kampar',
-				group.matches.length === 1 ? 'match' : 'matches'
+				group.matches.length === 1 ? 'match' : 'matches',
+				group.matches.length === 1 ? 'match' : 'matchs'
 			);
 			return {
 				id: letter,
@@ -151,8 +152,8 @@ export function buildSearchIndex({ matches, teams, leagues }: SearchSources): Se
 				group: 'teams',
 				title: teamDisplayName(team),
 				subtitle: team.fifaCode
-					? `${runtimeText('Lag', 'Lag', 'Team')} · ${team.fifaCode}`
-					: runtimeText('Lag', 'Lag', 'Team'),
+					? `${runtimeText('Lag', 'Lag', 'Team', 'Équipe')} · ${team.fifaCode}`
+					: runtimeText('Lag', 'Lag', 'Team', 'Équipe'),
 				href: `/tips?team=${encodeURIComponent(team.id)}`,
 				keywords: [team.name, team.fifaCode, team.iso2].filter(Boolean).join(' ')
 			})),
@@ -165,14 +166,15 @@ export function buildSearchIndex({ matches, teams, leagues }: SearchSources): Se
 				runtimeText(
 					league.members === 1 ? 'medlem' : 'medlemmer',
 					league.members === 1 ? 'medlem' : 'medlemer',
-					league.members === 1 ? 'member' : 'members'
+					league.members === 1 ? 'member' : 'members',
+					league.members === 1 ? 'membre' : 'membres'
 				)
 			} · ${
 				league.inviteCode === 'GLOBAL'
 					? 'Global'
 					: league.role === 'owner'
-						? runtimeText('Eier', 'Eigar', 'Owner')
-						: runtimeText('Medlem', 'Medlem', 'Member')
+						? runtimeText('Eier', 'Eigar', 'Owner', 'Propriétaire')
+						: runtimeText('Medlem', 'Medlem', 'Member', 'Membre')
 			}`,
 			href: `/leagues/${encodeURIComponent(league.id)}`,
 			keywords: [league.name, league.inviteCode, league.role].filter(Boolean).join(' ')

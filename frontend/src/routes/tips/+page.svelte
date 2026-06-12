@@ -148,7 +148,7 @@
 				.sort()
 				.map((letter) => ({
 					id: `section-group-${letter}`,
-					label: `${language.text('Gruppe', 'Gruppe', 'Group')} ${letter}`,
+					label: `${language.text('Gruppe', 'Gruppe', 'Group', 'Groupe')} ${letter}`,
 					matches: byGroup[letter].sort(byKickoff)
 				}));
 		}
@@ -259,15 +259,16 @@
 </script>
 
 <div class="stickyhead" use:collapseOnScroll>
-	<p class="kicker">{language.text('Kamptips', 'Kamptips', 'Match tips')}</p>
+	<p class="kicker">{language.text('Kamptips', 'Kamptips', 'Match tips', 'Pronostics de match')}</p>
 	<div class="sh-expand">
 		<div class="sh-inner">
-			<h1>{language.text('Kamptips', 'Kamptips', 'Match tips')}</h1>
+			<h1>{language.text('Kamptips', 'Kamptips', 'Match tips', 'Pronostics de match')}</h1>
 			<p class="muted desc">
 				{language.text(
 					'Tipp resultatet for hver kamp. Du kan endre fram til avspark.',
 					'Tipp resultatet for kvar kamp. Du kan endre fram til avspark.',
-					'Pick the result for every match. You can change it until kickoff.'
+					'Pick the result for every match. You can change it until kickoff.',
+					'Choisissez le résultat de chaque match. Vous pouvez le modifier jusqu\'au coup d\'envoi.'
 				)}
 			</p>
 			{#if tipsStore.loaded}
@@ -276,10 +277,11 @@
 						{language.text(
 							`${missingOpenMatches.length} ${missingOpenMatches.length === 1 ? 'åpen kamp' : 'åpne kamper'} mangler · neste frist ${deadlineLabel(nextMissingMatch.kickoff)}`,
 							`${missingOpenMatches.length} ${missingOpenMatches.length === 1 ? 'open kamp' : 'opne kampar'} manglar · neste frist ${deadlineLabel(nextMissingMatch.kickoff)}`,
-							`${missingOpenMatches.length} open match${missingOpenMatches.length === 1 ? '' : 'es'} missing · next deadline ${deadlineLabel(nextMissingMatch.kickoff)}`
+							`${missingOpenMatches.length} open match${missingOpenMatches.length === 1 ? '' : 'es'} missing · next deadline ${deadlineLabel(nextMissingMatch.kickoff)}`,
+							`${missingOpenMatches.length} match${missingOpenMatches.length === 1 ? '' : 's'} manquant · prochaine échéance ${deadlineLabel(nextMissingMatch.kickoff)}`
 						)}
 					{:else}
-						{language.text('Alle åpne kamper er tippet.', 'Alle opne kampar er tippa.', 'All open matches are tipped.')}
+						{language.text('Alle åpne kamper er tippet.', 'Alle opne kampar er tippa.', 'All open matches are tipped.', 'Tous les matchs ouverts ont été pronostiqués.')}
 					{/if}
 				</p>
 			{/if}
@@ -287,20 +289,20 @@
 	</div>
 	<div class="tabs">
 		<button class:active={tab === 'missing'} onclick={() => selectTab('missing')}
-			>{language.text('Mangler', 'Manglar', 'Missing')}</button
+			>{language.text('Mangler', 'Manglar', 'Missing', 'Manquants')}</button
 		>
-		<button class:active={tab === 'all'} onclick={() => selectTab('all')}>{language.text('Alle', 'Alle', 'All')}</button>
+		<button class:active={tab === 'all'} onclick={() => selectTab('all')}>{language.text('Alle', 'Alle', 'All', 'Tous')}</button>
 		<button class:active={tab === 'group'} onclick={() => selectTab('group')}
-			>{language.text('Grupper', 'Grupper', 'Groups')}</button
+			>{language.text('Grupper', 'Grupper', 'Groups', 'Groupes')}</button
 		>
 		<button class:active={tab === 'ko'} onclick={() => selectTab('ko')}
-			>{language.text('Sluttspill', 'Sluttspel', 'Knockout')}</button
+			>{language.text('Sluttspill', 'Sluttspel', 'Knockout', 'Éliminatoires')}</button
 		>
 	</div>
 </div>
 
 {#if !tipsStore.loaded}
-		<p class="muted">{language.text('Laster kamper...', 'Lastar kampar…', 'Loading matches…')}</p>
+		<p class="muted">{language.text('Laster kamper...', 'Lastar kampar…', 'Loading matches…', 'Chargement des matchs…')}</p>
 {:else if filtered.length === 0}
 	<div class="card empty" style="text-align: center; padding: 2.5rem 1rem;">
 		<span style="display:block; margin-bottom:1rem; opacity:0.8; color:var(--muted);">
@@ -316,18 +318,18 @@
 		</span>
 		<h3>
 			{tab === 'missing'
-				? language.text('Ingen kamptips mangler', 'Ingen kamptips manglar', 'No missing match tips')
-				: language.text('Ingenting her.', 'Ingenting her.', 'Nothing here.')}
+				? language.text('Ingen kamptips mangler', 'Ingen kamptips manglar', 'No missing match tips', 'Aucun pronostic de match manquant')
+				: language.text('Ingenting her.', 'Ingenting her.', 'Nothing here.', 'Rien ici.')}
 		</h3>
 		<p class="muted">
 			{tab === 'missing'
-				? language.text('Alle åpne kamper som kan tippes nå, er fylt inn.', 'Alle opne kampar som kan tippast no, er fylt inn.', 'All open matches that can be tipped right now are filled in.')
-				: language.text('Prøv en annen fane.', 'Prøv ei anna fane.', 'Try another tab.')}
+				? language.text('Alle åpne kamper som kan tippes nå, er fylt inn.', 'Alle opne kampar som kan tippast no, er fylt inn.', 'All open matches that can be tipped right now are filled in.', 'Tous les matchs ouverts pouvant être pronostiqués maintenant sont remplis.')
+				: language.text('Prøv en annen fane.', 'Prøv ei anna fane.', 'Try another tab.', 'Essayez un autre onglet.')}
 		</p>
 		{#if tab === 'missing'}
 			<div class="empty-actions">
 				<button class="empty-link" onclick={() => selectTab('all')}>
-					{language.text('Se alle kampene', 'Sjå alle kampane', 'View all matches')}
+					{language.text('Se alle kampene', 'Sjå alle kampane', 'View all matches', 'Voir tous les matchs')}
 				</button>
 			</div>
 		{/if}
@@ -342,14 +344,14 @@
 				<div
 					class="now-divider-wrap"
 					role="separator"
-					aria-label={language.text('Her er vi nå', 'Her er vi no', 'Where the tournament is now')}
+					aria-label={language.text('Her er vi nå', 'Her er vi no', 'Where the tournament is now', 'Où en est le tournoi')}
 				>
 					<div class="now-divider">
 						<span class="line"></span>
-						<span class="badge"><LocateFixed size={14} /> {language.text('Her er vi nå', 'Her er vi no', 'Where we are now')}</span>
+						<span class="badge"><LocateFixed size={14} /> {language.text('Her er vi nå', 'Her er vi no', 'Where we are now', 'Où nous en sommes')}</span>
 						<span class="line"></span>
 					</div>
-					<p class="now-hint">{language.text('Kommende kamper under', 'Komande kampar under', 'Upcoming matches below')}</p>
+					<p class="now-hint">{language.text('Kommende kamper under', 'Komande kampar under', 'Upcoming matches below', 'Prochains matchs ci-dessous')}</p>
 				</div>
 			{/if}
 			<div
@@ -369,8 +371,8 @@
 {/if}
 
 {#if tipsStore.loaded && nowId}
-	<button class="fab" onclick={goNow} aria-label={language.text('Rull til neste kamp', 'Rull til neste kamp', 'Scroll to next match')}>
-		<LocateFixed size={18} /> {language.text('Nå', 'No', 'Now')}
+	<button class="fab" onclick={goNow} aria-label={language.text('Rull til neste kamp', 'Rull til neste kamp', 'Scroll to next match', 'Aller au prochain match')}>
+		<LocateFixed size={18} /> {language.text('Nå', 'No', 'Now', 'Maintenant')}
 	</button>
 {/if}
 

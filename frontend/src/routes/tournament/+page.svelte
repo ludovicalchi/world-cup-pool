@@ -133,8 +133,8 @@
 	function scoreText(m: Match) {
 		if (!played(m)) return '';
 		let s = `${m.ftHome}–${m.ftAway}`;
-		if (m.etHome || m.etAway) s = `${m.etHome}–${m.etAway} ${language.text('e.e.o.', 'e.eo.', 'aet')}`;
-		if (m.penHome || m.penAway) s += ` (${m.penHome}–${m.penAway} ${language.text('str', 'str', 'pens')})`;
+		if (m.etHome || m.etAway) s = `${m.etHome}–${m.etAway} ${language.text('e.e.o.', 'e.eo.', 'aet', 'a.p.')}`;
+		if (m.penHome || m.penAway) s += ` (${m.penHome}–${m.penAway} ${language.text('str', 'str', 'pens', 't.a.b.')})`;
 		return s;
 	}
 
@@ -148,7 +148,7 @@
 	}
 
 	function updatedAt(iso?: string) {
-		if (!iso) return language.text('Ikke synket ennå', 'Ikkje synka enno', 'Not synced yet');
+		if (!iso) return language.text('Ikke synket ennå', 'Ikkje synka enno', 'Not synced yet', 'Pas encore synchronisé');
 		const date = new Date(iso);
 		if (!Number.isFinite(date.getTime())) return '';
 		return new Intl.DateTimeFormat(language.locale, {
@@ -162,16 +162,16 @@
 
 <div class="stickyhead" use:collapseOnScroll>
 	<p class="kicker">VM 2026</p>
-	<div class="sh-expand"><div class="sh-inner"><h1>{language.text('Turnering', 'Turnering', 'Tournament')}</h1></div></div>
+	<div class="sh-expand"><div class="sh-inner"><h1>{language.text('Turnering', 'Turnering', 'Tournament', 'Tournoi')}</h1></div></div>
 	<div class="seg">
-		<button class:on={view === 'groups'} onclick={() => (view = 'groups')}>{language.text('Gruppetabeller', 'Gruppetabellar', 'Group tables')}</button>
-		<button class:on={view === 'bracket'} onclick={() => (view = 'bracket')}>{language.text('Sluttspill', 'Sluttspel', 'Knockout bracket')}</button>
-		<button class:on={view === 'topscorer'} onclick={() => (view = 'topscorer')}>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers')}</button>
+		<button class:on={view === 'groups'} onclick={() => (view = 'groups')}>{language.text('Gruppetabeller', 'Gruppetabellar', 'Group tables', 'Tableaux de groupes')}</button>
+		<button class:on={view === 'bracket'} onclick={() => (view = 'bracket')}>{language.text('Sluttspill', 'Sluttspel', 'Knockout bracket', 'Phase éliminatoire')}</button>
+		<button class:on={view === 'topscorer'} onclick={() => (view = 'topscorer')}>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers', 'Meilleurs buteurs')}</button>
 	</div>
 </div>
 
 {#if !tipsStore.loaded}
-	<p class="muted">{language.text('Laster...', 'Lastar…', 'Loading…')}</p>
+	<p class="muted">{language.text('Laster...', 'Lastar…', 'Loading…', 'Chargement…')}</p>
 {:else if view === 'groups'}
 	{#if groups.length === 0}
 		<div class="card empty">
@@ -179,7 +179,8 @@
 				{language.text(
 					'Ingen gruppespillkamper er spilt ennå. Tabellene fylles når resultatene kommer.',
 					'Ingen gruppespelkampar er spelte enno. Tabellane blir fylte når resultata kjem.',
-					'No group-stage matches have been played yet. The tables will fill as results come in.'
+					'No group-stage matches have been played yet. The tables will fill as results come in.',
+					'Aucun match de groupe n\'a encore été joué. Les tableaux se rempliront au fur et à mesure des résultats.'
 				)}
 			</p>
 		</div>
@@ -187,10 +188,10 @@
 		<div class="gwrap stagger">
 			{#each groups as g (g.letter)}
 				<section class="card grp">
-					<div class="ghead"><span class="gl">{g.letter}</span> {language.text('Gruppe', 'Gruppe', 'Group')} {g.letter}</div>
+					<div class="ghead"><span class="gl">{g.letter}</span> {language.text('Gruppe', 'Gruppe', 'Group', 'Groupe')} {g.letter}</div>
 					<table>
 						<thead>
-							<tr><th></th><th>{language.text('Lag', 'Lag', 'Team')}</th><th>{language.text('K', 'K', 'P')}</th><th>{language.text('MF', 'MF', 'GD')}</th><th>{language.text('P', 'P', 'Pts')}</th></tr>
+							<tr><th></th><th>{language.text('Lag', 'Lag', 'Team', 'Équipe')}</th><th>{language.text('K', 'K', 'P', 'J')}</th><th>{language.text('MF', 'MF', 'GD', 'GD')}</th><th>{language.text('P', 'P', 'Pts', 'Pts')}</th></tr>
 						</thead>
 						<tbody>
 							{#each g.rows as r, i (r.id)}
@@ -242,25 +243,25 @@
 {:else if view === 'topscorer'}
 	<section class="card gb-live">
 		<div class="gb-live-head">
-			<p class="muted small">{language.text('Den offisielle toppscorertabellen.', 'Den offisielle toppscorartabellen.', 'The official Golden Boot standings.')}</p>
+			<p class="muted small">{language.text('Den offisielle toppscorertabellen.', 'Den offisielle toppscorartabellen.', 'The official Golden Boot standings.', 'Le classement officiel du Soulier d\'or.')}</p>
 			{#if fs.goldenBoot.updatedAt}
-				<p class="muted small gb-updated">{language.text('Oppdatert', 'Oppdatert', 'Updated')} {updatedAt(fs.goldenBoot.updatedAt)}</p>
+				<p class="muted small gb-updated">{language.text('Oppdatert', 'Oppdatert', 'Updated', 'Mis à jour')} {updatedAt(fs.goldenBoot.updatedAt)}</p>
 			{/if}
 		</div>
 		<table class="gb-table">
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>{language.text('Spiller', 'Spelar', 'Player')}</th>
-					<th>{language.text('Lag', 'Lag', 'Team')}</th>
-					<th class="num">{language.text('Mål', 'Mål', 'Goals')}</th>
+					<th>{language.text('Spiller', 'Spelar', 'Player', 'Joueur')}</th>
+					<th>{language.text('Lag', 'Lag', 'Team', 'Équipe')}</th>
+					<th class="num">{language.text('Mål', 'Mål', 'Goals', 'Buts')}</th>
 				</tr>
 			</thead>
 			<tbody>
 				{#if fs.goldenBoot.leaders.length === 0}
 					<tr>
 						<td colspan="4" style="text-align: center; color: var(--muted); padding: 1.5rem 0;">
-							{language.text('Ingen mål registrert ennå.', 'Ingen mål registrert enno.', 'No goals registered yet.')}
+							{language.text('Ingen mål registrert ennå.', 'Ingen mål registrert enno.', 'No goals registered yet.', 'Aucun but enregistré pour l\'instant.')}
 						</td>
 					</tr>
 				{/if}
@@ -289,8 +290,8 @@
 {/if}
 
 {#if tipsStore.loaded && view === 'bracket' && currentStage}
-	<button class="fab" onclick={goNow} aria-label={language.text('Hopp til aktuell runde', 'Hopp til aktuell runde', 'Jump to current round')}>
-		<LocateFixed size={18} /> {language.text('Nå', 'No', 'Now')}
+	<button class="fab" onclick={goNow} aria-label={language.text('Hopp til aktuell runde', 'Hopp til aktuell runde', 'Jump to current round', 'Aller au tour actuel')}>
+		<LocateFixed size={18} /> {language.text('Nå', 'No', 'Now', 'Maintenant')}
 	</button>
 {/if}
 

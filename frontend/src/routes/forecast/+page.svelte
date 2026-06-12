@@ -23,7 +23,7 @@
 	let saveState = $state<'idle' | 'saving' | 'saved' | 'error'>('idle');
 	let err = $state('');
 	$effect(() => {
-		if (!fs.loaded) fs.load().catch((e) => (err = e?.message ?? language.text('Lasting feilet', 'Lasting feila', 'Load failed')));
+		if (!fs.loaded) fs.load().catch((e) => (err = e?.message ?? language.text('Lasting feilet', 'Lasting feila', 'Load failed', 'Chargement échoué')));
 	});
 
 	// Debounced autosave. The Forecast is a living prediction edited until
@@ -58,7 +58,8 @@
 					language.text(
 						'Kunne ikke lagre - endringene ble ikke lagret.',
 						'Kunne ikkje lagre — endringane er ikkje lagra.',
-						'Could not save — your changes were not saved.'
+						'Could not save — your changes were not saved.',
+						'Impossible d\'enregistrer — vos modifications n\'ont pas été sauvegardées.'
 					);
 			}
 		}, 1000);
@@ -125,7 +126,7 @@
 				goldenBootSearchResults = [];
 				goldenBootSearchError =
 					(e as { message?: string })?.message ??
-					language.text('Kunne ikke søke etter spillere.', 'Kunne ikkje søkje etter spelarar.', 'Could not search players.');
+					language.text('Kunne ikke søke etter spillere.', 'Kunne ikkje søkje etter spelarar.', 'Could not search players.', 'Impossible de rechercher des joueurs.');
 			} finally {
 				if (!cancelled) goldenBootSearchLoading = false;
 			}
@@ -149,7 +150,7 @@
 			.join('');
 	}
 	function updatedAt(iso?: string) {
-		if (!iso) return language.text('Ikke synket ennå', 'Ikkje synka enno', 'Not synced yet');
+		if (!iso) return language.text('Ikke synket ennå', 'Ikkje synka enno', 'Not synced yet', 'Pas encore synchronisé');
 		const date = new Date(iso);
 		if (!Number.isFinite(date.getTime())) return '';
 		return new Intl.DateTimeFormat(language.locale, {
@@ -223,7 +224,7 @@
 		} catch (e: unknown) {
 			goldenBootSearchError =
 				(e as { message?: string })?.message ??
-				language.text('Kunne ikke legge til denne spilleren.', 'Kunne ikkje leggje til denne spelaren.', 'Could not add this player.');
+				language.text('Kunne ikke legge til denne spilleren.', 'Kunne ikkje leggje til denne spelaren.', 'Could not add this player.', 'Impossible d\'ajouter ce joueur.');
 		} finally {
 			goldenBootSearchPendingKey = '';
 		}
@@ -244,23 +245,24 @@
 </script>
 
 <div class="stickyhead" use:collapseOnScroll>
-	<p class="kicker">{language.text('Hele turneringen', 'Heile turneringa', 'Whole tournament')}</p>
+	<p class="kicker">{language.text('Hele turneringen', 'Heile turneringa', 'Whole tournament', 'Tournoi complet')}</p>
 	<div class="sh-expand">
 		<div class="sh-inner">
-			<h1>{language.text('VM-tips', 'VM-tips', 'World Cup tips')}</h1>
+			<h1>{language.text('VM-tips', 'VM-tips', 'World Cup tips', 'Pronostics Coupe du Monde')}</h1>
 			<p class="muted desc">
 				{language.text(
 					'VM-tipset ditt for grupper, beste treere og veien til finalen.',
 					'VM-tipset ditt for grupper, beste trearar og vegen til finalen.',
-					'Your World Cup tip for groups, best thirds, and the road to the final.'
+					'Your World Cup tip for groups, best thirds, and the road to the final.',
+					'Votre pronostic Coupe du Monde pour les groupes, meilleurs troisièmes et le chemin vers la finale.'
 				)}
-				{#if fs.locked}<b>{language.text('Låst.', 'Låst.', 'Locked.')}</b
-						>{:else}{language.text('Låses ved avspark.', 'Låsast ved avspark.', 'Locks at kickoff.')}{/if}
+				{#if fs.locked}<b>{language.text('Låst.', 'Låst.', 'Locked.', 'Verrouillé.')}</b
+						>{:else}{language.text('Låses ved avspark.', 'Låsast ved avspark.', 'Locks at kickoff.', 'Verrouillé au coup d\'envoi.')}{/if}
 			</p>
 				{#if !fs.locked && fs.tournamentStart}
 					<DeadlineCountdown
 						deadline={fs.tournamentStart}
-						label={language.text('Låses', 'Låsast', 'Locks')}
+						label={language.text('Låses', 'Låsast', 'Locks', 'Verrouillé')}
 						compact
 					/>
 				{/if}
@@ -268,10 +270,10 @@
 	</div>
 	{#if fs.loaded}
 		<div class="seg">
-			<button class:on={section === 'groups'} onclick={() => (section = 'groups')}>{language.text('Grupper', 'Grupper', 'Groups')}</button>
-			<button class:on={section === 'thirds'} onclick={() => (section = 'thirds')}>{language.text('Beste treere', 'Beste trearar', 'Best thirds')}</button>
-			<button class:on={section === 'bracket'} onclick={() => (section = 'bracket')}>{language.text('Sluttspill', 'Sluttspel', 'Knockout')}</button>
-			<button class:on={section === 'goldenboot'} onclick={() => (section = 'goldenboot')}>{language.text('Toppscorer', 'Toppscorar', 'Golden Boot')}</button>
+			<button class:on={section === 'groups'} onclick={() => (section = 'groups')}>{language.text('Grupper', 'Grupper', 'Groups', 'Groupes')}</button>
+			<button class:on={section === 'thirds'} onclick={() => (section = 'thirds')}>{language.text('Beste treere', 'Beste trearar', 'Best thirds', 'Meilleurs troisièmes')}</button>
+			<button class:on={section === 'bracket'} onclick={() => (section = 'bracket')}>{language.text('Sluttspill', 'Sluttspel', 'Knockout', 'Phase éliminatoire')}</button>
+			<button class:on={section === 'goldenboot'} onclick={() => (section = 'goldenboot')}>{language.text('Toppscorer', 'Toppscorar', 'Golden Boot', 'Soulier d\'or')}</button>
 		</div>
 	{/if}
 </div>
@@ -279,10 +281,10 @@
 {#if err}<p class="error">{err}</p>{/if}
 
 {#if !fs.loaded}
-	<p class="muted">{language.text('Laster...', 'Lastar…', 'Loading…')}</p>
+	<p class="muted">{language.text('Laster...', 'Lastar…', 'Loading…', 'Chargement…')}</p>
 {:else}
 	{#if fs.locked}
-		<div class="card lockbar"><Lock size={16} /> {language.text('Turneringen har startet - VM-tipset er låst.', 'Turneringa har starta - VM-tipset er endeleg.', 'The tournament has started - the World Cup tip is final.')}</div>
+		<div class="card lockbar"><Lock size={16} /> {language.text('Turneringen har startet - VM-tipset er låst.', 'Turneringa har starta - VM-tipset er endeleg.', 'The tournament has started - the World Cup tip is final.', 'Le tournoi a commencé - le pronostic Coupe du Monde est définitif.')}</div>
 	{/if}
 
 	{#if section === 'groups'}
@@ -290,12 +292,13 @@
 			{language.text(
 				'Ranger hver gruppe fra 1. til 4. plass. Topp 2 går videre; 3.-plassen kan gå videre som beste treer.',
 				'Ranger kvar gruppe frå 1. til 4. plass. Topp 2 går vidare; 3.-plassen kan gå vidare som beste trear.',
-				'Rank each group from 1st to 4th. The top 2 advance; 3rd place can advance as a best third.'
+				'Rank each group from 1st to 4th. The top 2 advance; 3rd place can advance as a best third.',
+				'Classez chaque groupe du 1er au 4e. Les 2 premiers se qualifient ; le 3e peut se qualifier comme meilleur troisième.'
 			)}
 		</p>
 		{#each fs.groups as g (g.letter)}
 			<section class="card grp">
-				<h3>{language.text('Gruppe', 'Gruppe', 'Group')} {g.letter}</h3>
+				<h3>{language.text('Gruppe', 'Gruppe', 'Group', 'Groupe')} {g.letter}</h3>
 				{#each fs.groupOrder[g.letter] as id, i (id)}
 					{@const ao = fs.actualOrder(g.letter)}
 					{@const apos = ao ? ao.indexOf(id) + 1 : 0}
@@ -327,18 +330,18 @@
 						<span class="tag">
 							{#if state === 'ok'}<span class="ind ok"><Check size={15} /></span>
 							{:else if state === 'half'}
-								<span class="apos half">{language.text('faktisk', 'faktisk', 'actual')} {ord(apos)}</span>
+								<span class="apos half">{language.text('faktisk', 'faktisk', 'actual', 'réel')} {ord(apos)}</span>
 								<span class="ind half"><CircleCheck size={15} /></span>
 							{:else if state === 'miss'}
-								<span class="apos">{language.text('faktisk', 'faktisk', 'actual')} {ord(apos)}</span>
+								<span class="apos">{language.text('faktisk', 'faktisk', 'actual', 'réel')} {ord(apos)}</span>
 								<span class="ind no"><X size={15} /></span>
-								{:else if i < 2}<span class="pill ok">{language.text('videre', 'vidare', 'through')}</span>
-								{:else if i === 2}<span class="pill">{language.text('3.-plass', '3.-plass', '3rd place')}</span>{/if}
+								{:else if i < 2}<span class="pill ok">{language.text('videre', 'vidare', 'through', 'qualifié')}</span>
+								{:else if i === 2}<span class="pill">{language.text('3.-plass', '3.-plass', '3rd place', '3e place')}</span>{/if}
 						</span>
 						{#if !fs.locked}
 							<span class="ord">
-								<button aria-label={language.text('Flytt opp', 'Flytt opp', 'Move up')} disabled={i === 0} onclick={() => { fs.move(g.letter, i, -1); vibrate(15); }}><ChevronUp size={16} /></button>
-								<button aria-label={language.text('Flytt ned', 'Flytt ned', 'Move down')} disabled={i === 3} onclick={() => { fs.move(g.letter, i, 1); vibrate(15); }}><ChevronDown size={16} /></button>
+								<button aria-label={language.text('Flytt opp', 'Flytt opp', 'Move up', 'Monter')} disabled={i === 0} onclick={() => { fs.move(g.letter, i, -1); vibrate(15); }}><ChevronUp size={16} /></button>
+								<button aria-label={language.text('Flytt ned', 'Flytt ned', 'Move down', 'Descendre')} disabled={i === 3} onclick={() => { fs.move(g.letter, i, 1); vibrate(15); }}><ChevronDown size={16} /></button>
 							</span>
 						{/if}
 					</div>
@@ -351,7 +354,8 @@
 				{language.text(
 					'Velg de 8 av 12 gruppetreerne du tror går videre. Lagene kommer fra grupperangeringen din.',
 					'Vel dei 8 av 12 gruppetrearane du trur går vidare. Laga kjem frå grupperangeringa di.',
-					'Choose the 8 of 12 group thirds you think will advance. The teams come from your group rankings.'
+					'Choose the 8 of 12 group thirds you think will advance. The teams come from your group rankings.',
+					'Choisissez les 8 parmi les 12 troisièmes de groupe que vous pensez qualifiés. Les équipes viennent de votre classement de groupe.'
 				)}
 			</p>
 			<span class="cnt" class:full={fs.chosenThirdLetters.length === 8}>
@@ -387,11 +391,12 @@
 				{language.text(
 					'Velg toppscorer, eller søk opp en outsider. Rett tips gir 15 poeng.',
 					'Vel toppscorar, eller søk opp ein outsider. Rett tips gir 15 poeng.',
-					'Pick a player or search for an outsider. A correct pick gives 15 points.'
+					'Pick a player or search for an outsider. A correct pick gives 15 points.',
+					'Choisissez un joueur ou cherchez un outsider. Un choix correct rapporte 15 points.'
 				)}
 			</p>
 			{#if fs.goldenBoot.updatedAt}
-				<span class="cnt">{language.text('Oppdatert', 'Oppdatert', 'Updated')} {updatedAt(fs.goldenBoot.updatedAt)}</span>
+				<span class="cnt">{language.text('Oppdatert', 'Oppdatert', 'Updated', 'Mis à jour')} {updatedAt(fs.goldenBoot.updatedAt)}</span>
 			{/if}
 		</div>
 
@@ -406,7 +411,7 @@
 					{/if}
 				</span>
 				<span class="gb-main">
-					<i>{language.text('Ditt toppscorertips', 'Ditt toppscorartips', 'Your Golden Boot pick')}</i>
+					<i>{language.text('Ditt toppscorertips', 'Ditt toppscorartips', 'Your Golden Boot pick', 'Votre choix Soulier d\'or')}</i>
 					<b>{goldenBootPick.name}</b>
 				</span>
 				<Flag iso2={fs.team(goldenBootPick.teamId)?.iso2 ?? ''} code={fs.team(goldenBootPick.teamId)?.fifaCode ?? ''} />
@@ -416,21 +421,21 @@
 		<section class="card gb-search">
 			<div class="gb-search-head">
 				<div>
-					<h3>{language.text('Søk etter flere spillere', 'Søk etter fleire spelarar', 'Search more players')}</h3>
+					<h3>{language.text('Søk etter flere spillere', 'Søk etter fleire spelarar', 'Search more players', 'Rechercher plus de joueurs')}</h3>
 					<p class="muted small">
-						{language.text('Legg til en outsider hvis spilleren ikke er på listen.', 'Legg til ein outsider om dei ikkje er på lista.', 'Add an outsider if they are not in the shortlist.')}
+						{language.text('Legg til en outsider hvis spilleren ikke er på listen.', 'Legg til ein outsider om dei ikkje er på lista.', 'Add an outsider if they are not in the shortlist.', 'Ajoutez un outsider s\'il n\'est pas dans la liste.')}
 					</p>
 				</div>
 				{#if !goldenBootSearchApiAvailable}
-					<span class="muted small api-note">{language.text('Live API-søk er utilgjengelig', 'Live API-søk er utilgjengeleg', 'Live API search unavailable')}</span>
+					<span class="muted small api-note">{language.text('Live API-søk er utilgjengelig', 'Live API-søk er utilgjengeleg', 'Live API search unavailable', 'Recherche API en direct indisponible')}</span>
 				{/if}
 			</div>
 			<input
 				class="gb-search-input"
 				type="search"
 				bind:value={goldenBootSearchQuery}
-				placeholder={language.text('Søk på spillernavn...', 'Søk på spelarnamn…', 'Search by player name…')}
-				aria-label={language.text('Søk etter toppscorerspillere', 'Søk etter toppscorarspelarar', 'Search for a Golden Boot player')}
+				placeholder={language.text('Søk på spillernavn...', 'Søk på spelarnamn…', 'Search by player name…', 'Rechercher par nom de joueur…')}
+				aria-label={language.text('Søk etter toppscorerspillere', 'Søk etter toppscorarspelarar', 'Search for a Golden Boot player', 'Rechercher un joueur Soulier d\'or')}
 				disabled={fs.locked}
 			/>
 
@@ -438,15 +443,15 @@
 				<p class="error small">{goldenBootSearchError}</p>
 			{:else if goldenBootSearchQuery.trim().length < 2}
 				<p class="muted small">
-					{language.text('Søk etter spillere...', 'Søk etter spelarar...', 'Type to search...')}
+					{language.text('Søk etter spillere...', 'Søk etter spelarar...', 'Type to search...', 'Tapez pour rechercher...')}
 				</p>
 			{:else if goldenBootSearchLoading}
-				<p class="muted small">{language.text('Søker...', 'Søkjer…', 'Searching…')}</p>
+				<p class="muted small">{language.text('Søker...', 'Søkjer…', 'Searching…', 'Recherche en cours…')}</p>
 			{:else if goldenBootSearchResults.length === 0}
 				<p class="muted small">
 					{goldenBootSearchApiAvailable
-						? language.text('Fant ingen VM-kandidater som passet søket.', 'Fann ingen VM-kandidatar som passa søket.', 'No matching World Cup candidates found.')
-						: language.text('Fant ingen lokale kandidater, og live API-søk er utilgjengelig.', 'Fann ingen lokale kandidatar, og live API-søk er utilgjengeleg.', 'No local candidates matched, and live API search is unavailable.')}
+						? language.text('Fant ingen VM-kandidater som passet søket.', 'Fann ingen VM-kandidatar som passa søket.', 'No matching World Cup candidates found.', 'Aucun candidat Coupe du Monde correspondant trouvé.')
+						: language.text('Fant ingen lokale kandidater, og live API-søk er utilgjengelig.', 'Fann ingen lokale kandidatar, og live API-søk er utilgjengeleg.', 'No local candidates matched, and live API search is unavailable.', 'Aucun candidat local trouvé, et la recherche API en direct est indisponible.')}
 				</p>
 			{:else}
 				<div class="gb-search-results">
@@ -470,18 +475,18 @@
 									<Flag iso2={fs.team(player.teamId)?.iso2 ?? ''} code={fs.team(player.teamId)?.fifaCode ?? ''} />
 									<span>{player.teamName}</span>
 									<span>·</span>
-									<span>{language.text('Mål', 'Mål', 'Goals')} {player.goals}</span>
+									<span>{language.text('Mål', 'Mål', 'Goals', 'Buts')} {player.goals}</span>
 								</span>
 							</span>
 							<span class="gb-search-action">
 								{#if goldenBootSearchPendingKey === player.key}
-									{language.text('Legger til...', 'Legg til…', 'Adding…')}
+									{language.text('Legger til...', 'Legg til…', 'Adding…', 'Ajout en cours…')}
 								{:else if player.id && player.eligible}
-									{language.text('Velg', 'Vel', 'Pick')}
+									{language.text('Velg', 'Vel', 'Pick', 'Choisir')}
 								{:else if player.existing}
-									{language.text('Legg til i listen', 'Legg til i lista', 'Add to list')}
+									{language.text('Legg til i listen', 'Legg til i lista', 'Add to list', 'Ajouter à la liste')}
 								{:else}
-									{language.text('Legg til spiller', 'Legg til spelar', 'Add player')}
+									{language.text('Legg til spiller', 'Legg til spelar', 'Add player', 'Ajouter un joueur')}
 								{/if}
 							</span>
 						</button>
@@ -491,9 +496,9 @@
 		</section>
 
 		<section class="card gb-list">
-			<h3>{language.text('Kandidater', 'Kandidatar', 'Shortlist')}</h3>
+			<h3>{language.text('Kandidater', 'Kandidatar', 'Shortlist', 'Liste des candidats')}</h3>
 			{#if fs.goldenBoot.shortlist.filter(p => p.seeded).length === 0}
-				<p class="muted small">{language.text('Ingen kandidater ennå.', 'Ingen kandidatar enno.', 'No candidates yet.')}</p>
+				<p class="muted small">{language.text('Ingen kandidater ennå.', 'Ingen kandidatar enno.', 'No candidates yet.', 'Aucun candidat pour l\'instant.')}</p>
 			{:else}
 				<div class="gb-grid">
 					{#each fs.goldenBoot.shortlist.filter(p => p.seeded) as player (player.id)}
@@ -528,18 +533,18 @@
 
 		<section class="card gb-live">
 			<div class="gb-live-head">
-				<h3>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers')}</h3>
+				<h3>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers', 'Meilleurs buteurs')}</h3>
 				{#if fs.goldenBoot.updatedAt}
-					<p class="muted small gb-updated">{language.text('Oppdatert', 'Oppdatert', 'Updated')} {updatedAt(fs.goldenBoot.updatedAt)}</p>
+					<p class="muted small gb-updated">{language.text('Oppdatert', 'Oppdatert', 'Updated', 'Mis à jour')} {updatedAt(fs.goldenBoot.updatedAt)}</p>
 				{/if}
 			</div>
 			<table class="gb-table">
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>{language.text('Spiller', 'Spelar', 'Player')}</th>
-						<th>{language.text('Lag', 'Lag', 'Team')}</th>
-						<th class="num">{language.text('Mål', 'Mål', 'Goals')}</th>
+						<th>{language.text('Spiller', 'Spelar', 'Player', 'Joueur')}</th>
+						<th>{language.text('Lag', 'Lag', 'Team', 'Équipe')}</th>
+						<th class="num">{language.text('Mål', 'Mål', 'Goals', 'Buts')}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -569,7 +574,7 @@
 		{#if champion}
 			<div class="card champ">
 				<Trophy size={20} />
-				<span class="lbl">{language.text('Tippet vinner', 'Tippa vinnar', 'Predicted winner')}</span>
+				<span class="lbl">{language.text('Tippet vinner', 'Tippa vinnar', 'Predicted winner', 'Vainqueur prédit')}</span>
 				<Flag
 					iso2={fs.team(champion)?.iso2 ?? ''}
 					code={fs.team(champion)?.fifaCode ?? ''}
@@ -622,13 +627,13 @@
 		<div class="savebar">
 			<span class="savestat" class:err={saveState === 'error'}>
 				{#if saveState === 'saving'}
-						{language.text('Lagrer...', 'Lagrar…', 'Saving…')}
+						{language.text('Lagrer...', 'Lagrar…', 'Saving…', 'Enregistrement…')}
 				{:else if saveState === 'error'}
-						{err || language.text('Lagring feilet', 'Lagring feila', 'Save failed')}
+						{err || language.text('Lagring feilet', 'Lagring feila', 'Save failed', 'Échec de l\'enregistrement')}
 				{:else if saveState === 'saved'}
-						<Check size={15} /> {language.text('Lagret · endringer lagres automatisk', 'Lagra · endringar blir lagra automatisk', 'Saved · changes are saved automatically')}
+						<Check size={15} /> {language.text('Lagret · endringer lagres automatisk', 'Lagra · endringar blir lagra automatisk', 'Saved · changes are saved automatically', 'Enregistré · les modifications sont sauvegardées automatiquement')}
 				{:else}
-						{language.text('Endringer lagres automatisk', 'Endringar blir lagra automatisk', 'Changes are saved automatically')}
+						{language.text('Endringer lagres automatisk', 'Endringar blir lagra automatisk', 'Changes are saved automatically', 'Les modifications sont sauvegardées automatiquement')}
 				{/if}
 			</span>
 		</div>

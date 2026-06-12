@@ -193,6 +193,28 @@
 				chooseEmoji: 'Choose emoji',
 				sending: 'Sending…',
 				send: 'Send'
+			},
+			{
+				now: 'maintenant',
+				kicker: 'Chat de ligue',
+				title: 'Parler avec votre ligue',
+				syncing: 'Synchronisation',
+				loading: 'Chargement du chat…',
+				emptyTitle: 'Aucun message pour l\'instant',
+				emptyBody: 'Lancez la discussion avec un rapide bonjour ou une réaction au tableau.',
+				you: 'Vous',
+				edited: 'modifié',
+				messageOptions: 'Options de message',
+				addReaction: 'Ajouter une réaction',
+				edit: 'Modifier',
+				delete: 'Supprimer',
+				save: 'Enregistrer',
+				cancel: 'Annuler',
+				deleteConfirm: 'Supprimer le message ?',
+				placeholder: 'Écrire un message…',
+				chooseEmoji: 'Choisir un emoji',
+				sending: 'Envoi…',
+				send: 'Envoyer'
 			}
 		)
 	);

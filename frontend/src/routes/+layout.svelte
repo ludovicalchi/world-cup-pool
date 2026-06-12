@@ -110,8 +110,8 @@
 				class="auth-actions"
 				class:single={!showPublicThemeToggle}
 				aria-label={showPublicThemeToggle
-					? language.text('Visningsvalg og info', 'Visingsval og info', 'Display options and info')
-					: language.text('Språkvalg og info', 'Språkval og info', 'Language options and info')}
+					? language.text('Visningsvalg og info', 'Visingsval og info', 'Display options and info', 'Options d\'affichage et info')
+					: language.text('Språkvalg og info', 'Språkval og info', 'Language options and info', 'Options de langue et info')}
 			>
 				<LanguageToggle compact />
 				{#if showPublicThemeToggle}

@@ -50,30 +50,30 @@
 
 	<div class="card">
 		{#if phase === 'loading'}
-			<p class="muted">{language.text('Sjekker invitasjonen...', 'Sjekkar invitasjonen…', 'Checking invitation…')}</p>
+			<p class="muted">{language.text('Sjekker invitasjonen...', 'Sjekkar invitasjonen…', 'Checking invitation…', 'Vérification de l\'invitation…')}</p>
 		{:else if phase === 'joining'}
-			<p class="muted">{language.text('Blir med i', 'Blir med i', 'Joining')} <strong>{leagueName}</strong>...</p>
+			<p class="muted">{language.text('Blir med i', 'Blir med i', 'Joining', 'Rejoindre')} <strong>{leagueName}</strong>...</p>
 		{:else if phase === 'invite'}
-			<p class="kicker">{language.text('Du er invitert', 'Du er invitert', 'You are invited')}</p>
+			<p class="kicker">{language.text('Du er invitert', 'Du er invitert', 'You are invited', 'Vous êtes invité')}</p>
 			<h2 class="lname">{leagueName}</h2>
 			<p class="muted">
-				{language.text('Logg inn eller opprett konto for å bli med i denne ligaen.', 'Logg inn eller opprett konto for å bli med i denne ligaen.', 'Log in or create an account to join this league.')}
+				{language.text('Logg inn eller opprett konto for å bli med i denne ligaen.', 'Logg inn eller opprett konto for å bli med i denne ligaen.', 'Log in or create an account to join this league.', 'Connectez-vous ou créez un compte pour rejoindre cette ligue.')}
 			</p>
 			<a class="btn" href={`/register?invite=${encodeURIComponent(code)}`}>
-				{language.text('Opprett konto', 'Opprett konto', 'Create account')}
+				{language.text('Opprett konto', 'Opprett konto', 'Create account', 'Créer un compte')}
 			</a>
 			<a
 				class="btn secondary"
 				href={`/login?invite=${encodeURIComponent(code)}`}
 			>
-				{language.text('Logg inn', 'Logg inn', 'Log in')}
+				{language.text('Logg inn', 'Logg inn', 'Log in', 'Se connecter')}
 			</a>
 		{:else if phase === 'error'}
-			<p class="error">{language.text('Kunne ikke bli med i ligaen. Prøv igjen.', 'Kunne ikkje bli med i ligaen. Prøv igjen.', 'Could not join the league. Try again.')}</p>
-			<a class="btn secondary" href="/leagues">{language.text('Gå til ligaer', 'Gå til ligaer', 'Go to leagues')}</a>
+			<p class="error">{language.text('Kunne ikke bli med i ligaen. Prøv igjen.', 'Kunne ikkje bli med i ligaen. Prøv igjen.', 'Could not join the league. Try again.', 'Impossible de rejoindre la ligue. Réessayez.')}</p>
+			<a class="btn secondary" href="/leagues">{language.text('Gå til ligaer', 'Gå til ligaer', 'Go to leagues', 'Aller aux ligues')}</a>
 		{:else}
-			<p class="error">{language.text('Invitasjonslenken er ugyldig eller utløpt.', 'Invitasjonslenka er ugyldig eller utløpt.', 'This invite link is invalid or expired.')}</p>
-			<a class="btn secondary" href="/">{language.text('Gå til hjem', 'Gå til heim', 'Go to home')}</a>
+			<p class="error">{language.text('Invitasjonslenken er ugyldig eller utløpt.', 'Invitasjonslenka er ugyldig eller utløpt.', 'This invite link is invalid or expired.', 'Ce lien d\'invitation est invalide ou expiré.')}</p>
+			<a class="btn secondary" href="/">{language.text('Gå til hjem', 'Gå til heim', 'Go to home', 'Aller à l\'accueil')}</a>
 		{/if}
 	</div>
 </div>

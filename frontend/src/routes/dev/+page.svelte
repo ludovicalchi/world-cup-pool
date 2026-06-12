@@ -68,7 +68,7 @@
 			location.reload();
 		} catch (e: unknown) {
 			msgTone = 'error';
-			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed');
+			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed', 'Échec');
 			busy = false;
 		}
 	}
@@ -85,11 +85,12 @@
 			msg = language.text(
 				`Sendte ${result.sent} botmelding${result.sent === 1 ? '' : 'er'}.`,
 				`Sendte ${result.sent} botmelding${result.sent === 1 ? '' : 'ar'}.`,
-				`Sent ${result.sent} bot message${result.sent === 1 ? '' : 's'}.`
+				`Sent ${result.sent} bot message${result.sent === 1 ? '' : 's'}.`,
+				`Envoyé ${result.sent} message${result.sent === 1 ? '' : 's'} bot.`
 			);
 		} catch (e: unknown) {
 			msgTone = 'error';
-			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed');
+			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed', 'Échec');
 		} finally {
 			busy = false;
 		}
@@ -103,10 +104,10 @@
 			for (const ts of topscorers) map[ts.id] = ts.goals;
 			await api.devSetTopscorers(map);
 			msgTone = 'ok';
-			msg = language.text('Toppscorere lagret.', 'Toppscorarar lagra.', 'Top scorers saved.');
+			msg = language.text('Toppscorere lagret.', 'Toppscorarar lagra.', 'Top scorers saved.', 'Meilleurs buteurs enregistrés.');
 		} catch (e: unknown) {
 			msgTone = 'error';
-			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed');
+			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed', 'Échec');
 		} finally {
 			busy = false;
 		}
@@ -153,16 +154,16 @@
 	];
 
 	function presetLabel(label: string) {
-		const labels: Record<string, [string, string, string]> = {
-			opening: ['Åpningskamp', 'Opningskamp', 'Opening match'],
-			'group-md2-live': ['Gruppe MD2 live', 'Gruppe MD2 live', 'Group MD2 live'],
-			'after-groups': ['Etter gruppene', 'Etter gruppene', 'After groups'],
-			'after-r32': ['Etter 32-delsfinaler', 'Etter 32-delsfinalar', 'After R32'],
-			'after-qf': ['Etter kvartfinaler', 'Etter kvartfinalar', 'After QF'],
-			'after-final': ['Etter finalen', 'Etter finalen', 'After final']
+		const labels: Record<string, [string, string, string, string]> = {
+			opening: ['Åpningskamp', 'Opningskamp', 'Opening match', 'Match d\'ouverture'],
+			'group-md2-live': ['Gruppe MD2 live', 'Gruppe MD2 live', 'Group MD2 live', 'Groupe MD2 en direct'],
+			'after-groups': ['Etter gruppene', 'Etter gruppene', 'After groups', 'Après les groupes'],
+			'after-r32': ['Etter 32-delsfinaler', 'Etter 32-delsfinalar', 'After R32', 'Après les 32e de finale'],
+			'after-qf': ['Etter kvartfinaler', 'Etter kvartfinalar', 'After QF', 'Après les quarts de finale'],
+			'after-final': ['Etter finalen', 'Etter finalen', 'After final', 'Après la finale']
 		};
-		const [nb, nn, en] = labels[label] ?? [label, label, label];
-		return language.text(nb, nn, en);
+		const [nb, nn, en, fr] = labels[label] ?? [label, label, label, label];
+		return language.text(nb, nn, en, fr);
 	}
 
 	async function advance(ts: string) {
@@ -176,7 +177,7 @@
 			location.reload(); // re-pull all stores against the new clock
 		} catch (e: unknown) {
 			msgTone = 'error';
-			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed');
+			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed', 'Échec');
 			busy = false;
 		}
 	}
@@ -189,7 +190,7 @@
 			location.reload();
 		} catch (e: unknown) {
 			msgTone = 'error';
-			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed');
+			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed', 'Échec');
 			busy = false;
 		}
 	}
@@ -259,37 +260,38 @@
 	}
 </script>
 
-<p class="kicker">{language.text('Testverktøy', 'Testverktøy', 'Test harness')}</p>
-<h1>{language.text('Utviklerverktøy', 'Utviklarverktøy', 'Dev tools')}</h1>
+<p class="kicker">{language.text('Testverktøy', 'Testverktøy', 'Test harness', 'Outil de test')}</p>
+<h1>{language.text('Utviklerverktøy', 'Utviklarverktøy', 'Dev tools', 'Outils de développement')}</h1>
 
 {#if !serverClock.loaded}
 	<p class="muted">…</p>
 {:else if !serverClock.dev}
 	<section class="card">
 		<p class="muted">
-			{language.text('Avslått. Start serveren med', 'Avslått. Start serveren med', 'Disabled. Start the server with')} <code>WMP_DEV=1</code>
-			{language.text('for å simulere turneringen.', 'for å simulere turneringa.', 'to simulate the tournament.')}
+			{language.text('Avslått. Start serveren med', 'Avslått. Start serveren med', 'Disabled. Start the server with', 'Désactivé. Démarrez le serveur avec')} <code>WMP_DEV=1</code>
+			{language.text('for å simulere turneringen.', 'for å simulere turneringa.', 'to simulate the tournament.', 'pour simuler le tournoi.')}
 		</p>
 	</section>
 {:else}
 	<section class="card">
 		<div class="state">
-			<span class="kicker">{language.text('Simulert klokke', 'Simulert klokke', 'Simulated clock')}</span>
+			<span class="kicker">{language.text('Simulert klokke', 'Simulert klokke', 'Simulated clock', 'Horloge simulée')}</span>
 			<b class="digits"
 				>{serverClock.simulated
 					? new Date(serverClock.now()).toLocaleString()
-					: language.text('live (sanntid)', 'live (sanntid)', 'live (real time)')}</b
+					: language.text('live (sanntid)', 'live (sanntid)', 'live (real time)', 'en direct (temps réel)')}</b
 			>
 		</div>
 	</section>
 
 	<section class="card">
-			<h3>{language.text('Hopp til', 'Hopp til', 'Jump to')}</h3>
+			<h3>{language.text('Hopp til', 'Hopp til', 'Jump to', 'Aller à')}</h3>
 		<p class="muted small">
 				{language.text(
 					'Kamper før dette tidspunktet blir simulert (ferdige, eller live hvis de er midt i kampen); senere kamper blir nullstilt. Låsing, venners kamptips og VM-tipsfristen følger denne klokken.',
 					'Kampar før dette tidspunktet blir simulerte (ferdige, eller live viss dei er midt i kampen); seinare kampar blir nullstilte. Låsing, venetips og VM-tipsfristen følgjer denne klokka.',
-					'Matches before this time are simulated (finished, or live if in the middle of the match); later matches are reset. Locks, friends\' match tips, and the World Cup tip deadline follow this clock.'
+					'Matches before this time are simulated (finished, or live if in the middle of the match); later matches are reset. Locks, friends\' match tips, and the World Cup tip deadline follow this clock.',
+					'Les matchs avant cette heure sont simulés (terminés, ou en direct s\'ils sont en cours) ; les suivants sont réinitialisés. Les verrous, pronostics des amis et la date limite suivent cette horloge.'
 				)}
 		</p>
 		<div class="field">
@@ -298,7 +300,7 @@
 		<button
 			class="btn"
 			disabled={busy || !when}
-			onclick={() => advance(when)}>{language.text('Kjør fram', 'Køyr fram', 'Advance')}</button
+			onclick={() => advance(when)}>{language.text('Kjør fram', 'Køyr fram', 'Advance', 'Avancer')}</button
 		>
 
 		<div class="presets">
@@ -313,12 +315,13 @@
 	</section>
 
 	<section class="card">
-		<h3>{language.text('Live-resultat test', 'Live-resultat test', 'Live result test')}</h3>
+		<h3>{language.text('Live-resultat test', 'Live-resultat test', 'Live result test', 'Test des résultats en direct')}</h3>
 		<p class="muted small">
 			{language.text(
 				'Åpne turneringssiden eller forsiden i en annen fane, og bruk knappene her for å sende live score-endringer uten å laste appen på nytt.',
 				'Opne turneringssida eller framsida i ei anna fane, og bruk knappane her for å sende live score-endringar utan å laste appen på nytt.',
-				'Open the tournament page or home page in another tab, and use these buttons to push live score changes without reloading the app.'
+				'Open the tournament page or home page in another tab, and use these buttons to push live score changes without reloading the app.',
+                'Ouvrez la page du tournoi ou la page d'accueil dans un autre onglet, puis utilisez ces boutons pour actualiser les résultats en direct sans recharger l\'application.'
 			)}
 		</p>
 		{#if controllableMatches.length === 0}
@@ -326,12 +329,13 @@
 				{language.text(
 					'Ingen kamper med lag er klare ennå.',
 					'Ingen kampar med lag er klare enno.',
-					'No matches with resolved teams are ready yet.'
+					'No matches with resolved teams are ready yet.',
+                    'Aucun match avec des équipes confirmées n'est encore prêt.'
 				)}
 			</p>
 		{:else}
 			<div class="field">
-				<label for="dev-match-control">{language.text('Kamp', 'Kamp', 'Match')}</label>
+				<label for="dev-match-control">{language.text('Kamp', 'Kamp', 'Match', 'Match')}</label>
 				<select id="dev-match-control" class="input" bind:value={matchControlId}>
 					{#each controllableMatches as match (match.id)}
 						<option value={match.id}>{matchOptionLabel(match)}</option>
@@ -364,10 +368,10 @@
 						{teamName(selectedMatch.awayTeam, selectedMatch.awayLabel)} +1
 					</button>
 					<button class="chip" disabled={busy} onclick={() => pushMatch({ status: 'finished' })}>
-						{language.text('Fulltid', 'Fulltid', 'Full time')}
+						{language.text('Fulltid', 'Fulltid', 'Full time', 'Temps plein')}
 					</button>
 					<button class="chip" disabled={busy} onclick={resetSelectedMatch}>
-						{language.text('Nullstill valgt kamp', 'Nullstill vald kamp', 'Reset selected match')}
+						{language.text('Nullstill valgt kamp', 'Nullstill vald kamp', 'Reset selected match', 'Réinitialiser le match sélectionné')}
 					</button>
 				</div>
 			{/if}
@@ -375,16 +379,17 @@
 	</section>
 
 	<section class="card">
-		<h3>{language.text('Lag bot-spillere', 'Lag bot-spelarar', 'Generate bot players')}</h3>
+		<h3>{language.text('Lag bot-spillere', 'Lag bot-spelarar', 'Generate bot players', 'Générer des joueurs bot')}</h3>
 		<p class="muted small">
 			{language.text(
 				'Hver bot får et helt tilfeldig VM-tips og kamptips for hver kamp, og blir med i valgt liga (eller alle private ligaer) - et live tabelløp.',
 				'Kvar bot får eit heilt tilfeldig VM-tips og kamptips for kvar kamp, og blir med i vald liga (eller alle private ligaene dine) - eit live tabelløp.',
-				'Each bot gets a fully random World Cup tip and a match tip for every match, and joins the selected league (or all your private leagues) - a live leaderboard race.'
+				'Each bot gets a fully random World Cup tip and a match tip for every match, and joins the selected league (or all your private leagues) - a live leaderboard race.',
+				'Chaque bot reçoit un pronostic de tournoi et un pronostic de match aléatoires pour chaque match, et rejoint la ligue sélectionnée (ou toutes vos ligues privées) - une course au classement en direct.'
 			)}
 		</p>
 		<div class="field">
-			<label for="bc">{language.text('Hvor mange', 'Kor mange', 'How many')}</label>
+			<label for="bc">{language.text('Hvor mange', 'Kor mange', 'How many', 'Combien')}</label>
 			<input
 				id="bc"
 				class="input"
@@ -395,30 +400,31 @@
 			/>
 		</div>
 		<div class="field">
-			<label for="bl">{language.text('Liga', 'Liga', 'League')}</label>
+			<label for="bl">{language.text('Liga', 'Liga', 'League', 'Ligue')}</label>
 			<select id="bl" class="input" bind:value={botLeague}>
-				<option value="">{language.text('Alle private ligaer', 'Alle dei private ligaene mine', 'All my private leagues')}</option>
+				<option value="">{language.text('Alle private ligaer', 'Alle dei private ligaene mine', 'All my private leagues', 'Toutes mes ligues privées')}</option>
 				{#each leagues as l (l.id)}
 					<option value={l.id}>{l.name}</option>
 				{/each}
 			</select>
 		</div>
 		<button class="btn" disabled={busy} onclick={genBots}>
-			{language.text(`Lag ${botCount} bot${botCount === 1 ? '' : 'er'}`, `Lag ${botCount} bot${botCount === 1 ? '' : 'ar'}`, `Generate ${botCount} bot${botCount === 1 ? '' : 's'}`)}
+			{language.text(`Lag ${botCount} bot${botCount === 1 ? '' : 'er'}`, `Lag ${botCount} bot${botCount === 1 ? '' : 'ar'}`, `Generate ${botCount} bot${botCount === 1 ? '' : 's'}`, `Générer ${botCount} bot${botCount === 1 ? '' : 's'}`)}
 		</button>
 	</section>
 
 	<section class="card">
-		<h3>{language.text('Send bot-chat', 'Send bot-chat', 'Send bot chat')}</h3>
+		<h3>{language.text('Send bot-chat', 'Send bot-chat', 'Send bot chat', 'Envoyer le chat bot')}</h3>
 		<p class="muted small">
 			{language.text(
 				'Bruk eksisterende testboter til å poste live meldinger i liga-chatten. Lag boter først hvis ligaen ikke har noen. Hvis du ikke velger liga, sendes meldinger i hver private liga som allerede har boter.',
 				'Bruk eksisterande testbotar til å poste live meldingar i liga-chatten. Lag botar først viss ligaen ikkje har nokon. Viss du ikkje vel liga, blir meldingar sende i kvar av dei private ligaene dine som allereie har botar.',
-				'Use existing test bots to post live messages into league chat. Generate bots first if the league has none. If no league is chosen, messages are sent in each of your private leagues that already has bots.'
+				'Use existing test bots to post live messages into league chat. Generate bots first if the league has none. If no league is chosen, messages are sent in each of your private leagues that already has bots.',
+				'Utilisez les bots de test existants pour poster des messages en direct dans le chat. Générez des bots d\'abord si la ligue n\'en a pas. Sans ligue choisie, les messages sont envoyés dans chaque ligue privée qui a déjà des bots.'
 			)}
 		</p>
 		<div class="field">
-			<label for="cc">{language.text('Hvor mange meldinger', 'Kor mange meldingar', 'How many messages')}</label>
+			<label for="cc">{language.text('Hvor mange meldinger', 'Kor mange meldingar', 'How many messages', 'Combien de messages')}</label>
 			<input
 				id="cc"
 				class="input"
@@ -429,23 +435,23 @@
 			/>
 		</div>
 		<div class="field">
-			<label for="cl">{language.text('Liga', 'Liga', 'League')}</label>
+			<label for="cl">{language.text('Liga', 'Liga', 'League', 'Ligue')}</label>
 			<select id="cl" class="input" bind:value={chatLeague}>
-				<option value="">{language.text('Alle private ligaer med boter', 'Alle private ligaene mine med botar', 'All my private leagues with bots')}</option>
+				<option value="">{language.text('Alle private ligaer med boter', 'Alle private ligaene mine med botar', 'All my private leagues with bots', 'Toutes mes ligues privées avec bots')}</option>
 				{#each leagues as l (l.id)}
 					<option value={l.id}>{l.name}</option>
 				{/each}
 			</select>
 		</div>
 		<button class="btn" disabled={busy} onclick={sendBotChat}>
-			{language.text(`Send ${chatCount} botmelding${chatCount === 1 ? '' : 'er'}`, `Send ${chatCount} botmelding${chatCount === 1 ? '' : 'ar'}`, `Send ${chatCount} bot message${chatCount === 1 ? '' : 's'}`)}
+			{language.text(`Send ${chatCount} botmelding${chatCount === 1 ? '' : 'er'}`, `Send ${chatCount} botmelding${chatCount === 1 ? '' : 'ar'}`, `Send ${chatCount} bot message${chatCount === 1 ? '' : 's'}`, `Envoyer ${chatCount} message${chatCount === 1 ? '' : 's'} bot`)}
 		</button>
 	</section>
 
 	<section class="card">
-		<h3>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers')}</h3>
+		<h3>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers', 'Meilleurs buteurs')}</h3>
 		<p class="muted small">
-			{language.text('Sett mål for de forhåndsvalgte kandidatene for å se hvordan det påvirker tabellen.', 'Sett mål for dei forhandsvalde kandidatane for å sjå korleis det påverkar tabellen.', 'Set goals for the seeded candidates to see how it affects the leaderboard.')}
+			{language.text('Sett mål for de forhåndsvalgte kandidatene for å se hvordan det påvirker tabellen.', 'Sett mål for dei forhandsvalde kandidatane for å sjå korleis det påverkar tabellen.', 'Set goals for the seeded candidates to see how it affects the leaderboard.', 'Définissez des buts pour les candidats présélectionnés afin de voir comment cela affecte le classement.')}
 		</p>
 		<div class="ts-grid">
 			{#each topscorers as ts (ts.id)}
@@ -457,20 +463,20 @@
 		</div>
 		{#if topscorers.length > 0}
 			<button class="btn" disabled={busy} onclick={saveTopscorers}>
-				{language.text('Lagre mål', 'Lagre mål', 'Save goals')}
+				{language.text('Lagre mål', 'Lagre mål', 'Save goals', 'Enregistrer les buts')}
 			</button>
 		{:else}
-			<p class="muted small">{language.text('Ingen forhåndsvalgte spillere funnet. Sørg for at databasen er fylt.', 'Ingen forhandsvalde spelarar funne. Sørg for at databasen er fylt.', 'No seeded players found. Ensure database is populated.')}</p>
+			<p class="muted small">{language.text('Ingen forhåndsvalgte spillere funnet. Sørg for at databasen er fylt.', 'Ingen forhandsvalde spelarar funne. Sørg for at databasen er fylt.', 'No seeded players found. Ensure database is populated.', 'Aucun joueur présélectionné trouvé. Assurez-vous que la base de données est remplie.')}</p>
 		{/if}
 	</section>
 
 	<section class="card">
-		<h3>{language.text('Nullstill', 'Nullstill', 'Reset')}</h3>
+		<h3>{language.text('Nullstill', 'Nullstill', 'Reset', 'Réinitialiser')}</h3>
 		<p class="muted small">
-			{language.text('Tøm alle resultater og den simulerte klokken (tilbake til sanntid).', 'Tøm alle resultat og den simulerte klokka (tilbake til sanntid).', 'Clear all results and the simulated clock (back to real time).')}
+			{language.text('Tøm alle resultater og den simulerte klokken (tilbake til sanntid).', 'Tøm alle resultat og den simulerte klokka (tilbake til sanntid).', 'Clear all results and the simulated clock (back to real time).', 'Effacez tous les résultats et l\'horloge simulée (retour en temps réel).')}
 		</p>
 		<button class="btn secondary" disabled={busy} onclick={reset}
-			>{language.text('Nullstill alt', 'Nullstill alt', 'Reset all')}</button
+			>{language.text('Nullstill alt', 'Nullstill alt', 'Reset all', 'Tout réinitialiser')}</button
 		>
 	</section>
 

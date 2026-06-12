@@ -60,7 +60,7 @@
 		} catch (err: unknown) {
 			resetError =
 				(err as { message?: string })?.message ??
-				language.text('Kunne ikke sende lenken.', 'Kunne ikkje sende tilbakestillingslenke.', 'Could not send reset link.');
+				language.text('Kunne ikke sende lenken.', 'Kunne ikkje sende tilbakestillingslenke.', 'Could not send reset link.', 'Impossible d\'envoyer le lien.');
 		} finally {
 			resetBusy = false;
 		}
@@ -78,11 +78,11 @@
 		const file = (e.target as HTMLInputElement).files?.[0];
 		if (!file) return;
 		if (!file.type.startsWith('image/')) {
-			error = language.text('Velg en bildefil.', 'Vel ei bildefil.', 'Choose an image file.');
+			error = language.text('Velg en bildefil.', 'Vel ei bildefil.', 'Choose an image file.', 'Choisissez un fichier image.');
 			return;
 		}
 		if (file.size > MAX_AVATAR_BYTES) {
-			error = language.text('Bildet må være 5 MB eller mindre.', 'Bildet må vere 5 MB eller mindre.', 'Image must be 5 MB or smaller.');
+			error = language.text('Bildet må være 5 MB eller mindre.', 'Bildet må vere 5 MB eller mindre.', 'Image must be 5 MB or smaller.', 'L\'image doit faire 5 Mo ou moins.');
 			return;
 		}
 		error = '';
@@ -100,7 +100,8 @@
 			error = language.text(
 				'Visningsnavnet må være mellom 1 og 48 tegn.',
 				'Visingsnamnet må vere mellom 1 og 48 teikn.',
-				'Display name must be between 1 and 48 characters.'
+				'Display name must be between 1 and 48 characters.',
+				'Le nom d\'affichage doit comporter entre 1 et 48 caractères.'
 			);
 			return;
 		}
@@ -114,7 +115,7 @@
 		} catch (err: unknown) {
 			error =
 				(err as { message?: string })?.message ??
-				language.text('Kunne ikke lagre endringene.', 'Kunne ikkje lagre endringane.', 'Could not save changes.');
+				language.text('Kunne ikke lagre endringene.', 'Kunne ikkje lagre endringane.', 'Could not save changes.', 'Impossible d\'enregistrer les modifications.');
 		} finally {
 			busy = false;
 		}
@@ -127,14 +128,16 @@
 			deleteError = language.text(
 				'Skriv DELETE eller SLETT for å bekrefte sletting.',
 				'Skriv DELETE eller SLETT for å stadfeste kontosletting.',
-				'Type DELETE to confirm account removal.'
+				'Type DELETE to confirm account removal.',
+				'Tapez DELETE pour confirmer la suppression.'
 			);
 			return;
 		}
 		if (!confirm(language.text(
 			'Vil du virkelig slette kontoen din? Private ligaer du eier, blir også slettet.',
 			'Vil du verkeleg slette kontoen din? Private ligaer du eig, blir også sletta.',
-			'Do you really want to delete your account? Private leagues you own will also be deleted.'
+			'Do you really want to delete your account? Private leagues you own will also be deleted.',
+			'Voulez-vous vraiment supprimer votre compte ? Les ligues privées dont vous êtes propriétaire seront également supprimées.'
 		))) {
 			return;
 		}
@@ -145,7 +148,7 @@
 		} catch (err: unknown) {
 			deleteError =
 				(err as { message?: string })?.message ??
-				language.text('Kunne ikke slette kontoen.', 'Kunne ikkje slette kontoen.', 'Could not delete account.');
+				language.text('Kunne ikke slette kontoen.', 'Kunne ikkje slette kontoen.', 'Could not delete account.', 'Impossible de supprimer le compte.');
 		} finally {
 			deleteBusy = false;
 		}
@@ -313,7 +316,7 @@
 
 <div class="settings">
 	<h1>{t.chrome.settings}</h1>
-	<p class="muted">{language.text('Endre hvordan du vises for venner.', 'Endre korleis du visest for vener.', 'Edit how you appear to friends.')}</p>
+	<p class="muted">{language.text('Endre hvordan du vises for venner.', 'Endre korleis du visest for vener.', 'Edit how you appear to friends.', 'Modifiez comment vous apparaissez à vos amis.')}</p>
 
 	<section class="player-card" aria-labelledby="player-card-title">
 		<div class="pc-topline">
@@ -366,7 +369,7 @@
 				</div>
 				<div class="pc-stat">
 					<div class="pc-stat-value">{stats.tipsScored}</div>
-					<div class="pc-stat-label">{language.text('Poengtips', 'Scora tips', 'Scored tips')}</div>
+					<div class="pc-stat-label">{language.text('Poengtips', 'Scora tips', 'Scored tips', 'Pronostics notés')}</div>
 				</div>
 			</div>
 
@@ -378,7 +381,7 @@
 					</div>
 					<div class="pc-miss-sub">
 						{t.playerCard.largestMissSub} {stats.largestMiss.tipHome}–{stats.largestMiss.tipAway}
-						· {language.text('avvik', 'avvik', 'gap')} {stats.largestMiss.gdDev}
+						· {language.text('avvik', 'avvik', 'gap', 'écart')} {stats.largestMiss.gdDev}
 					</div>
 				{:else}
 					<div class="pc-miss-kicker">{t.playerCard.largestMiss}</div>
@@ -402,9 +405,9 @@
 					onclick={() => fileInput.click()}
 					disabled={busy}
 				>
-					{language.text('Bytt bilde', 'Byt bilde', 'Change photo')}
+					{language.text('Bytt bilde', 'Byt bilde', 'Change photo', 'Changer la photo')}
 				</button>
-				<p class="muted hint">{language.text('PNG eller JPG, opptil 5 MB.', 'PNG eller JPG, opptil 5 MB.', 'PNG or JPG, up to 5 MB.')}</p>
+				<p class="muted hint">{language.text('PNG eller JPG, opptil 5 MB.', 'PNG eller JPG, opptil 5 MB.', 'PNG or JPG, up to 5 MB.', 'PNG ou JPG, jusqu\'à 5 Mo.')}</p>
 			</div>
 			<input
 				bind:this={fileInput}
@@ -416,7 +419,7 @@
 		</div>
 
 		<div class="field">
-			<label for="dn">{language.text('Visningsnavn', 'Visingsnamn', 'Display name')}</label>
+			<label for="dn">{language.text('Visningsnavn', 'Visingsnamn', 'Display name', 'Nom d\'affichage')}</label>
 			<input
 				id="dn"
 				class="input"
@@ -428,9 +431,9 @@
 		</div>
 
 		{#if error}<p class="error">{error}</p>{/if}
-		{#if saved}<p class="ok">{language.text('Lagret.', 'Lagra.', 'Saved.')}</p>{/if}
+		{#if saved}<p class="ok">{language.text('Lagret.', 'Lagra.', 'Saved.', 'Enregistré.')}</p>{/if}
 
-		<button class="btn" disabled={busy}>{busy ? language.text('Lagrer...', 'Lagrar…', 'Saving…') : language.text('Lagre endringer', 'Lagre endringar', 'Save changes')}</button>
+		<button class="btn" disabled={busy}>{busy ? language.text('Lagrer...', 'Lagrar…', 'Saving…', 'Enregistrement…') : language.text('Lagre endringer', 'Lagre endringar', 'Save changes', 'Enregistrer les modifications')}</button>
 	</form>
 
 	<section class="card intro-pref-card">
@@ -452,9 +455,12 @@
 	</section>
 
 	<section class="card">
-		<h3>{language.text('Passord', 'Passord', 'Password')}</h3>
+		<h3>{language.text('Passord', 'Passord', 'Password', 'Mot de passe')}</h3>
 		<p class="muted small">
-			{#if isEnglish}
+			{#if language.isFrench}
+				Nous enverrons un lien de réinitialisation à <strong>{auth.user?.email ?? ''}</strong>.
+				Utilisez-le pour choisir un nouveau mot de passe.
+			{:else if isEnglish}
 				We will send a reset link to <strong>{auth.user?.email ?? ''}</strong>.
 				Use it to choose a new password.
 			{:else if language.isNynorsk}
@@ -467,7 +473,7 @@
 		</p>
 		{#if resetError}<p class="error">{resetError}</p>{/if}
 		{#if resetSent}
-			<p class="ok">{language.text('Lenke sendt - sjekk innboksen.', 'Tilbakestillingslenke sendt - sjekk innboksen.', 'Reset link sent - check your inbox.')}</p>
+			<p class="ok">{language.text('Lenke sendt - sjekk innboksen.', 'Tilbakestillingslenke sendt - sjekk innboksen.', 'Reset link sent - check your inbox.', 'Lien envoyé - vérifiez votre boîte mail.')}</p>
 		{/if}
 		<button
 			type="button"
@@ -476,8 +482,8 @@
 			disabled={resetBusy || resetSent}
 		>
 			{resetBusy
-				? language.text('Sender...', 'Sender…', 'Sending…')
-				: resetSent ? language.text('Sendt', 'Sendt', 'Sent') : language.text('Send lenke', 'Send tilbakestillingslenke', 'Send reset link')}
+				? language.text('Sender...', 'Sender…', 'Sending…', 'Envoi…')
+				: resetSent ? language.text('Sendt', 'Sendt', 'Sent', 'Envoyé') : language.text('Send lenke', 'Send tilbakestillingslenke', 'Send reset link', 'Envoyer le lien')}
 		</button>
 	</section>
 
@@ -548,17 +554,20 @@
 	</section>
 
 	<section class="card danger-zone">
-		<h3>{language.text('Slett konto', 'Slett konto', 'Delete account')}</h3>
+		<h3>{language.text('Slett konto', 'Slett konto', 'Delete account', 'Supprimer le compte')}</h3>
 		<p class="muted small danger-copy">
 			{language.text(
 				'Dette sletter kontoen din permanent. Kamptips, VM-tips, medlemskap, chataktivitet og private ligaer du eier, blir også fjernet.',
 				'Dette slettar kontoen din permanent. Kamptips, VM-tips, medlemskap, chataktivitet og private ligaer du eig, blir også fjerna.',
-				'This permanently deletes your account. Tips, World Cup tips, memberships, chat activity and private leagues you own will also be removed.'
+				'This permanently deletes your account. Tips, World Cup tips, memberships, chat activity and private leagues you own will also be removed.',
+				'Ceci supprime définitivement votre compte. Pronostics, membres, activité de chat et ligues privées dont vous êtes propriétaire seront également supprimés.'
 			)}
 		</p>
 		<div class="field">
 			<label for="delete-confirm">
-				{#if language.isEnglish}
+				{#if language.isFrench}
+					Tapez <strong>DELETE</strong> pour confirmer
+				{:else if language.isEnglish}
 					Type <strong>DELETE</strong> to confirm
 				{:else if language.isNynorsk}
 					Skriv <strong>DELETE</strong> eller <strong>SLETT</strong> for å stadfeste
@@ -582,11 +591,11 @@
 			onclick={destroyAccount}
 			disabled={deleteBusy}
 		>
-			{deleteBusy ? language.text('Sletter...', 'Slettar…', 'Deleting…') : language.text('Slett kontoen min', 'Slett kontoen min', 'Delete my account')}
+			{deleteBusy ? language.text('Sletter...', 'Slettar…', 'Deleting…', 'Suppression…') : language.text('Slett kontoen min', 'Slett kontoen min', 'Delete my account', 'Supprimer mon compte')}
 		</button>
 	</section>
 
-	<p class="muted switch"><a href="/">{language.text('Tilbake', 'Tilbake', 'Back')}</a></p>
+	<p class="muted switch"><a href="/">{language.text('Tilbake', 'Tilbake', 'Back', 'Retour')}</a></p>
 </div>
 
 <style>

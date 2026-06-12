@@ -45,22 +45,22 @@
 	let cfg = $state<Cfg | null>(null);
 
 	let tbLabel = $derived.by<Record<string, string>>(() => ({
-		points: language.text('Totalpoeng', 'Totalpoeng', 'Total points'),
-		exactScores: language.text('Flest eksakte resultater', 'Flest eksakte resultat', 'Most exact scores'),
-		correctWinners: language.text('Flest rette vinnere', 'Flest rette vinnarar', 'Most correct winners'),
-		goalDiffDeviation: language.text('Minst målforskjell-feil', 'Minst målforskjell-feil', 'Smallest goal-difference error'),
-		fewestTips: language.text('Færrest leverte tips', 'Færrast leverte tips', 'Fewest submitted tips'),
-		earliestEdit: language.text('Tidligste siste endring (levert først)', 'Tidlegaste siste endring (levert først)', 'Earliest last edit (submitted first)')
+		points: language.text('Totalpoeng', 'Totalpoeng', 'Total points', 'Total de points'),
+		exactScores: language.text('Flest eksakte resultater', 'Flest eksakte resultat', 'Most exact scores', 'Meilleurs scores exacts'),
+		correctWinners: language.text('Flest rette vinnere', 'Flest rette vinnarar', 'Most correct winners', 'Meilleurs résultats corrects'),
+		goalDiffDeviation: language.text('Minst målforskjell-feil', 'Minst målforskjell-feil', 'Smallest goal-difference error', 'Meilleure différence de buts'),
+		fewestTips: language.text('Færrest leverte tips', 'Færrast leverte tips', 'Fewest submitted tips', 'Moins de pronostics soumis'),
+		earliestEdit: language.text('Tidligste siste endring (levert først)', 'Tidlegaste siste endring (levert først)', 'Earliest last edit (submitted first)', 'Modification la plus tôt (soumis en premier)')
 	}));
 	let roundLabel = $derived.by<Record<string, string>>(() => ({
-		R32: language.text('32-delsfinale', '32-delsfinale', 'Round of 32'),
-		R16: language.text('Åttedelsfinale', 'Åttedelsfinale', 'Round of 16'),
-		QF: language.text('Kvartfinale', 'Kvartfinale', 'Quarter-final'),
-		SF: language.text('Semifinale', 'Semifinale', 'Semi-final'),
-		FINAL: language.text('Finale', 'Finale', 'Final'),
-		CHAMPION: language.text('Vinner', 'Vinnar', 'Winner')
+		R32: language.text('32-delsfinale', '32-delsfinale', 'Round of 32', 'Huitièmes de finale'),
+		R16: language.text('Åttedelsfinale', 'Åttedelsfinale', 'Round of 16', 'Seizièmes de finale'),
+		QF: language.text('Kvartfinale', 'Kvartfinale', 'Quarter-final', 'Quart de finale'),
+		SF: language.text('Semifinale', 'Semifinale', 'Semi-final', 'Demi-finale'),
+		FINAL: language.text('Finale', 'Finale', 'Final', 'Finale'),
+		CHAMPION: language.text('Vinner', 'Vinnar', 'Winner', 'Vainqueur')
 	}));
-	let goldenBootLabel = $derived(language.text('Toppscorer', 'Toppscorar', 'Golden Boot'));
+	let goldenBootLabel = $derived(language.text('Toppscorer', 'Toppscorar', 'Golden Boot', 'Soulier d\'or'));
 
 	let revealed = $state(false);
 	let openRow = $state<string | null>(null);
@@ -174,7 +174,7 @@
 			})
 			.catch(() => {
 				if (!cancelled && id === lid) {
-					error = language.text('Kunne ikke laste ligaen.', 'Kunne ikkje laste ligaen.', 'Could not load this league.');
+					error = language.text('Kunne ikke laste ligaen.', 'Kunne ikkje laste ligaen.', 'Could not load this league.', 'Impossible de charger cette ligue.');
 				}
 			})
 			.finally(() => {
@@ -358,9 +358,10 @@
 		const title = language.text(
 			'Bli med i min tippekonkurranse for VM på Midttunet!',
 			'Bli med i min tippekonkurranse for VM på Midttunet!',
-			'Join my World Cup prediction league on Midttunet!'
+			'Join my World Cup prediction league on Midttunet!',
+			'Rejoignez ma ligue de pronostics Coupe du Monde sur Midttunet !'
 		);
-		const text = language.text('Trykk her for å utfordre meg.', 'Klikk her for å utfordre meg.', 'Tap here to challenge me.');
+		const text = language.text('Trykk her for å utfordre meg.', 'Klikk her for å utfordre meg.', 'Tap here to challenge me.', 'Appuyez ici pour me défier.');
 		try {
 			if (navigator.share) {
 				await navigator.share({ title, text, url });
@@ -383,7 +384,7 @@
 			await api.deleteLeague(league.id);
 			await goto('/leagues');
 		} catch {
-			deleteError = language.text('Kunne ikke slette ligaen.', 'Kunne ikkje slette ligaen.', 'Could not delete the league.');
+			deleteError = language.text('Kunne ikke slette ligaen.', 'Kunne ikkje slette ligaen.', 'Could not delete the league.', 'Impossible de supprimer la ligue.');
 		} finally {
 			deleteBusy = false;
 		}
@@ -411,7 +412,7 @@
 			inviteCandidates = inviteCandidates.filter((candidate) => candidate.id !== user.id);
 			inviteQuery = '';
 		} catch {
-			inviteError = language.text('Kunne ikke sende invitasjonen.', 'Kunne ikkje sende invitasjonen.', 'Could not send invite.');
+			inviteError = language.text('Kunne ikke sende invitasjonen.', 'Kunne ikkje sende invitasjonen.', 'Could not send invite.', 'Impossible d\'envoyer l\'invitation.');
 		} finally {
 			inviteSendBusy = '';
 		}
@@ -438,7 +439,7 @@
 	}
 
 	function updatedAt(iso?: string) {
-		if (!iso) return language.text('ikke synket ennå', 'ikkje synka enno', 'not synced yet');
+		if (!iso) return language.text('ikke synket ennå', 'ikkje synka enno', 'not synced yet', 'pas encore synchronisé');
 		const date = new Date(iso);
 		if (!Number.isFinite(date.getTime())) return '';
 		return new Intl.DateTimeFormat(language.locale, {
@@ -450,22 +451,22 @@
 	}
 </script>
 
-<a href="/leagues" class="muted back">← {language.text('Ligaer', 'Ligaer', 'Leagues')}</a>
+<a href="/leagues" class="muted back">← {language.text('Ligaer', 'Ligaer', 'Leagues', 'Ligues')}</a>
 
 {#if error}
 	<p class="error">{error}</p>
 {:else if !loaded}
-	<p class="muted">{language.text('Laster...', 'Lastar…', 'Loading…')}</p>
+	<p class="muted">{language.text('Laster...', 'Lastar…', 'Loading…', 'Chargement…')}</p>
 {:else if league}
 	<div class="lhead">
 		<div class="ltitle">
-			<p class="kicker">{language.text('Liga', 'Liga', 'League')}</p>
+			<p class="kicker">{language.text('Liga', 'Liga', 'League', 'Ligue')}</p>
 			{#if editing}
 				<input
 					class="input nameedit"
 					bind:value={nameDraft}
 					maxlength="64"
-					aria-label={language.text('Liganamn', 'Liganamn', 'League name')}
+					aria-label={language.text('Liganamn', 'Liganamn', 'League name', 'Nom de la ligue')}
 					onkeydown={(event) => event.key === 'Enter' && void saveName()}
 				/>
 			{:else}
@@ -479,7 +480,7 @@
 						class="btn secondary icon"
 						onclick={() => void saveName()}
 						disabled={mgmtBusy}
-						aria-label={language.text('Lagre liganamn', 'Lagre liganamn', 'Save league name')}
+						aria-label={language.text('Lagre liganamn', 'Lagre liganamn', 'Save league name', 'Enregistrer le nom de la ligue')}
 					>
 						<Check size={18} />
 					</button>
@@ -487,7 +488,7 @@
 						class="btn secondary icon"
 						onclick={exitEdit}
 						disabled={mgmtBusy}
-						aria-label={language.text('Avslutt redigering', 'Avslutt redigering', 'Stop editing')}
+						aria-label={language.text('Avslutt redigering', 'Avslutt redigering', 'Stop editing', 'Terminer la modification')}
 					>
 						<X size={18} />
 					</button>
@@ -495,7 +496,7 @@
 					<button
 						class="btn secondary icon"
 						onclick={enterEdit}
-						aria-label={language.text('Administrer liga', 'Administrer liga', 'Manage league')}
+						aria-label={language.text('Administrer liga', 'Administrer liga', 'Manage league', 'Gérer la ligue')}
 					>
 						<Settings size={18} />
 					</button>
@@ -508,13 +509,13 @@
 
 	{#if editing}
 		<section class="card vis">
-			<div class="muted small">{language.text('Synlegheit for invitasjonskode', 'Synlegheit for invitasjonskode', 'Invite code visibility')}</div>
+			<div class="muted small">{language.text('Synlegheit for invitasjonskode', 'Synlegheit for invitasjonskode', 'Invite code visibility', 'Visibilité du code d\'invitation')}</div>
 			<div class="tabs vistabs">
 				<button class:active={!isPrivate} onclick={() => void setPrivacy(false)} disabled={mgmtBusy}>
-					{language.text('Medlemmer', 'Medlemmer', 'Members')}
+					{language.text('Medlemmer', 'Medlemmer', 'Members', 'Membres')}
 				</button>
 				<button class:active={isPrivate} onclick={() => void setPrivacy(true)} disabled={mgmtBusy}>
-					{language.text('Privat', 'Privat', 'Private')}
+					{language.text('Privat', 'Privat', 'Private', 'Privé')}
 				</button>
 			</div>
 			<p class="muted small hint">
@@ -522,13 +523,15 @@
 					{language.text(
 						'Berre eigaren kan sjå og dele invitasjonskoden.',
 						'Berre eigaren kan sjå og dele invitasjonskoden.',
-						'Only the owner can see and share the invite code.'
+						'Only the owner can see and share the invite code.',
+                        'Seul le propriétaire peut voir et partager le code d\'invitation.'
 					)}
 				{:else}
 					{language.text(
 						'Alle medlemmer i ligaen kan sjå og dele invitasjonskoden.',
 						'Alle medlemmer i ligaen kan sjå og dele invitasjonskoden.',
-						'All league members can see and share the invite code.'
+						'All league members can see and share the invite code.',
+                        'Tous les membres de la ligue peuvent consulter et partager le code d\'invitation.'
 					)}
 				{/if}
 			</p>
@@ -537,9 +540,9 @@
 
 	<section class="card">
 		<div class="tabs">
-			<button class:active={tab === 'total'} onclick={() => (tab = 'total')}>{language.text('Totalt', 'Totalt', 'Total')}</button>
-			<button class:active={tab === 'tipsPoints'} onclick={() => (tab = 'tipsPoints')}>{language.text('Kamptips', 'Kamptips', 'Match tips')}</button>
-			<button class:active={tab === 'forecastPoints'} onclick={() => (tab = 'forecastPoints')}>{language.text('VM-tips', 'VM-tips', 'World Cup tips')}</button>
+			<button class:active={tab === 'total'} onclick={() => (tab = 'total')}>{language.text('Totalt', 'Totalt', 'Total', 'Total')}</button>
+			<button class:active={tab === 'tipsPoints'} onclick={() => (tab = 'tipsPoints')}>{language.text('Kamptips', 'Kamptips', 'Match tips', 'Pronostics de match')}</button>
+			<button class:active={tab === 'forecastPoints'} onclick={() => (tab = 'forecastPoints')}>{language.text('VM-tips', 'VM-tips', 'World Cup tips', 'Pronostics Coupe du Monde')}</button>
 		</div>
 
 		{#if leaderboardScrollable}
@@ -557,25 +560,25 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>{language.text('Spiller', 'Spelar', 'Player')}</th>
+					<th>{language.text('Spiller', 'Spelar', 'Player', 'Joueur')}</th>
 					{#if fcView}
-						<th class="num ext" title={language.text('Rett gruppeplassering', 'Rett gruppeplassering', 'Correct group placement')}>Grp</th>
-						<th class="num ext" title={language.text('Lag som gikk videre fra gruppespill', 'Lag som gjekk vidare frå gruppespel', 'Teams that advanced from group stage')}>{language.text('Vid', 'Vid', 'Adv')}</th>
-						<th class="num ext" title={language.text('Tippet lag som nådde 32-delsfinale', 'Tippa lag som nådde 32-delsfinale', 'Predicted team that reached Round of 32')}>R32</th>
-						<th class="num ext" title={language.text('Tippet lag som nådde åttedelsfinale', 'Tippa lag som nådde åttedelsfinale', 'Predicted team that reached Round of 16')}>R16</th>
-						<th class="num ext" title={language.text('Tippet lag som nådde kvartfinale', 'Tippa lag som nådde kvartfinale', 'Predicted team that reached quarter-final')}>QF</th>
-						<th class="num ext" title={language.text('Tippet lag som nådde semifinale', 'Tippa lag som nådde semifinale', 'Predicted team that reached semi-final')}>SF</th>
-						<th class="num ext" title={language.text('Tippet lag som nådde finale', 'Tippa lag som nådde finale', 'Predicted team that reached final')}>F</th>
-						<th class="num ext" title={goldenBootLabel}>{language.text('TS', 'TS', 'GB')}</th>
-						<th class="num ext" title={language.text('Rett vinner tippet', 'Rett vinnar tippa', 'Correct winner predicted')}>{language.text('Vinn', 'Vinn', 'Win')}</th>
+						<th class="num ext" title={language.text('Rett gruppeplassering', 'Rett gruppeplassering', 'Correct group placement', 'Placement de groupe correct')}>Grp</th>
+						<th class="num ext" title={language.text('Lag som gikk videre fra gruppespill', 'Lag som gjekk vidare frå gruppespel', 'Teams that advanced from group stage', 'Équipes qualifiées de la phase de groupes')}>{language.text('Vid', 'Vid', 'Adv', 'Qlf')}</th>
+						<th class="num ext" title={language.text('Tippet lag som nådde 32-delsfinale', 'Tippa lag som nådde 32-delsfinale', 'Predicted team that reached Round of 32', 'Équipe prédite atteignant les 32e de finale')}>R32</th>
+						<th class="num ext" title={language.text('Tippet lag som nådde åttedelsfinale', 'Tippa lag som nådde åttedelsfinale', 'Predicted team that reached Round of 16', 'Équipe prédite atteignant les 16e de finale')}>R16</th>
+						<th class="num ext" title={language.text('Tippet lag som nådde kvartfinale', 'Tippa lag som nådde kvartfinale', 'Predicted team that reached quarter-final', 'Équipe prédite atteignant les quarts de finale')}>QF</th>
+						<th class="num ext" title={language.text('Tippet lag som nådde semifinale', 'Tippa lag som nådde semifinale', 'Predicted team that reached semi-final', 'Équipe prédite atteignant les demi-finales')}>SF</th>
+						<th class="num ext" title={language.text('Tippet lag som nådde finale', 'Tippa lag som nådde finale', 'Predicted team that reached final', 'Équipe prédite atteignant la finale')}>F</th>
+						<th class="num ext" title={goldenBootLabel}>{language.text('TS', 'TS', 'GB', 'SD')}</th>
+						<th class="num ext" title={language.text('Rett vinner tippet', 'Rett vinnar tippa', 'Correct winner predicted', 'Vainqueur correct prédit')}>{language.text('Vinn', 'Vinn', 'Win', 'Vict')}</th>
 					{:else}
-						<th class="num ext" title={language.text('Kamper tippet', 'Kampar tippa', 'Matches tipped')}>Tips</th>
-						<th class="num ext" title={language.text('VM-tipspoeng', 'VM-tipspoeng', 'World Cup tip points')}>{language.text('VM', 'VM', 'WC')}</th>
-						<th class="num ext" title={language.text('Eksakte resultater (tie-break 1)', 'Eksakte resultat (tie-break 1)', 'Exact scores (tiebreaker 1)')}>{language.text('Eksakt', 'Eksakt', 'Exact')}</th>
-						<th class="num ext" title={language.text('Rette vinnere (tie-break 2)', 'Rette vinnarar (tie-break 2)', 'Correct winners (tiebreaker 2)')}>{language.text('Vinn', 'Vinn', 'Win')}</th>
-						<th class="num ext" title={language.text('Målforskjell-feil (tie-break 3, lavere er bedre)', 'Målforskjell-feil (tie-break 3, lågare er betre)', 'Goal-difference error (tiebreaker 3, lower is better)')}>GD&Delta;</th>
+						<th class="num ext" title={language.text('Kamper tippet', 'Kampar tippa', 'Matches tipped', 'Matchs pronostiqués')}>Tips</th>
+						<th class="num ext" title={language.text('VM-tipspoeng', 'VM-tipspoeng', 'World Cup tip points', 'Points pronostics CM')}>{language.text('VM', 'VM', 'WC', 'CM')}</th>
+						<th class="num ext" title={language.text('Eksakte resultater (tie-break 1)', 'Eksakte resultat (tie-break 1)', 'Exact scores (tiebreaker 1)', 'Scores exacts (tie-break 1)')}>{language.text('Eksakt', 'Eksakt', 'Exact', 'Exact')}</th>
+						<th class="num ext" title={language.text('Rette vinnere (tie-break 2)', 'Rette vinnarar (tie-break 2)', 'Correct winners (tiebreaker 2)', 'Résultats corrects (tie-break 2)')}>{language.text('Vinn', 'Vinn', 'Win', 'Vict')}</th>
+						<th class="num ext" title={language.text('Målforskjell-feil (tie-break 3, lavere er bedre)', 'Målforskjell-feil (tie-break 3, lågare er betre)', 'Goal-difference error (tiebreaker 3, lower is better)', 'Erreur diff. de buts (tie-break 3, plus bas = mieux)')}>GD&Delta;</th>
 					{/if}
-					<th class="num pts">{language.text('Poeng', 'Poeng', 'Points')}</th>
+					<th class="num pts">{language.text('Poeng', 'Poeng', 'Points', 'Points')}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -630,11 +633,11 @@
 										<a
 											class="detail-link"
 											href={`/forecast/${r.userId}`}
-											title={language.text(`Se VM-tipset til ${r.name}`, `Sjå VM-tipset til ${r.name}`, `View ${r.name}'s World Cup tips`)}
+											title={language.text(`Se VM-tipset til ${r.name}`, `Sjå VM-tipset til ${r.name}`, `View ${r.name}'s World Cup tips`, `Consultez les pronostics de ${r.name} pour la Coupe du monde`)}
 											onclick={(event) => event.stopPropagation()}
 										>
 											<Telescope size={15} />
-											<span>{language.text('Sjå VM-tipset', 'Sjå VM-tipset', 'View World Cup tip')}</span>
+											<span>{language.text('Sjå VM-tipset', 'Sjå VM-tipset', 'View World Cup tip', 'Voir les pronostics pour la Coupe du monde')}</span>
 										</a>
 										{#if editing && r.userId !== auth.user?.id}
 											<button
@@ -643,33 +646,33 @@
 												onclick={() => void removeMember(r.userId, r.name)}
 											>
 												<UserMinus size={15} />
-												<span>{language.text('Fjern medlem', 'Fjern medlem', 'Remove member')}</span>
+												<span>{language.text('Fjern medlem', 'Fjern medlem', 'Remove member', 'Supprimer un membre')}</span>
 											</button>
 										{/if}
 									</div>
 									{#if fcView}
 										<div class="stats">
-											<span><i>{language.text('Rett gruppeplassering', 'Rett gruppeplassering', 'Correct group placement')}</i><b>{f.groups ?? 0}</b></span>
-											<span><i>{language.text('Lag videre', 'Lag vidare', 'Advanced team')}</i><b>{f.advance ?? 0}</b></span>
-											<span><i>{language.text('Nådde 32-delsfinale', 'Nådde 32-delsfinale', 'Reached Round of 32')}</i><b>{f.R32 ?? 0}</b></span>
-											<span><i>{language.text('Nådde åttedelsfinale', 'Nådde åttedelsfinale', 'Reached Round of 16')}</i><b>{f.R16 ?? 0}</b></span>
-											<span><i>{language.text('Nådde kvartfinale', 'Nådde kvartfinale', 'Reached quarter-final')}</i><b>{f.QF ?? 0}</b></span>
-											<span><i>{language.text('Nådde semifinale', 'Nådde semifinale', 'Reached semi-final')}</i><b>{f.SF ?? 0}</b></span>
-											<span><i>{language.text('Nådde finale', 'Nådde finale', 'Reached final')}</i><b>{f.FINAL ?? 0}</b></span>
-											<span><i>{goldenBootLabel}</i><b>{f.goldenBoot ? language.text('Ja', 'Ja', 'Yes') : language.text('Nei', 'Nei', 'No')} · {f.goldenBootPoints ?? 0} p</b></span>
-											<span><i>{language.text('Rett vinner', 'Rett vinnar', 'Correct winner')}</i><b>{f.champion ? language.text('Ja', 'Ja', 'Yes') : language.text('Nei', 'Nei', 'No')}</b></span>
+											<span><i>{language.text('Rett gruppeplassering', 'Rett gruppeplassering', 'Correct group placement', 'Placement de groupe correct')}</i><b>{f.groups ?? 0}</b></span>
+											<span><i>{language.text('Lag videre', 'Lag vidare', 'Advanced team', 'Équipe qualifiée')}</i><b>{f.advance ?? 0}</b></span>
+											<span><i>{language.text('Nådde 32-delsfinale', 'Nådde 32-delsfinale', 'Reached Round of 32', 'Atteint les 32e de finale')}</i><b>{f.R32 ?? 0}</b></span>
+											<span><i>{language.text('Nådde åttedelsfinale', 'Nådde åttedelsfinale', 'Reached Round of 16', 'Atteint les 16e de finale')}</i><b>{f.R16 ?? 0}</b></span>
+											<span><i>{language.text('Nådde kvartfinale', 'Nådde kvartfinale', 'Reached quarter-final', 'Atteint les quarts de finale')}</i><b>{f.QF ?? 0}</b></span>
+											<span><i>{language.text('Nådde semifinale', 'Nådde semifinale', 'Reached semi-final', 'Atteint les demi-finales')}</i><b>{f.SF ?? 0}</b></span>
+											<span><i>{language.text('Nådde finale', 'Nådde finale', 'Reached final', 'Atteint la finale')}</i><b>{f.FINAL ?? 0}</b></span>
+											<span><i>{goldenBootLabel}</i><b>{f.goldenBoot ? language.text('Ja', 'Ja', 'Yes', 'Oui') : language.text('Nei', 'Nei', 'No', 'Non')} · {f.goldenBootPoints ?? 0} p</b></span>
+											<span><i>{language.text('Rett vinner', 'Rett vinnar', 'Correct winner', 'Vainqueur correct')}</i><b>{f.champion ? language.text('Ja', 'Ja', 'Yes', 'Oui') : language.text('Nei', 'Nei', 'No', 'Non')}</b></span>
 										</div>
 									{:else}
 										<div class="stats">
-											<span><i>{language.text('Kamper tippet', 'Kampar tippa', 'Matches tipped')}</i><b>{r.predicted}</b></span>
-											<span><i>{language.text('Kamptipspoeng', 'Kamptipspoeng', 'Match tip points')}</i><b>{r.tipsPoints}</b></span>
-											<span><i>{language.text('VM-tipspoeng', 'VM-tipspoeng', 'World Cup tip points')}</i><b>{r.forecastPoints}</b></span>
-											<span><i>{language.text('Eksakte resultater', 'Eksakte resultat', 'Exact scores')}</i><b>{r.exactScores}</b></span>
-											<span><i>{language.text('Rette vinnere', 'Rette vinnarar', 'Correct winners')}</i><b>{r.correctWinners}</b></span>
-											<span><i>{language.text('Målforskjell-feil', 'Målforskjell-feil', 'Goal-difference error')}</i><b>{r.gdDeviation}</b></span>
+											<span><i>{language.text('Kamper tippet', 'Kampar tippa', 'Matches tipped', 'Matchs pronostiqués')}</i><b>{r.predicted}</b></span>
+											<span><i>{language.text('Kamptipspoeng', 'Kamptipspoeng', 'Match tip points', 'Points pronostics matchs')}</i><b>{r.tipsPoints}</b></span>
+											<span><i>{language.text('VM-tipspoeng', 'VM-tipspoeng', 'World Cup tip points', 'Points pronostics CM')}</i><b>{r.forecastPoints}</b></span>
+											<span><i>{language.text('Eksakte resultater', 'Eksakte resultat', 'Exact scores', 'Scores exacts')}</i><b>{r.exactScores}</b></span>
+											<span><i>{language.text('Rette vinnere', 'Rette vinnarar', 'Correct winners', 'Résultats corrects')}</i><b>{r.correctWinners}</b></span>
+											<span><i>{language.text('Målforskjell-feil', 'Målforskjell-feil', 'Goal-difference error', 'Erreur de différence de buts')}</i><b>{r.gdDeviation}</b></span>
 										</div>
 									{/if}
-									</div>
+								</div>
 							</td>
 						</tr>
 					{/if}
@@ -679,23 +682,23 @@
 		</div>
 
 		<p class="muted small note">
-			{language.text('Poengene oppdateres automatisk når resultatene kommer.', 'Poenga blir oppdaterte automatisk når resultata kjem.', 'Points update automatically as results come in.')}
+			{language.text('Poengene oppdateres automatisk når resultatene kommer.', 'Poenga blir oppdaterte automatisk når resultata kjem.', 'Points update automatically as results come in.', 'Les points se mettent à jour automatiquement dès que les résultats arrivent.')}
 		</p>
 
 		{#if fcView && goldenBoot && goldenBoot.players.length > 0}
 			<div class="gb-panel">
 				<div class="gb-title">
-					<h3>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers')}</h3>
-					<span class="muted small">{language.text('Oppdatert', 'Oppdatert', 'Updated')} {updatedAt(goldenBoot.updatedAt)}</span>
+					<h3>{language.text('Toppscorere', 'Toppscorarar', 'Top scorers', 'Meilleurs buteurs')}</h3>
+					<span class="muted small">{language.text('Oppdatert', 'Oppdatert', 'Updated', 'Mis à jour')} {updatedAt(goldenBoot.updatedAt)}</span>
 				</div>
 				<table class="gb-table">
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>{language.text('Spiller', 'Spelar', 'Player')}</th>
-							<th>{language.text('Lag', 'Lag', 'Team')}</th>
-							<th class="num">{language.text('Mål', 'Mål', 'Goals')}</th>
-							<th>{language.text('Tippet av', 'Tippa av', 'Picked by')}</th>
+							<th>{language.text('Spiller', 'Spelar', 'Player', 'Joueur')}</th>
+							<th>{language.text('Lag', 'Lag', 'Team', 'Équipe')}</th>
+							<th class="num">{language.text('Mål', 'Mål', 'Goals', 'Buts')}</th>
+							<th>{language.text('Tippet av', 'Tippa av', 'Picked by', 'Choisi par')}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -739,15 +742,15 @@
 	{#if invite && invite !== 'GLOBAL'}
 		<section class="card invite">
 			<div class="invite-head">
-				<h3>{language.text('Del liga', 'Del liga', 'Share league')}</h3>
-				<p class="muted small">{language.text('Del koden eller lenken med dem du vil invitere.', 'Del koden eller lenka med dei du vil invitere.', 'Share the code or link with the people you want to invite.')}</p>
+				<h3>{language.text('Del liga', 'Del liga', 'Share league', 'Partager la ligue')}</h3>
+				<p class="muted small">{language.text('Del koden eller lenken med dem du vil invitere.', 'Del koden eller lenka med dei du vil invitere.', 'Share the code or link with the people you want to invite.', 'Partagez le code ou le lien avec les personnes que vous souhaitez inviter.')}</p>
 			</div>
 			<div class="irow">
 				<div class="ic">
 					<div class="muted small">
-						{language.text('Invitasjonskode', 'Invitasjonskode', 'Invite code')}
+						{language.text('Invitasjonskode', 'Invitasjonskode', 'Invite code', 'Code d\'invitation')}
 						{#if isPrivate}
-							<span class="lockpill"><Lock size={11} /> {language.text('Privat', 'Privat', 'Private')}</span>
+							<span class="lockpill"><Lock size={11} /> {language.text('Privat', 'Privat', 'Private', 'Privé')}</span>
 						{/if}
 					</div>
 					<div class="code" class:masked={!revealed}>
@@ -757,18 +760,18 @@
 				<div class="spacer"></div>
 				<button
 					class="btn secondary eye"
-					aria-label={revealed ? language.text('Skjul kode', 'Skjul kode', 'Hide code') : language.text('Vis kode', 'Vis kode', 'Show code')}
+					aria-label={revealed ? language.text('Skjul kode', 'Skjul kode', 'Hide code', 'Masquer le code') : language.text('Vis kode', 'Vis kode', 'Show code', 'Afficher le code')}
 					onclick={() => (revealed = !revealed)}
 				>
 					{#if revealed}<EyeOff size={18} />{:else}<Eye size={18} />{/if}
 				</button>
 				<button class="btn secondary copy" onclick={copyInvite}>
-					<Copy size={16} /> {language.text('Kopier', 'Kopier', 'Copy')}
+					<Copy size={16} /> {language.text('Kopier', 'Kopier', 'Copy', 'Copier')}
 				</button>
 			</div>
 			<button class="btn share" onclick={shareInvite}>
 				<Share2 size={16} />
-				{linkCopied ? language.text('Lenken er kopiert!', 'Lenka er kopiert!', 'Link copied!') : language.text('Del invitasjonslenke', 'Del invitasjonslenke', 'Share invite link')}
+				{linkCopied ? language.text('Lenken er kopiert!', 'Lenka er kopiert!', 'Link copied!', 'Lien copié !') : language.text('Del invitasjonslenke', 'Del invitasjonslenke', 'Share invite link', 'Partager le lien d\'invitation')}
 			</button>
 			{#if editing}
 				{#if confirmRegen}
@@ -799,29 +802,29 @@
 	{#if invite && invite !== 'GLOBAL' && inviteAdmin}
 		<section class="card invite-manager">
 			<div class="invite-head">
-				<h3><Mail size={17} /> {language.text('Inviter folk', 'Inviter folk', 'Invite people')}</h3>
-				<p class="muted small">{language.text('Send en forespørsel i appen til en registrert bruker.', 'Send ei førespurnad i appen til ein registrert brukar.', 'Send an in-app request to a registered user.')}</p>
+				<h3><Mail size={17} /> {language.text('Inviter folk', 'Inviter folk', 'Invite people', 'Inviter des personnes')}</h3>
+				<p class="muted small">{language.text('Send en forespørsel i appen til en registrert bruker.', 'Send ei førespurnad i appen til ein registrert brukar.', 'Send an in-app request to a registered user.', 'Envoyez une demande dans l\'application à un utilisateur enregistré.')}</p>
 			</div>
 
 			<label class="field invite-search">
-				<span class="muted small">{language.text('Søk etter brukere', 'Søk etter brukarar', 'Search users')}</span>
+				<span class="muted small">{language.text('Søk etter brukere', 'Søk etter brukarar', 'Search users', 'Rechercher des utilisateurs')}</span>
 				<span class="search-shell">
 					<Search size={16} />
 					<input
 						class="input"
 						bind:value={inviteQuery}
-						placeholder={language.text('Navn eller e-post', 'Namn eller e-post', 'Name or email')}
+						placeholder={language.text('Navn eller e-post', 'Namn eller e-post', 'Name or email', 'Nom ou e-mail')}
 						autocomplete="off"
 					/>
 				</span>
 			</label>
 
 			{#if inviteQuery.trim().length > 0 && inviteQuery.trim().length < 2}
-				<p class="muted small invite-note">{language.text('Skriv minst 2 tegn.', 'Skriv minst 2 teikn.', 'Type at least 2 characters.')}</p>
+				<p class="muted small invite-note">{language.text('Skriv minst 2 tegn.', 'Skriv minst 2 teikn.', 'Type at least 2 characters.', 'Saisissez au moins 2 caractères.')}</p>
 			{:else if inviteSearchBusy}
-				<p class="muted small invite-note">{language.text('Søker...', 'Søkjer...', 'Searching...')}</p>
+				<p class="muted small invite-note">{language.text('Søker...', 'Søkjer...', 'Searching...', 'Recherche...')}</p>
 			{:else if inviteQuery.trim().length >= 2 && inviteCandidates.length === 0}
-				<p class="muted small invite-note">{language.text('Fant ingen tilgjengelige brukere.', 'Fann ingen tilgjengelege brukarar.', 'No available users found.')}</p>
+				<p class="muted small invite-note">{language.text('Fant ingen tilgjengelige brukere.', 'Fann ingen tilgjengelege brukarar.', 'No available users found.', 'Aucun utilisateur disponible trouvé.')}</p>
 			{/if}
 
 			{#if inviteCandidates.length > 0}
@@ -838,7 +841,7 @@
 								disabled={!!inviteSendBusy}
 								onclick={() => sendInvite(candidate)}
 							>
-								<UserPlus size={16} /> {inviteSendBusy === candidate.id ? language.text('Sender...', 'Sender...', 'Sending...') : language.text('Inviter', 'Inviter', 'Invite')}
+								<UserPlus size={16} /> {inviteSendBusy === candidate.id ? language.text('Sender...', 'Sender...', 'Sending...', 'Envoi...') : language.text('Inviter', 'Inviter', 'Invite', 'Inviter')}
 							</button>
 						</div>
 					{/each}
@@ -847,7 +850,7 @@
 
 			{#if pendingInvites.length > 0}
 				<div class="pending-list">
-					<p class="kicker">{language.text('Ventende', 'Ventande', 'Pending')}</p>
+					<p class="kicker">{language.text('Ventende', 'Ventande', 'Pending', 'En attente')}</p>
 					{#each pendingInvites as pending (pending.id)}
 						<div class="pending-row">
 							<Avatar name={pending.invitedUser.name} src={pending.invitedUser.avatarUrl} size={34} />
@@ -867,16 +870,17 @@
 
 	{#if role === 'owner' && invite !== 'GLOBAL'}
 		<section class="card danger-zone">
-			<h3>{language.text('Slett liga', 'Slett liga', 'Delete league')}</h3>
+			<h3>{language.text('Slett liga', 'Slett liga', 'Delete league', 'Supprimer la ligue')}</h3>
 			<p class="muted">
 				{language.text(
 					'Dette sletter ligaen permanent og fjerner alle medlemskap. Skriv liganavnet for å bekrefte.',
 					'Dette slettar ligaen permanent og fjernar alle medlemskap. Skriv liganamnet for å stadfeste.',
-					'This permanently deletes the league and removes all memberships. Type the league name to confirm.'
+					'This permanently deletes the league and removes all memberships. Type the league name to confirm.',
+					'Cela supprime définitivement la ligue et retire tous les membres. Saisissez le nom de la ligue pour confirmer.'
 				)}
 			</p>
 			<label class="field">
-				<span class="muted small">{language.text('Skriv', 'Skriv', 'Type')} {league.name}</span>
+				<span class="muted small">{language.text('Skriv', 'Skriv', 'Type', 'Saisissez')} {league.name}</span>
 				<input class="input" bind:value={deleteConfirm} placeholder={league.name} />
 			</label>
 			<button
@@ -884,7 +888,7 @@
 				disabled={deleteBusy || deleteConfirm.trim() !== league.name.trim()}
 				onclick={deleteLeague}
 			>
-				{deleteBusy ? language.text('Sletter...', 'Slettar…', 'Deleting…') : language.text('Slett liga permanent', 'Slett liga permanent', 'Delete league permanently')}
+				{deleteBusy ? language.text('Sletter...', 'Slettar…', 'Deleting…', 'Suppression...') : language.text('Slett liga permanent', 'Slett liga permanent', 'Delete league permanently', 'Supprimer définitivement la ligue')}
 			</button>
 			{#if deleteError}<p class="error">{deleteError}</p>{/if}
 		</section>
@@ -892,40 +896,41 @@
 
 	{#if cfg}
 		<details class="card legend">
-			<summary>{language.text('Slik fungerer poengene', 'Slik fungerer poenga', 'How points work')}</summary>
+			<summary>{language.text('Slik fungerer poengene', 'Slik fungerer poenga', 'How points work', 'Comment fonctionnent les points')}</summary>
 
-			<h4>{language.text('Per kamp (kamptips)', 'Per kamp (kamptips)', 'Per match (match tips)')} — {language.text('maks', 'maks', 'max')} {cfg.match.tendency +
+			<h4>{language.text('Per kamp (kamptips)', 'Per kamp (kamptips)', 'Per match (match tips)', 'Par match (pronostics de match)')} — {language.text('maks', 'maks', 'max', 'max')} {cfg.match.tendency +
 					cfg.match.exact +
 					cfg.match.totalGoals +
 					cfg.match.goalDiff} p</h4>
 			<ul class="leg">
 				<li>
-					<span>{language.text('Rett resultat - gruppespill: H / U / B; sluttspill: laget som går videre', 'Rett resultat - gruppespel: H / U / B; sluttspel: laget som går vidare', 'Correct result - group stage: H / D / A; knockout: the team that advances')}</span><b>{cfg.match.tendency} p</b>
+					<span>{language.text('Rett resultat - gruppespill: H / U / B; sluttspill: laget som går videre', 'Rett resultat - gruppespel: H / U / B; sluttspel: laget som går vidare', 'Correct result - group stage: H / D / A; knockout: the team that advances', 'Résultat correct - phase de groupes : D / N / E ; éliminatoires : l\'équipe qualifiée')}</span><b>{cfg.match.tendency} p</b>
 				</li>
-				<li><span>{language.text('Eksakt resultat', 'Eksakt resultat', 'Exact score')}</span><b>+{cfg.match.exact} p</b></li>
-				<li><span>{language.text('Rett totalt mål', 'Rett totalt mål', 'Correct total goals')}</span><b>+{cfg.match.totalGoals} p</b></li>
-				<li><span>{language.text('Rett målforskjell', 'Rett målforskjell', 'Correct goal difference')}</span><b>+{cfg.match.goalDiff} p</b></li>
+				<li><span>{language.text('Eksakt resultat', 'Eksakt resultat', 'Exact score', 'Score exact')}</span><b>+{cfg.match.exact} p</b></li>
+				<li><span>{language.text('Rett totalt mål', 'Rett totalt mål', 'Correct total goals', 'Total de buts correct')}</span><b>+{cfg.match.totalGoals} p</b></li>
+				<li><span>{language.text('Rett målforskjell', 'Rett målforskjell', 'Correct goal difference', 'Différence de buts correcte')}</span><b>+{cfg.match.goalDiff} p</b></li>
 			</ul>
 			<p class="muted small">
 				{language.text(
 					'Sluttspillkamper kan ikke ende uavgjort - resultatpoengene går til laget som går videre. Blir en sluttspillkamp avgjort etter ekstraomganger, brukes stillingen etter ekstraomganger til poeng.',
 					'Sluttspelkampar kan ikkje ende uavgjort - resultatpoenga går til laget som går vidare. Blir ein sluttspelkamp avgjord etter ekstraomgangar, blir stillinga etter ekstraomgangar brukt til poeng.',
-					'Knockout matches cannot end in a draw - the result points go to the team that advances. If a knockout match is decided in extra time, the score after extra time is used for points.'
+					'Knockout matches cannot end in a draw - the result points go to the team that advances. If a knockout match is decided in extra time, the score after extra time is used for points.',
+					'Les matchs à élimination directe ne peuvent pas se terminer par un match nul — les points de résultat vont à l\'équipe qualifiée. Si un tel match est décidé en prolongation, le score après prolongation est utilisé.'
 				)}
 			</p>
 
-			<h4>{language.text('VM-tips for turneringen', 'VM-tips for turneringa', 'World Cup tips for the tournament')}</h4>
+			<h4>{language.text('VM-tips for turneringen', 'VM-tips for turneringa', 'World Cup tips for the tournament', 'Pronostics Coupe du Monde pour le tournoi')}</h4>
 			<ul class="leg">
-				<li><span>{language.text('Hvert lag på rett gruppeplassering', 'Kvart lag på rett gruppeplassering', 'Each team in the correct group position')}</span><b>{cfg.forecast.groupPosition} p</b></li>
-				<li><span>{language.text('Hele gruppen i rett rekkefølge (bonus)', 'Heile gruppa i rett rekkjefølgje (bonus)', 'The full group in the correct order (bonus)')}</span><b>+{cfg.forecast.perfectGroupBonus} p</b></li>
+				<li><span>{language.text('Hvert lag på rett gruppeplassering', 'Kvart lag på rett gruppeplassering', 'Each team in the correct group position', 'Chaque équipe à la bonne position de groupe')}</span><b>{cfg.forecast.groupPosition} p</b></li>
+				<li><span>{language.text('Hele gruppen i rett rekkefølge (bonus)', 'Heile gruppa i rett rekkjefølgje (bonus)', 'The full group in the correct order (bonus)', 'Tout le groupe dans le bon ordre (bonus)')}</span><b>+{cfg.forecast.perfectGroupBonus} p</b></li>
 				<li>
-					<span>{language.text('Hvert lag du tippet videre (topp 2 i en gruppe eller beste treer) som faktisk går videre', 'Kvart lag du tippa vidare (topp 2 i ei gruppe eller beste trear) som faktisk går vidare', 'Each team you picked to advance (top 2 in a group or a best third) that actually goes through')}</span
+					<span>{language.text('Hvert lag du tippet videre (topp 2 i en gruppe eller beste treer) som faktisk går videre', 'Kvart lag du tippa vidare (topp 2 i ei gruppe eller beste trear) som faktisk går vidare', 'Each team you picked to advance (top 2 in a group or a best third) that actually goes through', 'Chaque équipe choisie pour avancer (top 2 d\'un groupe ou meilleur 3e) qui passe effectivement')}</span
 					><b>{cfg.forecast.advance} p</b>
 				</li>
-				<li><span>{language.text('Rett toppscorer', 'Rett toppscorar', 'Correct Golden Boot winner')}</span><b>{cfg.forecast.goldenBootWinner ?? 15} p</b></li>
+				<li><span>{language.text('Rett toppscorer', 'Rett toppscorar', 'Correct Golden Boot winner', 'Soulier d\'or correct')}</span><b>{cfg.forecast.goldenBootWinner ?? 15} p</b></li>
 			</ul>
 			<p class="muted small">
-				{language.text('Nådde sluttspillrunde (per rett tippet lag):', 'Nådde sluttspelet (per rett tippa lag):', 'Reached knockout round (per correctly predicted team):')}
+				{language.text('Nådde sluttspillrunde (per rett tippet lag):', 'Nådde sluttspelet (per rett tippa lag):', 'Reached knockout round (per correctly predicted team):', 'Atteint le tour éliminatoire (par équipe correctement prédite) :')}
 			</p>
 			<ul class="leg">
 				{#each Object.entries(roundLabel) as [k, lbl] (k)}
@@ -935,7 +940,7 @@
 				{/each}
 			</ul>
 
-			<h4>{language.text('Tie-break (i rekkefølge)', 'Tie-break (i rekkjefølgje)', 'Tiebreakers (in order)')}</h4>
+			<h4>{language.text('Tie-break (i rekkefølge)', 'Tie-break (i rekkjefølgje)', 'Tiebreakers (in order)', 'Départages (dans l\'ordre)')}</h4>
 			<ol class="tiebreak">
 				{#each cfg.tiebreakers as t (t)}
 					<li>{tbLabel[t] ?? t}</li>
