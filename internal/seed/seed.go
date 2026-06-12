@@ -239,9 +239,6 @@ func tvChannelLookups() (map[string]string, []string, error) {
 	byOrder := make([]string, 0, len(matches))
 	for _, m := range matches {
 		channel := strings.TrimSpace(m.Channel)
-		if channel != "NRK1" && channel != "TV2" {
-			channel = ""
-		}
 		byOrder = append(byOrder, channel)
 		if channel == "" {
 			continue
@@ -264,9 +261,9 @@ func tvChannelLookups() (map[string]string, []string, error) {
 	return byPair, byOrder, nil
 }
 
-// ApplyTVChannels backfills the simple Norwegian broadcast label on every
-// match. It prefers unique team-pair matches from the TV schedule and falls
-// back to the schedule order for duplicate/placeholder fixtures.
+// ApplyTVChannels backfills the broadcaster label (from tv_channels2026.json)
+// on every match. It prefers unique team-pair matches from the TV schedule and
+// falls back to the schedule order for duplicate/placeholder fixtures.
 func ApplyTVChannels(app core.App) error {
 	matchesCol, err := app.FindCollectionByNameOrId("matches")
 	if err != nil {

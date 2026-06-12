@@ -40,5 +40,25 @@ export function resolveTvChannel(channel = ''): TvChannelLogo | null {
 		};
 	}
 
+	if (key === 'm6' || key.startsWith('m6')) {
+		return {
+			id: 'm6',
+			label,
+			src: '/tv-logos/m6.png',
+			plate: '#ffffff',
+			border: 'rgba(0, 0, 0, 0.12)'
+		};
+	}
+
+	if (key === 'beinsports' || key.startsWith('bein')) {
+		return {
+			id: 'beinsports',
+			label,
+			src: '/tv-logos/bein-sports.png',
+			plate: '#ffffff',
+			border: 'rgba(0, 0, 0, 0.12)'
+		};
+	}
+
 	return null;
 }

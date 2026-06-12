@@ -12,6 +12,20 @@ describe('resolveTvChannel', () => {
 		expect(resolveTvChannel('TV 2 Direkte')).toMatchObject({ id: 'tv2' });
 	});
 
+	it('resolves M6 to the M6 logo on a light plate', () => {
+		expect(resolveTvChannel('m6')).toMatchObject({ id: 'm6', src: '/tv-logos/m6.png', plate: '#ffffff' });
+		expect(resolveTvChannel('M6')).toMatchObject({ id: 'm6' });
+	});
+
+	it('resolves beIN Sports variants to the beIN logo on a light plate', () => {
+		expect(resolveTvChannel('bein-sports')).toMatchObject({
+			id: 'beinsports',
+			src: '/tv-logos/bein-sports.png',
+			plate: '#ffffff'
+		});
+		expect(resolveTvChannel('beIN SPORTS 1')).toMatchObject({ id: 'beinsports' });
+	});
+
 	it('returns null for unknown channels', () => {
 		expect(resolveTvChannel('')).toBeNull();
 		expect(resolveTvChannel('Some Channel')).toBeNull();
