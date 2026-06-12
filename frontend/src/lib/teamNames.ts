@@ -1,4 +1,4 @@
-import { isRuntimeEnglish } from './runtimeLanguage';
+import { readRuntimeLanguage } from './runtimeLanguage';
 
 const norwegianTeamNames: Record<string, string> = {
 	MEX: 'Mexico',
@@ -102,11 +102,64 @@ const englishTeamNames: Record<string, string> = {
 	PAN: 'Panama'
 };
 
+const frenchTeamNames: Record<string, string> = {
+	MEX: 'Mexique',
+	RSA: 'Afrique du Sud',
+	KOR: 'Corée du Sud',
+	CZE: 'République tchèque',
+	CAN: 'Canada',
+	BIH: 'Bosnie-Herzégovine',
+	QAT: 'Qatar',
+	SUI: 'Suisse',
+	BRA: 'Brésil',
+	MAR: 'Maroc',
+	HAI: 'Haïti',
+	SCO: 'Écosse',
+	USA: 'États-Unis',
+	PAR: 'Paraguay',
+	AUS: 'Australie',
+	TUR: 'Turquie',
+	GER: 'Allemagne',
+	CUW: 'Curaçao',
+	CIV: "Côte d'Ivoire",
+	ECU: 'Équateur',
+	NED: 'Pays-Bas',
+	JPN: 'Japon',
+	SWE: 'Suède',
+	TUN: 'Tunisie',
+	BEL: 'Belgique',
+	EGY: 'Égypte',
+	IRN: 'Iran',
+	NZL: 'Nouvelle-Zélande',
+	ESP: 'Espagne',
+	CPV: 'Cap-Vert',
+	KSA: 'Arabie saoudite',
+	URU: 'Uruguay',
+	FRA: 'France',
+	SEN: 'Sénégal',
+	IRQ: 'Irak',
+	NOR: 'Norvège',
+	ARG: 'Argentine',
+	ALG: 'Algérie',
+	AUT: 'Autriche',
+	JOR: 'Jordanie',
+	POR: 'Portugal',
+	COD: 'RD Congo',
+	UZB: 'Ouzbékistan',
+	COL: 'Colombie',
+	ENG: 'Angleterre',
+	CRO: 'Croatie',
+	GHA: 'Ghana',
+	PAN: 'Panama'
+};
+
 export function teamDisplayName(
 	team: { name?: string; fifaCode?: string } | null | undefined,
 	fallback = ''
 ) {
 	if (!team) return fallback;
-	const names = isRuntimeEnglish() ? englishTeamNames : norwegianTeamNames;
+	const lang = readRuntimeLanguage();
+	const names =
+		lang === 'fr' ? frenchTeamNames : lang === 'en' ? englishTeamNames : norwegianTeamNames;
 	return (team.fifaCode && names[team.fifaCode]) || team.name || fallback;
 }
