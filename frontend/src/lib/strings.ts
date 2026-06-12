@@ -502,8 +502,8 @@ export const strings: Record<
 			darkTheme: 'Dark theme',
 			worldCupTheme: 'World Cup theme',
 			standardTheme: 'Standard theme',
-			language: 'Bokmål',
-			languageAria: 'Switch to Norwegian Bokmål'
+			language: 'Français',
+			languageAria: 'Switch to French'
 		},
 		auth: {
 			tagline: 'Match tips and World Cup tips in one league.',
@@ -645,6 +645,167 @@ export const strings: Record<
 			sourceRankings: 'FIFA ranking',
 			toggleToDecimal: 'Show odds',
 			toggleToPct: 'Show %'
+		}
+	},
+	fr: {
+		nav: {
+			home: 'Accueil',
+			matchTips: 'Pronostics',
+			worldCupTips: 'Pronostics CM',
+			bracket: 'Tableau',
+			leagues: 'Ligues'
+		},
+		chrome: {
+			settings: 'Paramètres',
+			about: 'À propos',
+			logout: 'Déconnexion',
+			lightTheme: 'Thème clair',
+			darkTheme: 'Thème sombre',
+			worldCupTheme: 'Thème Coupe du Monde',
+			standardTheme: 'Thème standard',
+			language: 'Bokmål',
+			languageAria: 'Passer en Bokmål'
+		},
+		auth: {
+			tagline: 'Pronostics de matchs et Coupe du Monde dans une seule ligue.',
+			subtitle: 'Formez votre équipe, pariez sur les matchs et suivez la Coupe du Monde dès le coup d’envoi.',
+			emailLabel: 'E-mail',
+			passwordLabel: 'Mot de passe',
+			emailPlaceholder: 'nom@exemple.com',
+			login: 'Connexion',
+			forgotPassword: 'Mot de passe oublié ?',
+			or: 'OU',
+			newHere: 'Première fois ?',
+			createAccount: 'Créer un compte.',
+			google: 'Continuer avec Google',
+			wrongCredentials: 'E-mail ou mot de passe incorrect.',
+			googleFailed: 'Échec de la connexion Google.'
+		},
+		register: {
+			title: 'Créer un compte',
+			subtitle: 'Rejoignez la compétition de pronostics.',
+			nameLabel: 'Nom d’affichage',
+			passwordHint: 'Le mot de passe doit comporter au moins 8 caractères.',
+			create: 'Créer un compte',
+			loginPrompt: 'Déjà un compte ?',
+			loginLink: 'Connexion',
+			error: 'Impossible de créer le compte.',
+			passwordTooShort: 'Le mot de passe doit comporter au moins 8 caractères.'
+		},
+		forgotPassword: {
+			title: 'Réinitialiser le mot de passe',
+			subtitle: 'Saisissez l’e-mail avec lequel vous vous êtes inscrit et nous vous enverrons un lien.',
+			emailLabel: 'E-mail',
+			send: 'Envoyer le lien de réinitialisation',
+			success: 'Si l’e-mail est enregistré, un lien est en route.',
+			back: 'Retour à la connexion',
+			error: 'Impossible d’envoyer le lien.'
+		},
+		resetPassword: {
+			title: 'Choisir un nouveau mot de passe',
+			subtitle: 'Saisissez et confirmez votre nouveau mot de passe.',
+			newPasswordLabel: 'Nouveau mot de passe',
+			confirmLabel: 'Confirmer le mot de passe',
+			update: 'Mettre à jour le mot de passe',
+			success: 'Mot de passe mis à jour — redirection vers la connexion…',
+			back: 'Retour à la connexion',
+			errorInvalid: 'Le lien est invalide ou expiré.',
+			errorMismatch: 'Les mots de passe ne correspondent pas.',
+			passwordTooShort: 'Le mot de passe doit comporter au moins 8 caractères.',
+			updateError: 'Impossible de mettre à jour le mot de passe.'
+		},
+		search: {
+			trigger: 'Rechercher',
+			panelAria: 'Rechercher dans VM Tipping',
+			placeholder: 'Rechercher un match, équipe, groupe ou ligue',
+			close: 'Fermer la recherche',
+			loading: 'Chargement…',
+			empty: 'Trouvez un match, une équipe ou une ligue.',
+			noResults: 'Aucun résultat.',
+			matches: 'Matchs',
+			teams: 'Équipes',
+			groups: 'Groupes',
+			leagues: 'Mes ligues',
+			noLeagues: 'Aucune ligue'
+		},
+		pwa: {
+			installTitle: 'Installer VM Tipping',
+			installBody: 'Icône sur l’écran d’accueil, plein écran et démarrage rapide.',
+			installButton: 'Installer',
+			close: 'Fermer',
+			iosTitle: 'Ajouter VM Tipping à l’écran d’accueil',
+			iosStep1: 'Appuyez sur le bouton Partager dans la barre Safari.',
+			iosStep2: 'Faites défiler et choisissez Ajouter à l’écran d’accueil.',
+			iosStep3: 'Appuyez sur Ajouter dans le coin supérieur droit.',
+			understood: 'Compris'
+		},
+		introCard: {
+			kicker: 'Première fois ?',
+			title: 'Bienvenue sur VM Tipping',
+			body: 'Pariez sur les matchs, rejoignez des ligues et suivez vos points tout au long de la Coupe du Monde.',
+			leaguesTitle: 'Ligues',
+			leaguesBody: 'Créez une ligue ou rejoignez-en une avec un code.',
+			matchTipsTitle: 'Pronostics de matchs',
+			matchTipsBody: 'Soumettez avant le coup d’envoi.',
+			worldCupTipsTitle: 'Pronostics Coupe du Monde',
+			worldCupTipsBody: 'Choisissez le tableau et le vainqueur.',
+			primaryCta: 'Ouvrir les ligues',
+			secondaryCta: 'Voir les pronostics',
+			footnote: '',
+			close: 'Fermer la carte d’accueil',
+			settingsTitle: 'Carte de bienvenue',
+			settingsBody: 'Réafficher la carte de bienvenue si vous souhaitez un rappel rapide.',
+			settingsActive: 'La carte est active et restera sur la page d’accueil jusqu’à ce que vous la fermiez.',
+			settingsDismissed: 'La carte est masquée pour cet utilisateur sur cet appareil.',
+			settingsButton: 'Afficher à nouveau la carte de bienvenue',
+			settingsSuccess: 'La carte de bienvenue est prête à apparaître sur la page d’accueil.',
+			settingsLink: 'Aller à l’accueil'
+		},
+		tipCard: {
+			lockedResult: 'Résultat',
+			noTipLocked: 'Aucun pronostic — ce match est verrouillé.',
+			showFriendTips: 'Voir les pronostics des amis',
+			hideFriendTips: 'Masquer les pronostics des amis',
+			noFriendTips: 'Aucun ami n’a parié sur ce match.',
+			saved: 'Enregistré',
+			loading: 'Enregistrement…',
+			stageGroup: 'Groupe',
+			stageOther: 'Tour',
+			day: 'Aujourd’hui',
+			live: 'En direct',
+			locked: 'verrouillé',
+			missing: 'manquant',
+			result: 'Votre pronostic',
+			goThrough: 'qualifié',
+			penalties: 'Tirs au but',
+			save: 'Enregistrer',
+			visiting: 'Votre pronostic',
+			crowdTitle: 'Pronostics de tout le monde',
+			crowdEmpty: 'Personne d’autre n’a parié sur ce match.',
+			crowdHome: 'Domicile',
+			crowdDraw: 'Nul',
+			crowdAway: 'Extérieur',
+			crowdTotal: 'pronostics au total'
+		},
+		playerCard: {
+			title: 'Fiche joueur',
+			hitRate: 'Taux de réussite',
+			hitRateSub: 'scores exacts',
+			longestStreak: 'Plus longue série',
+			longestStreakSub: 'matchs consécutifs avec des points',
+			currentStreak: 'Série actuelle',
+			largestMiss: 'Plus grande erreur',
+			largestMissSub: 'Vous avez parié',
+			noStats: 'Aucun match noté pour l’instant.'
+		},
+		common: {
+			languageName: 'Français'
+		},
+		odds: {
+			sourceOddsApi: 'Cotes de paris',
+			sourceRankings: 'Classement FIFA',
+			toggleToDecimal: 'Afficher les cotes',
+			toggleToPct: 'Afficher en %'
 		}
 	}
 };

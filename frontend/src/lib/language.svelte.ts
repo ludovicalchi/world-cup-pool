@@ -1,14 +1,23 @@
 import { browser } from '$app/environment';
 import { pb } from './pb';
 
-export type LanguageCode = 'nb' | 'nn' | 'en';
+export type LanguageCode = 'nb' | 'nn' | 'en' | 'fr';
 
 const STORAGE_KEY = 'language';
 const DEFAULT_LANGUAGE: LanguageCode = 'en';
-const LANGUAGE_ORDER: LanguageCode[] = ['en', 'nb', 'nn'];
+const LANGUAGE_ORDER: LanguageCode[] = ['en', 'fr', 'nb', 'nn'];
 
 export function isLanguageCode(value: unknown): value is LanguageCode {
-	return value === 'nb' || value === 'nn' || value === 'en';
+	return value === 'nb' || value === 'nn' || value === 'en' || value === 'fr';
+}
+
+function detectBrowserLanguage(): LanguageCode {
+	if (!browser) return DEFAULT_LANGUAGE;
+	const lang = (navigator.languages?.[0] ?? navigator.language ?? '').toLowerCase();
+	if (lang.startsWith('fr')) return 'fr';
+	if (lang.startsWith('en')) return 'en';
+	if (lang === 'nn' || lang.startsWith('nn-')) return 'nn';
+	return DEFAULT_LANGUAGE;
 }
 
 function readAuthLanguage(): LanguageCode | null {
@@ -21,7 +30,7 @@ function readStoredLanguage(): LanguageCode {
 	const authLanguage = readAuthLanguage();
 	if (authLanguage) return authLanguage;
 	const stored = localStorage.getItem(STORAGE_KEY);
-	return isLanguageCode(stored) ? stored : DEFAULT_LANGUAGE;
+	return isLanguageCode(stored) ? stored : detectBrowserLanguage();
 }
 
 class LanguageStore {
@@ -47,7 +56,9 @@ class LanguageStore {
 	get locale() {
 		// `nn-NO` falls back inconsistently in some browsers; `no-NO`
 		// keeps Norwegian date/time formatting stable while UI copy chooses nb/nn.
-		return this.code === 'en' ? 'en-US' : 'no-NO';
+		if (this.code === 'en') return 'en-US';
+		if (this.code === 'fr') return 'fr-FR';
+		return 'no-NO';
 	}
 
 	get isEnglish() {
@@ -62,7 +73,12 @@ class LanguageStore {
 		return this.code === 'nn';
 	}
 
-	text<T>(nb: T, nn: T, en: T): T {
+	get isFrench() {
+		return this.code === 'fr';
+	}
+
+	text<T>(nb: T, nn: T, en: T, fr?: T): T {
+		if (this.code === 'fr') return fr !== undefined ? fr : en;
 		if (this.code === 'en') return en;
 		if (this.code === 'nn') return nn;
 		return nb;
