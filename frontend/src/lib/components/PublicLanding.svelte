@@ -337,7 +337,7 @@
 		</section>
 
 		<footer class="landing-support">
-			<p>{language.text('Support eller feil? Send e-post til', 'Support eller feil? Send e-post til', 'Need support or want to report a bug? Email')}</p>
+			<p>{language.text('Support eller feil? Send e-post til', 'Support eller feil? Send e-post til', 'Need support or want to report a bug? Email', 'Besoin d’aide ou envie de signaler un bug ? Écrivez à')}</p>
 			<a class="support-link" href={`mailto:${SUPPORT_EMAIL}`}><Mail size={16} /> {SUPPORT_EMAIL}</a>
 		</footer>
 	</div>

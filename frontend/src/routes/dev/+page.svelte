@@ -229,10 +229,10 @@
 				'Live-oppdatering sendt.',
 				'Live-oppdatering sendt.',
 				'Live update sent.'
-			);
+			, 'Mise à jour en direct envoyée.');
 		} catch (e: unknown) {
 			msgTone = 'error';
-			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed');
+			msg = (e as { message?: string })?.message ?? language.text('Feilet', 'Feila', 'Failed', 'Échec');
 		} finally {
 			busy = false;
 		}
@@ -321,7 +321,7 @@
 				'Åpne turneringssiden eller forsiden i en annen fane, og bruk knappene her for å sende live score-endringer uten å laste appen på nytt.',
 				'Opne turneringssida eller framsida i ei anna fane, og bruk knappane her for å sende live score-endringar utan å laste appen på nytt.',
 				'Open the tournament page or home page in another tab, and use these buttons to push live score changes without reloading the app.',
-                'Ouvrez la page du tournoi ou la page d'accueil dans un autre onglet, puis utilisez ces boutons pour actualiser les résultats en direct sans recharger l\'application.'
+                'Ouvrez la page du tournoi ou la page d\'accueil dans un autre onglet, puis utilisez ces boutons pour actualiser les résultats en direct sans recharger l\'application.'
 			)}
 		</p>
 		{#if controllableMatches.length === 0}
@@ -330,7 +330,7 @@
 					'Ingen kamper med lag er klare ennå.',
 					'Ingen kampar med lag er klare enno.',
 					'No matches with resolved teams are ready yet.',
-                    'Aucun match avec des équipes confirmées n'est encore prêt.'
+                    'Aucun match avec des équipes confirmées n\'est encore prêt.'
 				)}
 			</p>
 		{:else}

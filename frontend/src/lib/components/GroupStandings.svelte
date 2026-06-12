@@ -23,7 +23,7 @@
 
 <div class="gs">
 	<button class="gs-toggle" onclick={() => (open = !open)} aria-expanded={open}>
-		<span>{language.text('Projisert tabell', 'Projisert tabell', 'Projected table')}</span>
+		<span>{language.text('Projisert tabell', 'Projisert tabell', 'Projected table', 'Tableau projeté')}</span>
 		<ChevronDown size={15} class="gs-cv {open ? 'up' : ''}" />
 	</button>
 
@@ -34,17 +34,17 @@
 					'Tipp kampane i denne gruppa for å sjå den projiserte tabellen.',
 					'Tipp kampane i denne gruppa for å sjå den projiserte tabellen.',
 					"Tip this group's matches to see the projected table."
-				)}
+				, 'Pronostiquez les matchs de ce groupe pour voir le tableau projeté.')}
 			</p>
 		{:else}
 			<table class="gs-tbl">
 				<thead>
 					<tr>
 						<th></th>
-						<th class="tl">{language.text('Lag', 'Lag', 'Team')}</th>
+						<th class="tl">{language.text('Lag', 'Lag', 'Team', 'Équipe')}</th>
 						<th>P</th>
 						<th>GD</th>
-						<th>{language.text('Po', 'Po', 'Pts')}</th>
+						<th>{language.text('Po', 'Po', 'Pts', 'Pts')}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -72,7 +72,7 @@
 					'Dine tips tel saman med spelte resultat. Topp 2 går direkte vidare, og dei 8 beste trearane går også vidare.',
 					'Dine tips tel saman med spelte resultat. Topp 2 går direkte vidare, og dei 8 beste trearane går også vidare.',
 					'Your picks count together with played results. The top 2 advance directly, and the 8 best third-placed teams advance too.'
-				)}
+				, 'Vos pronostics comptent avec les résultats joués. Les 2 premiers se qualifient directement, et les 8 meilleurs troisièmes aussi.')}
 				{#if bestThirds.size === 0}
 					<span>
 						{' '}
@@ -80,7 +80,7 @@
 							'Fyll ut alle gruppene for å projisere beste treere.',
 							'Fyll ut alle gruppene for å projisere beste trearar.',
 							'Fill every group to project the best third-placed teams.'
-						)}
+						, 'Remplissez tous les groupes pour projeter les meilleurs troisièmes.')}
 					</span>
 				{/if}
 			</p>

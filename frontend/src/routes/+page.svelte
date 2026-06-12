@@ -434,7 +434,7 @@
 		return event.type !== 'Card' || event.detail === 'Red Card';
 	}
 	function eventTitle(event: LiveEvent) {
-		return [event.detail, event.team, event.assist ? `${language.text('Assist', 'Assist', 'Assist')}: ${event.assist}` : '']
+		return [event.detail, event.team, event.assist ? `${language.text('Assist', 'Assist', 'Assist', 'Passe décisive')}: ${event.assist}` : '']
 			.filter(Boolean)
 			.join(' · ');
 	}
@@ -642,29 +642,29 @@
 			const first = liveMatches[0];
 			return {
 				tone: 'live',
-				kicker: language.text('Live nå', 'Live no', 'Live now'),
+				kicker: language.text('Live nå', 'Live no', 'Live now', 'En direct'),
 				title: liveMatches.length === 1
 					? language.text(
 						`${resultTeams(first)} spilles nå`,
 						`${resultTeams(first)} spelast no`,
 						`${resultTeams(first)} is playing now`
-					)
+					, `${resultTeams(first)} joue actuellement`)
 					: language.text(
 						`${liveMatches.length} kamper pågår`,
 						`${liveMatches.length} kampar pågår`,
 						`${liveMatches.length} matches in progress`
-					),
+					, `${liveMatches.length} matchs en cours`),
 				body: liveMatches.length === 1
-					? `${stageLabel(first)}${first.tvChannel ? ` · ${language.text('på TV', 'på TV', 'on TV')}` : ''}`
+					? `${stageLabel(first)}${first.tvChannel ? ` · ${language.text('på TV', 'på TV', 'on TV', 'à la TV')}` : ''}`
 					: language.text(
 						'Følg kampene i sanntid',
 						'Følg kampane i sanntid',
 						'Follow the matches in real time'
-					),
+					, 'Suivez les matchs en direct'),
 				href: matchTipHref(first),
 				label: liveMatches.length === 1
-					? language.text('Se kamp', 'Sjå kamp', 'View match')
-					: language.text('Se kamper', 'Sjå kampar', 'View matches'),
+					? language.text('Se kamp', 'Sjå kamp', 'View match', 'Voir le match')
+					: language.text('Se kamper', 'Sjå kampar', 'View matches', 'Voir les matchs'),
 				match: first,
 				matches: liveMatches
 			};
@@ -1015,7 +1015,7 @@
 	}
 
 	function liveMinuteLabel(m: Match): string {
-		if (m.status === 'HT') return language.text('Pause', 'Pause', 'HT');
+		if (m.status === 'HT') return language.text('Pause', 'Pause', 'HT', 'MT');
 		const latest = latestLiveEvent(m);
 		if (latest) {
 			const estimated = estimatedLiveMinuteLabel(m, latest);
@@ -1023,10 +1023,10 @@
 			return latest.extra > 0 ? `${latest.elapsed}+${latest.extra}'` : `${latest.elapsed}'`;
 		}
 		if (m.status === '1H' || m.status === 'LIVE' || m.status === 'live')
-			return language.text('1. omg', '1. omg', '1st');
-		if (m.status === '2H') return language.text('2. omg', '2. omg', '2nd');
-		if (m.status === 'ET' || m.status === 'BT') return language.text('E.o.', 'E.o.', 'ET');
-		if (m.status === 'P') return language.text('Straffer', 'Straffer', 'Pens');
+			return language.text('1. omg', '1. omg', '1st', '1re');
+		if (m.status === '2H') return language.text('2. omg', '2. omg', '2nd', '2e');
+		if (m.status === 'ET' || m.status === 'BT') return language.text('E.o.', 'E.o.', 'ET', 'Prol.');
+		if (m.status === 'P') return language.text('Straffer', 'Straffer', 'Pens', 'Tab');
 		return '';
 	}
 
@@ -1249,14 +1249,14 @@
 							</span>
 						</div>
 						<div class="now-meta">
-							<span class="now-live-pill"><span class="live-dot" aria-hidden="true"></span>{language.text('Live', 'Live', 'Live')}</span>
+							<span class="now-live-pill"><span class="live-dot" aria-hidden="true"></span>{language.text('Live', 'Live', 'Live', 'En direct')}</span>
 							{#if liveMinuteLabel(m)}<span class="now-minute">{liveMinuteLabel(m)}</span>{/if}
 							<span>{stageLabel(m)}</span>
 							<span>{kickoffLabel(m.kickoff)}</span>
 							{#if m.tvChannel}<TvLogo channel={m.tvChannel} compact />{/if}
 						</div>
 						{#if visibleEvents.length > 0}
-							<div class="now-events" aria-label={language.text('Live-hendelser', 'Live-hendingar', 'Live events')}>
+							<div class="now-events" aria-label={language.text('Live-hendelser', 'Live-hendingar', 'Live events', 'Évènements en direct')}>
 								{#each visibleEvents as event (event.id || event.providerKey)}
 									<span
 										class="event"
@@ -1300,7 +1300,7 @@
 				</div>
 				<div class="now-meta">
 					{#if isLiveStatus(nowHero.match.status)}
-						<span class="now-live-pill"><span class="live-dot" aria-hidden="true"></span>{language.text('Live', 'Live', 'Live')}</span>
+						<span class="now-live-pill"><span class="live-dot" aria-hidden="true"></span>{language.text('Live', 'Live', 'Live', 'En direct')}</span>
 					{/if}
 					<span>{stageLabel(nowHero.match)}</span>
 					<span>{kickoffLabel(nowHero.match.kickoff)}</span>
@@ -1362,15 +1362,15 @@
 								</span>
 							{/each}
 						</div>
-						<span class="trend-cap">{language.text(`Siste ${formBars.length} kamper`, `Siste ${formBars.length} kampar`, `Last ${formBars.length} matches`)}</span>
+						<span class="trend-cap">{language.text(`Siste ${formBars.length} kamper`, `Siste ${formBars.length} kampar`, `Last ${formBars.length} matches`, `${formBars.length} derniers matchs`)}</span>
 					</div>
 				{/if}
 
 				<div class="trend-stats">
-					<span><b>{progressStats.avg.toFixed(1)}<em>p</em></b><i>{language.text('Snitt', 'Snitt', 'Avg')}</i></span>
-					<span><b>{progressStats.hitRate}<em>%</em></b><i>{language.text('Treff', 'Treff', 'Hit rate')}</i></span>
-					<span><b>{progressStats.exact}</b><i>{language.text('Eksakte', 'Eksakte', 'Exact')}</i></span>
-					<span><b>{progressStats.best}<em>p</em></b><i>{language.text('Beste', 'Beste', 'Best')}</i></span>
+					<span><b>{progressStats.avg.toFixed(1)}<em>p</em></b><i>{language.text('Snitt', 'Snitt', 'Avg', 'Moy')}</i></span>
+					<span><b>{progressStats.hitRate}<em>%</em></b><i>{language.text('Treff', 'Treff', 'Hit rate', 'Réussite')}</i></span>
+					<span><b>{progressStats.exact}</b><i>{language.text('Eksakte', 'Eksakte', 'Exact', 'Exacts')}</i></span>
+					<span><b>{progressStats.best}<em>p</em></b><i>{language.text('Beste', 'Beste', 'Best', 'Meilleur')}</i></span>
 				</div>
 			{/if}
 		</section>

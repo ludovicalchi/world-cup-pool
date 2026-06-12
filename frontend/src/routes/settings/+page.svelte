@@ -176,7 +176,7 @@
 				'Kunne ikke laste varselinnstillinger.',
 				'Kunne ikkje laste varselinnstillingar.',
 				'Could not load notification settings.'
-			);
+			, 'Impossible de charger les réglages de notifications.');
 		} finally {
 			notifyBusy = false;
 		}
@@ -201,7 +201,7 @@
 					'Kunne ikke slå på push. Tillat varsler i nettleseren.',
 					'Kunne ikkje slå på push. Tillat varsel i nettlesaren.',
 					'Could not enable push. Allow notifications in your browser.'
-				);
+				, 'Impossible d’activer le push. Autorisez les notifications dans votre navigateur.');
 				return;
 			}
 		}
@@ -219,7 +219,7 @@
 				'Kunne ikke lagre varselinnstillinger.',
 				'Kunne ikkje lagre varselinnstillingar.',
 				'Could not save notification settings.'
-			);
+			, 'Impossible d’enregistrer les réglages de notifications.');
 		} finally {
 			notifySaving = false;
 		}
@@ -228,9 +228,9 @@
 	function notifyEventLabel(key: string) {
 		switch (key) {
 			case 'pre_kickoff_reminder':
-				return language.text('Påminnelse før avspark', 'Påminning før avspark', 'Pre-kickoff reminder');
+				return language.text('Påminnelse før avspark', 'Påminning før avspark', 'Pre-kickoff reminder', 'Rappel avant le coup d’envoi');
 			case 'upcoming_matches_not_tipped':
-				return language.text('Kamper du ikke har tipset', 'Kampar du ikkje har tipsa', 'Matches you haven’t tipped');
+				return language.text('Kamper du ikke har tipset', 'Kampar du ikkje har tipsa', 'Matches you haven’t tipped', 'Matchs que vous n’avez pas pronostiqués');
 			default:
 				return key;
 		}
@@ -242,21 +242,21 @@
 					'Få en påminnelse dagen før VM starter hvis du ikke har levert alt.',
 					'Få ei påminning dagen før VM startar viss du ikkje har levert alt.',
 					'Get a reminder the day before the World Cup starts if you haven’t submitted everything.'
-				);
+				, 'Recevez un rappel la veille du début de la Coupe du Monde si vous n’avez pas tout soumis.');
 			case 'upcoming_matches_not_tipped':
 				return language.text(
 					'Få beskjed når kamper snart starter og du ikke har tipset dem ennå.',
 					'Få beskjed når kampar snart startar og du ikkje har tipsa dei enno.',
 					'Get notified when matches are starting soon and you haven’t tipped them yet.'
-				);
+				, 'Soyez notifié quand des matchs vont bientôt commencer et que vous ne les avez pas encore pronostiqués.');
 			default:
 				return '';
 		}
 	}
 	function notifyChannelLabel(ch: string) {
 		return ch === 'push'
-			? language.text('Push', 'Push', 'Push')
-			: language.text('E-post', 'E-post', 'Email');
+			? language.text('Push', 'Push', 'Push', 'Push')
+			: language.text('E-post', 'E-post', 'Email', 'E-mail');
 	}
 
 	// Self-service push test: makes sure permission + subscription are in place
@@ -276,7 +276,7 @@
 					'Kunne ikke aktivere push. Tillat varsler for siden i nettleseren og prøv igjen.',
 					'Kunne ikkje aktivere push. Tillat varsel for sida i nettlesaren og prøv igjen.',
 					'Could not enable push. Allow notifications for this site in your browser and try again.'
-				);
+				, 'Impossible d’activer le push. Autorisez les notifications pour ce site dans votre navigateur et réessayez.');
 				return;
 			}
 			const res = await api.pushTest();
@@ -285,21 +285,21 @@
 					'Testvarsel sendt! Det skal dukke opp på enheten i løpet av få sekunder.',
 					'Testvarsel sendt! Det skal dukke opp på eininga i løpet av få sekund.',
 					'Test notification sent! It should appear on your device within seconds.'
-				);
+				, 'Notification de test envoyée ! Elle devrait apparaître sur votre appareil dans quelques secondes.');
 			} else if (res.devices === 0) {
 				pushTestFailed = true;
 				pushTestResult = language.text(
 					'Ingen enheter er registrert for push på kontoen din ennå.',
 					'Ingen einingar er registrerte for push på kontoen din enno.',
 					'No devices are registered for push on your account yet.'
-				);
+				, 'Aucun appareil n’est encore enregistré pour le push sur votre compte.');
 			} else {
 				pushTestFailed = true;
 				pushTestResult = language.text(
 					`Leveringen feilet for alle ${res.devices} enhet(er). Slå push av og på igjen, og prøv på nytt.`,
 					`Leveringa feila for alle ${res.devices} eining(ar). Slå push av og på igjen, og prøv på nytt.`,
 					`Delivery failed for all ${res.devices} device(s). Toggle push off and on again, then retry.`
-				);
+				, `La livraison a échoué pour les ${res.devices} appareil(s). Désactivez puis réactivez le push, puis réessayez.`);
 			}
 		} catch {
 			pushTestFailed = true;
@@ -307,7 +307,7 @@
 				'Noe gikk galt ved sending av testvarselet.',
 				'Noko gjekk gale ved sending av testvarselet.',
 				'Something went wrong sending the test notification.'
-			);
+			, 'Une erreur est survenue lors de l’envoi de la notification de test.');
 		} finally {
 			pushTestBusy = false;
 		}
@@ -488,13 +488,13 @@
 	</section>
 
 	<section class="card">
-		<h3>{language.text('Varsler', 'Varsel', 'Notifications')}</h3>
+		<h3>{language.text('Varsler', 'Varsel', 'Notifications', 'Notifications')}</h3>
 		<p class="muted small">
 			{language.text(
 				'Velg selv hva du vil få beskjed om. Alt er av som standard.',
 				'Vel sjølv kva du vil få beskjed om. Alt er av som standard.',
 				'Choose what you want to be notified about. Everything is off by default.'
-			)}
+			, 'Choisissez ce dont vous voulez être notifié. Tout est désactivé par défaut.')}
 		</p>
 		{#if notifyBusy}
 			<p class="muted small">…</p>
@@ -504,7 +504,7 @@
 					'Ingen varseltyper er tilgjengelige ennå.',
 					'Ingen varseltypar er tilgjengelege enno.',
 					'No notification types are available yet.'
-				)}
+				, 'Aucun type de notification n’est encore disponible.')}
 			</p>
 		{:else}
 			<ul class="notify-list">
@@ -536,15 +536,15 @@
 			<div class="push-test">
 				<button class="btn ghost push-test-btn" onclick={sendPushTest} disabled={pushTestBusy}>
 					{pushTestBusy
-						? language.text('Sender…', 'Sender…', 'Sending…')
-						: language.text('Send testvarsel', 'Send testvarsel', 'Send test notification')}
+						? language.text('Sender…', 'Sender…', 'Sending…', 'Envoi…')
+						: language.text('Send testvarsel', 'Send testvarsel', 'Send test notification', 'Envoyer une notification de test')}
 				</button>
 				<span class="muted small">
 					{language.text(
 						'Sjekk at push-varsler når denne enheten.',
 						'Sjekk at push-varsel når denne eininga.',
 						'Check that push notifications reach this device.'
-					)}
+					, 'Vérifiez que les notifications push atteignent cet appareil.')}
 				</span>
 			</div>
 			{#if pushTestResult}

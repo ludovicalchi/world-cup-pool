@@ -54,16 +54,16 @@
 				'chat',
 				firstUnread.leagueName,
 				firstUnread.unread === 1
-					? language.text('Ny melding i liga-chatten', 'Ny melding i liga-chatten', 'New league chat message')
-					: language.text(`${firstUnread.unread} nye meldinger`, `${firstUnread.unread} nye meldingar`, `${firstUnread.unread} new messages`),
+					? language.text('Ny melding i liga-chatten', 'Ny melding i liga-chatten', 'New league chat message', 'Nouveau message dans le chat de la ligue')
+					: language.text(`${firstUnread.unread} nye meldinger`, `${firstUnread.unread} nye meldingar`, `${firstUnread.unread} new messages`, `${firstUnread.unread} nouveaux messages`),
 				`/leagues/${firstUnread.leagueId}#chat`
 			);
 		} else if (invitesGrew) {
 			toastLeagueId = '';
 			showToast(
 				'invite',
-				language.text('Ny ligainvitasjon', 'Ny ligainvitasjon', 'New league invite'),
-				language.text('Åpne Ligaer for å svare.', 'Opne Ligaer for å svare.', 'Open Leagues to respond.'),
+				language.text('Ny ligainvitasjon', 'Ny ligainvitasjon', 'New league invite', 'Nouvelle invitation de ligue'),
+				language.text('Åpne Ligaer for å svare.', 'Opne Ligaer for å svare.', 'Open Leagues to respond.', 'Ouvrez Ligues pour répondre.'),
 				'/leagues'
 			);
 		} else if (visible) {
@@ -120,7 +120,7 @@
 				<b>{title}</b>
 				<span>{body}</span>
 			</span>
-			<button class="toast-close" type="button" aria-label={language.text('Lukk varsel', 'Lukk varsel', 'Dismiss notification')} onclick={dismiss}>
+			<button class="toast-close" type="button" aria-label={language.text('Lukk varsel', 'Lukk varsel', 'Dismiss notification', 'Fermer la notification')} onclick={dismiss}>
 				<X size={15} />
 			</button>
 		</div>

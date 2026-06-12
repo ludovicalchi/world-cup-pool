@@ -386,7 +386,7 @@
 				<div class="friends-controls">
 					{#if friendLeagueOptions.length > 1}
 						<label class="friend-league">
-							<span>{language.text('Liga', 'Liga', 'League')}</span>
+							<span>{language.text('Liga', 'Liga', 'League', 'Ligue')}</span>
 							<select
 								class="friend-league-select"
 								value={friendTipsLeague.selectedId}

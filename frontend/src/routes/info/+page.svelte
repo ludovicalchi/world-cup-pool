@@ -221,7 +221,7 @@
 	<section class="section-block" aria-labelledby="support-title">
 		<div class="section-head">
 			<Mail size={18} />
-			<h2 id="support-title">{language.text('Support og feil', 'Support og feil', 'Support and bug reports')}</h2>
+			<h2 id="support-title">{language.text('Support og feil', 'Support og feil', 'Support and bug reports', 'Support et signalement de bugs')}</h2>
 		</div>
 		<div class="card support-card">
 			<p>
@@ -229,7 +229,7 @@
 					'Trenger du hjelp eller vil melde inn en feil? Send en e-post til adressen under.',
 					'Treng du hjelp eller vil melde inn ein feil? Send ein e-post til adressa under.',
 					'Need help or want to report a bug? Send an email to the address below.'
-				)}
+				, 'Besoin d’aide ou envie de signaler un bug ? Envoyez un e-mail à l’adresse ci-dessous.')}
 			</p>
 			<a class="support-mail" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
 		</div>
@@ -242,7 +242,7 @@
 
 	<footer class="copyright">
 		<p>
-			© 2026 VM Tipping · {language.text('Support', 'Support', 'Support')}:
+			© 2026 VM Tipping · {language.text('Support', 'Support', 'Support', 'Support')}:
 			<a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
 		</p>
 	</footer>

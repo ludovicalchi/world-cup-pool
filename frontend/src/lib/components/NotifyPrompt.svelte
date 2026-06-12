@@ -72,22 +72,22 @@
 {#if open}
 	<button class="np-backdrop" aria-label="Lukk" onclick={() => dismiss()}></button>
 	<div class="np-card" role="dialog" aria-labelledby="np-title" aria-modal="true">
-		<button class="np-x" aria-label={language.text('Lukk', 'Lukk', 'Close')} onclick={() => dismiss()}>
+		<button class="np-x" aria-label={language.text('Lukk', 'Lukk', 'Close', 'Fermer')} onclick={() => dismiss()}>
 			<X size={18} />
 		</button>
 
 		<div class="np-head">
 			<div class="np-crest"><Bell size={22} /></div>
-			<div class="np-kicker">{language.text('VM 2026', 'VM 2026', 'World Cup 2026')}</div>
+			<div class="np-kicker">{language.text('VM 2026', 'VM 2026', 'World Cup 2026', 'Coupe du Monde 2026')}</div>
 			<h2 id="np-title">
-				{language.text('Vil du ha varsler?', 'Vil du ha varsel?', 'Want notifications?')}
+				{language.text('Vil du ha varsler?', 'Vil du ha varsel?', 'Want notifications?', 'Activer les notifications ?')}
 			</h2>
 			<p class="np-lead">
 				{language.text(
 					'Vi kan minne deg på å levere tipsene dine før kampene starter. Velg selv hvordan.',
 					'Vi kan minne deg på å levere tipsa dine før kampane startar. Vel sjølv korleis.',
 					'We can remind you to submit your tips before matches start. Choose how.'
-				)}
+				, 'Nous pouvons vous rappeler de soumettre vos pronostics avant le coup d’envoi. À vous de choisir comment.')}
 			</p>
 		</div>
 
@@ -95,13 +95,13 @@
 			<label class="np-opt">
 				<input type="checkbox" bind:checked={emailOn} />
 				<span>
-					<strong>{language.text('E-post', 'E-post', 'Email')}</strong>
+					<strong>{language.text('E-post', 'E-post', 'Email', 'E-mail')}</strong>
 					<span class="muted small"
 						>{language.text(
 							'Påminnelser på e-post.',
 							'Påminningar på e-post.',
 							'Reminders by email.'
-						)}</span
+						, 'Rappels par e-mail.')}</span
 					>
 				</span>
 			</label>
@@ -109,20 +109,20 @@
 			<label class="np-opt" class:disabled={!push.supported}>
 				<input type="checkbox" bind:checked={pushOn} disabled={!push.supported} />
 				<span>
-					<strong>{language.text('Push', 'Push', 'Push')}</strong>
+					<strong>{language.text('Push', 'Push', 'Push', 'Push')}</strong>
 					<span class="muted small">
 						{#if push.supported}
 							{language.text(
 								'Varsler rett på enheten.',
 								'Varsel rett på eininga.',
 								'Notifications straight to your device.'
-							)}
+							, 'Notifications directement sur votre appareil.')}
 						{:else}
 							{language.text(
 								'Ikke støttet i denne nettleseren.',
 								'Ikkje støtta i denne nettlesaren.',
 								'Not supported in this browser.'
-							)}
+							, 'Non pris en charge par ce navigateur.')}
 						{/if}
 					</span>
 				</span>
@@ -131,12 +131,12 @@
 
 		<div class="np-actions">
 			<button class="np-btn ghost" onclick={() => dismiss()} disabled={saving}>
-				{language.text('Ikke nå', 'Ikkje no', 'Not now')}
+				{language.text('Ikke nå', 'Ikkje no', 'Not now', 'Plus tard')}
 			</button>
 			<button class="np-btn primary" onclick={() => enable()} disabled={saving || (!emailOn && !pushOn)}>
 				{saving
-					? language.text('Lagrer…', 'Lagrar…', 'Saving…')
-					: language.text('Slå på', 'Slå på', 'Turn on')}
+					? language.text('Lagrer…', 'Lagrar…', 'Saving…', 'Enregistrement…')
+					: language.text('Slå på', 'Slå på', 'Turn on', 'Activer')}
 			</button>
 		</div>
 
@@ -145,7 +145,7 @@
 				'Du kan endre dette når som helst i Innstillinger.',
 				'Du kan endre dette når som helst i Innstillingar.',
 				'You can change this any time in Settings.'
-			)}
+			, 'Vous pouvez modifier cela à tout moment dans les Réglages.')}
 		</p>
 	</div>
 {/if}

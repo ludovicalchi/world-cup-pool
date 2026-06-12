@@ -46,8 +46,8 @@ type RecordEvent = {
 	record: Record<string, unknown>;
 };
 
-function chatError(nb: string, nn: string, en: string) {
-	return runtimeText(nb, nn, en);
+function chatError(nb: string, nn: string, en: string, fr?: string) {
+	return runtimeText(nb, nn, en, fr);
 }
 
 class LeagueChatStore {
@@ -83,7 +83,7 @@ class LeagueChatStore {
 			this.loaded = true;
 			await this.connect(leagueId);
 		} catch {
-			this.error = chatError('Kunne ikke laste chatten.', 'Kunne ikkje laste chatten.', 'Could not load the chat.');
+			this.error = chatError('Kunne ikke laste chatten.', 'Kunne ikkje laste chatten.', 'Could not load the chat.', 'Impossible de charger le chat.');
 		} finally {
 			this.loading = false;
 		}
@@ -101,7 +101,7 @@ class LeagueChatStore {
 			);
 			this.upsertMessage(data.message);
 		} catch {
-			this.error = chatError('Kunne ikke sende meldingen.', 'Kunne ikkje sende meldinga.', 'Could not send the message.');
+			this.error = chatError('Kunne ikke sende meldingen.', 'Kunne ikkje sende meldinga.', 'Could not send the message.', 'Impossible d’envoyer le message.');
 			throw new Error(this.error);
 		} finally {
 			this.sending = false;
@@ -119,7 +119,7 @@ class LeagueChatStore {
 			);
 			this.upsertMessage(data.message);
 		} catch {
-			this.error = chatError('Kunne ikke lagre endringen.', 'Kunne ikkje lagre endringa.', 'Could not save the edit.');
+			this.error = chatError('Kunne ikke lagre endringen.', 'Kunne ikkje lagre endringa.', 'Could not save the edit.', 'Impossible d’enregistrer la modification.');
 			throw new Error(this.error);
 		}
 	}
@@ -135,7 +135,7 @@ class LeagueChatStore {
 			this.upsertMessage(data.message);
 			return data.message;
 		} catch {
-			this.error = chatError('Kunne ikke slette meldingen.', 'Kunne ikkje slette meldinga.', 'Could not delete the message.');
+			this.error = chatError('Kunne ikke slette meldingen.', 'Kunne ikkje slette meldinga.', 'Could not delete the message.', 'Impossible de supprimer le message.');
 			throw new Error(this.error);
 		}
 	}
@@ -151,7 +151,7 @@ class LeagueChatStore {
 			this.upsertMessage(data.message);
 			return data.message;
 		} catch {
-			this.error = chatError('Kunne ikke angre slettingen.', 'Kunne ikkje angre slettinga.', 'Could not undo the delete.');
+			this.error = chatError('Kunne ikke angre slettingen.', 'Kunne ikkje angre slettinga.', 'Could not undo the delete.', 'Impossible d’annuler la suppression.');
 			throw new Error(this.error);
 		}
 	}
@@ -166,7 +166,7 @@ class LeagueChatStore {
 			);
 			this.queueRefresh();
 		} catch {
-			this.error = chatError('Kunne ikke oppdatere reaksjonen.', 'Kunne ikkje oppdatere reaksjonen.', 'Could not update the reaction.');
+			this.error = chatError('Kunne ikke oppdatere reaksjonen.', 'Kunne ikkje oppdatere reaksjonen.', 'Could not update the reaction.', 'Impossible de mettre à jour la réaction.');
 			throw new Error(this.error);
 		}
 	}

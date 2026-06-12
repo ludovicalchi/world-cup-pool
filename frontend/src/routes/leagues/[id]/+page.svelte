@@ -288,7 +288,7 @@
 			nameDraft = result.name;
 			exitEdit();
 		} catch {
-			mgmtError = language.text('Kunne ikkje endre liganamnet.', 'Kunne ikkje endre liganamnet.', 'Could not rename the league.');
+			mgmtError = language.text('Kunne ikkje endre liganamnet.', 'Kunne ikkje endre liganamnet.', 'Could not rename the league.', 'Impossible de renommer la ligue.');
 		} finally {
 			mgmtBusy = false;
 		}
@@ -302,7 +302,7 @@
 			const result = await api.setLeagueCodePrivacy(league.id, next);
 			isPrivate = result.private;
 		} catch {
-			mgmtError = language.text('Kunne ikkje oppdatere kode-synet.', 'Kunne ikkje oppdatere kode-synet.', 'Could not update code visibility.');
+			mgmtError = language.text('Kunne ikkje oppdatere kode-synet.', 'Kunne ikkje oppdatere kode-synet.', 'Could not update code visibility.', 'Impossible de mettre à jour la visibilité du code.');
 		} finally {
 			mgmtBusy = false;
 		}
@@ -318,7 +318,7 @@
 			revealed = true;
 			confirmRegen = false;
 		} catch {
-			mgmtError = language.text('Kunne ikkje lage ny kode.', 'Kunne ikkje lage ny kode.', 'Could not regenerate the code.');
+			mgmtError = language.text('Kunne ikkje lage ny kode.', 'Kunne ikkje lage ny kode.', 'Could not regenerate the code.', 'Impossible de régénérer le code.');
 		} finally {
 			mgmtBusy = false;
 		}
@@ -331,7 +331,7 @@
 				`Fjern ${name} frå ligaen?`,
 				`Fjern ${name} frå ligaen?`,
 				`Remove ${name} from this league?`
-			)
+			, `Retirer ${name} de cette ligue ?`)
 		);
 		if (!confirmed) return;
 		mgmtBusy = true;
@@ -341,7 +341,7 @@
 			rows = rows.filter((row) => row.userId !== userId);
 			if (openRow === userId) openRow = null;
 		} catch {
-			mgmtError = language.text('Kunne ikkje fjerne medlemmet.', 'Kunne ikkje fjerne medlemmet.', 'Could not remove the member.');
+			mgmtError = language.text('Kunne ikkje fjerne medlemmet.', 'Kunne ikkje fjerne medlemmet.', 'Could not remove the member.', 'Impossible de retirer le membre.');
 		} finally {
 			mgmtBusy = false;
 		}
@@ -551,7 +551,7 @@
 					`Tabellen viser rundt ${leaderboardPreviewRows} spelarar om gongen. Scroll i tabellen for resten.`,
 					`Tabellen viser rundt ${leaderboardPreviewRows} spelarar om gongen. Scroll i tabellen for resten.`,
 					`The table shows about ${leaderboardPreviewRows} players at a time. Scroll inside it for the rest.`
-				)}
+				, `Le tableau affiche environ ${leaderboardPreviewRows} joueurs à la fois. Faites défiler à l’intérieur pour voir le reste.`)}
 			</p>
 		{/if}
 
@@ -780,19 +780,19 @@
 							'Dette gjer dagens kode og delte lenker ugyldige.',
 							'Dette gjer dagens kode og delte lenker ugyldige.',
 							'This makes the current code and shared links invalid.'
-						)}
+						, 'Cela invalide le code actuel et les liens partagés.')}
 					</p>
 					<div class="regrow">
 						<button class="btn danger" onclick={() => void regenerateCode()} disabled={mgmtBusy}>
-							{language.text('Lag ny kode', 'Lag ny kode', 'Regenerate code')}
+							{language.text('Lag ny kode', 'Lag ny kode', 'Regenerate code', 'Régénérer le code')}
 						</button>
 						<button class="btn secondary" onclick={() => (confirmRegen = false)} disabled={mgmtBusy}>
-							{language.text('Avbryt', 'Avbryt', 'Cancel')}
+							{language.text('Avbryt', 'Avbryt', 'Cancel', 'Annuler')}
 						</button>
 					</div>
 				{:else}
 					<button class="btn ghost regenbtn" onclick={() => (confirmRegen = true)}>
-						<RefreshCw size={16} /> {language.text('Lag ny kode', 'Lag ny kode', 'Regenerate code')}
+						<RefreshCw size={16} /> {language.text('Lag ny kode', 'Lag ny kode', 'Regenerate code', 'Régénérer le code')}
 					</button>
 				{/if}
 			{/if}
